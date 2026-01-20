@@ -1,0 +1,41 @@
+{
+  "name": "luxiephoto",
+  "private": true,
+  "version": "1.0.0",
+  "type": "module",
+  "description": "LuxiePhoto - Professional Wedding Photography Website",
+  "author": "LuxiePhoto Team",
+  "homepage": "https://luxiephoto.com",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview",
+    "lint": "eslint . --ext js,jsx --report-unused-disable-directives --max-warnings 0"
+  },
+  "dependencies": {
+    "@portabletext/react": "^6.0.2",
+    "@sanity/client": "^7.14.0",
+    "@sanity/image-url": "^2.0.3",
+    "clsx": "^2.1.1",
+    "framer-motion": "^11.12.0",
+    "lucide-react": "^0.460.0",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "react-router-dom": "^6.28.0",
+    "tailwind-merge": "^2.5.4"
+  },
+  "devDependencies": {
+    "@types/react": "^18.3.12",
+    "@types/react-dom": "^18.3.1",
+    "@vitejs/plugin-react": "^4.3.3",
+    "autoprefixer": "^10.4.20",
+    "eslint": "^9.14.0",
+    "eslint-plugin-react": "^7.37.2",
+    "eslint-plugin-react-hooks": "^5.0.0",
+    "postcss": "^8.4.47",
+    "tailwindcss": "^3.4.14",
+    "terser": "^5.46.0",
+    "vite": "^5.4.10",
+    "vite-plugin-compression": "^0.5.1"
+  }
+}

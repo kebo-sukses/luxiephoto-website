@@ -1,0 +1,296 @@
+import React, { useState, useEffect, useCallback } from 'react';
+import { Link, useLocation } from 'react-router-dom';
+import { motion, AnimatePresence } from 'framer-motion';
+import { Menu, X, ChevronDown } from 'lucide-react';
+import { navigationLinks } from '@/data/mock';
+import { useScrollPosition, useClickOutside } from '@/hooks';
+import { cn } from '@/utils/helpers';
+import Button from '@/components/common/Button';
+
+const Header = () => {
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [activeDropdown, setActiveDropdown] = useState(null);
+  const { isScrolled } = useScrollPosition();
+  const location = useLocation();
+  
+  const isHomePage = location.pathname === '/';
+  const headerBg = isScrolled || !isHomePage || mobileMenuOpen;
+
+  // Close mobile menu on route change
+  useEffect(() => {
+    setMobileMenuOpen(false);
+    setActiveDropdown(null);
+  }, [location.pathname]);
+
+  // Close dropdown when clicking outside
+  const dropdownRef = useClickOutside(() => setActiveDropdown(null));
+
+  // Prevent body scroll when mobile menu is open
+  useEffect(() => {
+    if (mobileMenuOpen) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = '';
+    }
+    return () => {
+      document.body.style.overflow = '';
+    };
+  }, [mobileMenuOpen]);
+
+  const toggleDropdown = useCallback((name) => {
+    setActiveDropdown(prev => prev === name ? null : name);
+  }, []);
+
+  return (
+    <>
+      <motion.header
+        initial={{ y: -100 }}
+        animate={{ y: 0 }}
+        transition={{ duration: 0.6, ease: [0.4, 0, 0.2, 1] }}
+        className={cn(
+          'fixed top-0 left-0 right-0 z-50 transition-all duration-500',
+          headerBg
+            ? 'bg-white/95 backdrop-blur-md shadow-soft py-3'
+            : 'bg-transparent py-5'
+        )}
+      >
+        <div className="container-custom">
+          <nav className="flex items-center justify-between">
+            {/* Logo */}
+            <Link 
+              to="/" 
+              className="relative z-10 flex items-center group"
+            >
+              <motion.span
+                className={cn(
+                  'font-serif text-2xl md:text-3xl italic tracking-wide transition-colors duration-300',
+                  headerBg ? 'text-dark-900' : 'text-white'
+                )}
+                whileHover={{ scale: 1.02 }}
+              >
+                Luxie
+                <span className="text-primary-500">Photo</span>
+              </motion.span>
+            </Link>
+
+            {/* Desktop Navigation */}
+            <div className="hidden lg:flex items-center space-x-1" ref={dropdownRef}>
+              {navigationLinks.map((link) => (
+                <div
+                  key={link.name}
+                  className="relative"
+                  onMouseEnter={() => link.hasDropdown && setActiveDropdown(link.name)}
+                  onMouseLeave={() => setActiveDropdown(null)}
+                >
+                  <Link
+                    to={link.path}
+                    className={cn(
+                      'flex items-center px-4 py-2 text-sm font-medium tracking-wider uppercase transition-all duration-300 rounded-md',
+                      headerBg
+                        ? 'text-gray-700 hover:text-primary-500 hover:bg-gray-50'
+                        : 'text-white/90 hover:text-white hover:bg-white/10'
+                    )}
+                  >
+                    <span>{link.name}</span>
+                    {link.hasDropdown && (
+                      <ChevronDown 
+                        className={cn(
+                          'w-4 h-4 ml-1 transition-transform duration-200',
+                          activeDropdown === link.name && 'rotate-180'
+                        )} 
+                      />
+                    )}
+                  </Link>
+
+                  {/* Dropdown Menu */}
+                  <AnimatePresence>
+                    {link.hasDropdown && activeDropdown === link.name && (
+                      <motion.div
+                        initial={{ opacity: 0, y: 10, scale: 0.95 }}
+                        animate={{ opacity: 1, y: 0, scale: 1 }}
+                        exit={{ opacity: 0, y: 10, scale: 0.95 }}
+                        transition={{ duration: 0.2, ease: 'easeOut' }}
+                        className="absolute top-full left-0 mt-2 w-56 bg-white rounded-xl shadow-xl border border-gray-100 py-2 overflow-hidden"
+                      >
+                        {link.dropdownItems.map((item, index) => (
+                          <motion.div
+                            key={item.name}
+                            initial={{ opacity: 0, x: -10 }}
+                            animate={{ opacity: 1, x: 0 }}
+                            transition={{ delay: index * 0.05 }}
+                          >
+                            <Link
+                              to={item.path}
+                              className="block px-5 py-3 text-sm text-gray-700 hover:bg-primary-50 hover:text-primary-500 transition-colors"
+                            >
+                              {item.name}
+                            </Link>
+                          </motion.div>
+                        ))}
+                      </motion.div>
+                    )}
+                  </AnimatePresence>
+                </div>
+              ))}
+            </div>
+
+            {/* CTA Button - Desktop */}
+            <div className="hidden lg:block">
+              <Button
+                variant={headerBg ? 'primary' : 'outline-white'}
+                size="sm"
+                onClick={() => window.location.href = '/contact'}
+              >
+                Book Now
+              </Button>
+            </div>
+
+            {/* Mobile Menu Button */}
+            <button
+              className="lg:hidden relative z-10 p-2 -mr-2"
+              onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+              aria-label={mobileMenuOpen ? 'Close menu' : 'Open menu'}
+            >
+              <motion.div
+                animate={mobileMenuOpen ? 'open' : 'closed'}
+              >
+                {mobileMenuOpen ? (
+                  <X className={cn(
+                    'w-6 h-6 transition-colors',
+                    'text-dark-900'
+                  )} />
+                ) : (
+                  <Menu className={cn(
+                    'w-6 h-6 transition-colors',
+                    headerBg ? 'text-dark-900' : 'text-white'
+                  )} />
+                )}
+              </motion.div>
+            </button>
+          </nav>
+        </div>
+      </motion.header>
+
+      {/* Mobile Menu */}
+      <AnimatePresence>
+        {mobileMenuOpen && (
+          <>
+            {/* Backdrop */}
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.3 }}
+              className="fixed inset-0 bg-black/20 backdrop-blur-sm z-40 lg:hidden"
+              onClick={() => setMobileMenuOpen(false)}
+            />
+
+            {/* Menu Panel */}
+            <motion.div
+              initial={{ x: '100%' }}
+              animate={{ x: 0 }}
+              exit={{ x: '100%' }}
+              transition={{ type: 'spring', damping: 25, stiffness: 200 }}
+              className="fixed top-0 right-0 bottom-0 w-full max-w-sm bg-white z-50 lg:hidden shadow-2xl"
+            >
+              <div className="flex flex-col h-full">
+                {/* Header */}
+                <div className="flex items-center justify-between p-6 border-b border-gray-100">
+                  <span className="font-serif text-2xl italic text-dark-900">
+                    Luxie<span className="text-primary-500">Photo</span>
+                  </span>
+                  <button
+                    onClick={() => setMobileMenuOpen(false)}
+                    className="p-2 -mr-2 hover:bg-gray-100 rounded-full transition-colors"
+                  >
+                    <X className="w-6 h-6 text-gray-600" />
+                  </button>
+                </div>
+
+                {/* Navigation */}
+                <nav className="flex-1 overflow-y-auto py-6">
+                  <div className="space-y-1 px-4">
+                    {navigationLinks.map((link, index) => (
+                      <motion.div
+                        key={link.name}
+                        initial={{ opacity: 0, x: 20 }}
+                        animate={{ opacity: 1, x: 0 }}
+                        transition={{ delay: index * 0.05 + 0.1 }}
+                      >
+                        {link.hasDropdown ? (
+                          <div>
+                            <button
+                              onClick={() => toggleDropdown(link.name)}
+                              className="flex items-center justify-between w-full px-4 py-3 text-left text-gray-800 font-medium hover:bg-gray-50 rounded-lg transition-colors"
+                            >
+                              <span>{link.name}</span>
+                              <ChevronDown 
+                                className={cn(
+                                  'w-5 h-5 text-gray-400 transition-transform duration-200',
+                                  activeDropdown === link.name && 'rotate-180'
+                                )} 
+                              />
+                            </button>
+                            <AnimatePresence>
+                              {activeDropdown === link.name && (
+                                <motion.div
+                                  initial={{ height: 0, opacity: 0 }}
+                                  animate={{ height: 'auto', opacity: 1 }}
+                                  exit={{ height: 0, opacity: 0 }}
+                                  transition={{ duration: 0.2 }}
+                                  className="overflow-hidden"
+                                >
+                                  <div className="pl-4 py-2 space-y-1">
+                                    {link.dropdownItems.map((item) => (
+                                      <Link
+                                        key={item.name}
+                                        to={item.path}
+                                        onClick={() => setMobileMenuOpen(false)}
+                                        className="block px-4 py-2.5 text-sm text-gray-600 hover:text-primary-500 hover:bg-primary-50 rounded-lg transition-colors"
+                                      >
+                                        {item.name}
+                                      </Link>
+                                    ))}
+                                  </div>
+                                </motion.div>
+                              )}
+                            </AnimatePresence>
+                          </div>
+                        ) : (
+                          <Link
+                            to={link.path}
+                            onClick={() => setMobileMenuOpen(false)}
+                            className="block px-4 py-3 text-gray-800 font-medium hover:bg-gray-50 rounded-lg transition-colors"
+                          >
+                            {link.name}
+                          </Link>
+                        )}
+                      </motion.div>
+                    ))}
+                  </div>
+                </nav>
+
+                {/* Footer */}
+                <div className="p-6 border-t border-gray-100">
+                  <Button
+                    variant="primary"
+                    size="lg"
+                    className="w-full"
+                    onClick={() => {
+                      setMobileMenuOpen(false);
+                      window.location.href = '/contact';
+                    }}
+                  >
+                    Book a Session
+                  </Button>
+                </div>
+              </div>
+            </motion.div>
+          </>
+        )}
+      </AnimatePresence>
+    </>
+  );
+};
+
+export default Header;
