@@ -1,0 +1,11 @@
+---
+title: Pre-Wedding Shoot
+icon: Heart
+description: Romantic sessions to capture your journey before the big day.
+order: 4
+features:
+  - Location Scouting
+  - Styling Consultation
+  - 100+ Photos
+  - Multiple Outfits
+---

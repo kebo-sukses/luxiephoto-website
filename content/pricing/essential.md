@@ -1,0 +1,21 @@
+---
+name: Essential
+subtitle: Perfect for intimate ceremonies
+price: 1299
+currency: "$"
+period: per event
+popular: false
+order: 1
+ctaText: Choose Essential
+features:
+  - 4 Hours Coverage
+  - 1 Professional Photographer
+  - 200+ Edited Photos
+  - Online Gallery
+  - Print Release
+  - Engagement Session
+notIncluded:
+  - Second Photographer
+  - Videography
+  - Album
+---

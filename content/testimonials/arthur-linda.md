@@ -1,0 +1,9 @@
+---
+names: Arthur & Linda
+role: Bride & Groom
+rating: 5
+text: "I can't begin to express how truly grateful we are for LuxiePhoto and their incredible talent. From the very first moment, we knew we were in great hands. The entire experience was exceptional."
+location: Bali Wedding
+avatar: /image/LUXIE_4.jpg
+image: /image/LUXIE_1.jpg
+---

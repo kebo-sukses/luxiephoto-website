@@ -1,0 +1,8 @@
+---
+names: Michael & Gina
+category: Rustic Wedding
+location: Tuscany, Italy
+description: Rustic vineyard romance with rolling hills as the backdrop.
+image: /image/LUXIE_10.jpg
+featured: true
+---

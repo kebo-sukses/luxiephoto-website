@@ -1,0 +1,18 @@
+{
+  "subtitle": "Luxury Wedding Photography",
+  "title": "Capturing Your",
+  "titleHighlight": "Timeless Moments",
+  "description": "We transform your precious wedding moments into timeless art. Every frame tells your unique love story.",
+  "ctaText": "View Our Work",
+  "ctaSecondary": "Get in Touch",
+  "backgroundImages": [
+    "/image/LUXIE_1.jpg",
+    "/image/LUXIE_5.jpg",
+    "/image/LUXIE_10.jpg"
+  ],
+  "stats": [
+    { "number": "500+", "label": "Weddings Captured" },
+    { "number": "15+", "label": "Years Experience" },
+    { "number": "50+", "label": "Awards Won" }
+  ]
+}

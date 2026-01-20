@@ -1,0 +1,11 @@
+---
+title: Wedding Videography
+icon: Video
+description: Cinematic films that bring your wedding day back to life.
+order: 2
+features:
+  - 4K Quality
+  - Drone Footage
+  - Same-Day Edit
+  - Highlight Reel
+---
