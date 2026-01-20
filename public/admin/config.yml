@@ -5,9 +5,6 @@ backend:
   base_url: https://luxiephoto.com
   auth_endpoint: /api/auth
 
-# Untuk local development, uncomment baris di bawah:
-# local_backend: true
-
 # Media files
 media_folder: "public/image"
 public_folder: "/image"
