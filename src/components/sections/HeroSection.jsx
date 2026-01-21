@@ -1,18 +1,22 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Play, ArrowRight, ChevronDown, Instagram, Facebook, Twitter } from 'lucide-react';
-import { heroContent } from '@/data/mock';
+import { useCMS } from '@/context/CMSContext';
 import { Button, OptimizedImage } from '@/components/common';
 import { cn } from '@/utils/helpers';
 
 const HeroSection = () => {
+  const { getHero } = useCMS();
+  const heroContent = getHero();
+  
   const [showVideo, setShowVideo] = useState(false);
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
 
-  const heroImages = [
-    'https://images.unsplash.com/photo-1519741497674-611481863552?w=1920&q=80',
-    'https://images.unsplash.com/photo-1606800052052-a08af7148866?w=1920&q=80',
-    'https://images.unsplash.com/photo-1591604466107-ec97de577aff?w=1920&q=80',
+  // Use images from CMS or fallback
+  const heroImages = heroContent?.backgroundImages || [
+    '/image/LUXIE_13.jpg',
+    '/image/LUXIE_19.jpg',
+    '/image/LUXIE_22.jpg',
   ];
 
   // Auto-change background image

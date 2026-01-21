@@ -1,28 +1,38 @@
 import React, { createContext, useContext, useState, useEffect } from 'react';
 
-// Default data (fallback - always use mock data for now)
+// Default data (fallback)
 import * as mockData from '@/data/mock';
+
+// Import content from JSON files
+import heroContent from '../../content/hero/hero.json';
+import aboutContent from '../../content/about/about.json';
+import contactContent from '../../content/contact/contact.json';
+import settingsContent from '../../content/settings/general.json';
 
 const CMSContext = createContext(null);
 
 export function CMSProvider({ children }) {
   const [content, setContent] = useState(null);
   const [loading, setLoading] = useState(true);
-  const [useCMS, setUseCMS] = useState(false);
 
   useEffect(() => {
-    // Always use mock data - CMS integration disabled for production stability
+    // Load content from JSON files
+    setContent({
+      hero: heroContent,
+      about: aboutContent,
+      contact: contactContent,
+      settings: settingsContent
+    });
     setLoading(false);
   }, []);
 
-  // Provide mock data as fallback
+  // Provide CMS data with mock data as fallback
   const value = {
     loading,
-    useCMS,
-    content: useCMS ? content : null,
+    content,
     
     // Helper getters that return CMS data or mock data
-    getSiteSettings: () => content?.siteSettings || {
+    getSiteSettings: () => content?.settings || {
       siteName: 'LuxiePhoto',
       primaryColor: '#ec4899',
       fontHeading: 'Playfair Display',
@@ -33,24 +43,24 @@ export function CMSProvider({ children }) {
     
     getAbout: () => content?.about || mockData.aboutContent,
     
-    getServices: () => content?.services || mockData.services,
+    getServices: () => mockData.services,
     
-    getPortfolio: () => content?.portfolio || mockData.portfolioItems,
+    getPortfolio: () => mockData.portfolioItems,
     
-    getTestimonials: () => content?.testimonials || mockData.testimonials,
+    getTestimonials: () => mockData.testimonials,
     
-    getPartners: () => content?.partners || mockData.partners,
+    getPartners: () => mockData.partners,
     
-    getPricing: () => content?.pricing || mockData.pricingPlans,
+    getPricing: () => mockData.pricingPlans,
     
-    getBlog: () => content?.blog || mockData.blogPosts,
+    getBlog: () => mockData.blogPosts,
     
     getContact: () => content?.contact || mockData.contactInfo,
     
-    getFooter: () => content?.footer || {
-      description: mockData.contactInfo?.description,
+    getFooter: () => ({
+      description: content?.contact?.description || mockData.contactInfo?.description,
       copyright: '© 2026 Luxie Photography. All rights reserved.'
-    },
+    }),
     
     getNavigation: () => mockData.navigationLinks
   };
