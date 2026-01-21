@@ -1,0 +1,54 @@
+[
+  {
+    "id": "wedding-photography",
+    "title": "Wedding Photography",
+    "icon": "Camera",
+    "description": "Full-day coverage capturing every precious moment from preparation to reception.",
+    "order": 1,
+    "features": [
+      "8+ Hours Coverage",
+      "Multiple Photographers",
+      "500+ Edited Photos",
+      "Online Gallery"
+    ]
+  },
+  {
+    "id": "wedding-videography",
+    "title": "Wedding Videography",
+    "icon": "Video",
+    "description": "Cinematic films that bring your wedding day back to life.",
+    "order": 2,
+    "features": [
+      "4K Quality",
+      "Drone Footage",
+      "Same-Day Edit",
+      "Highlight Reel"
+    ]
+  },
+  {
+    "id": "photo-retouching",
+    "title": "Photo Retouching",
+    "icon": "Brush",
+    "description": "Professional editing to perfect every image while maintaining natural beauty.",
+    "order": 3,
+    "features": [
+      "Color Correction",
+      "Skin Retouching",
+      "Background Enhancement",
+      "Album Design"
+    ]
+  },
+  {
+    "id": "pre-wedding-shoot",
+    "title": "Pre-Wedding Shoot",
+    "icon": "Heart",
+    "description": "Romantic sessions to capture your journey before the big day.",
+    "order": 4,
+    "features": [
+      "Location Scouting",
+      "Styling Consultation",
+      "100+ Photos",
+      "Multiple Outfits"
+    ]
+  }
+]

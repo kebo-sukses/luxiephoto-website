@@ -1,12 +1,15 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { ChevronLeft, ChevronRight, Quote, Star, MapPin } from 'lucide-react';
-import { testimonials } from '@/data/mock';
+import { useCMS } from '@/context/CMSContext';
 import { SectionTitle, OptimizedImage } from '@/components/common';
 import { useWindowSize } from '@/hooks';
 import { cn } from '@/utils/helpers';
 
 const TestimonialsSection = () => {
+  const { getTestimonials } = useCMS();
+  const testimonials = getTestimonials();
+  
   const [currentIndex, setCurrentIndex] = useState(0);
   const [direction, setDirection] = useState(0);
   const { isMobile } = useWindowSize();
@@ -14,12 +17,12 @@ const TestimonialsSection = () => {
   const nextSlide = useCallback(() => {
     setDirection(1);
     setCurrentIndex((prev) => (prev + 1) % testimonials.length);
-  }, []);
+  }, [testimonials.length]);
 
   const prevSlide = useCallback(() => {
     setDirection(-1);
     setCurrentIndex((prev) => (prev - 1 + testimonials.length) % testimonials.length);
-  }, []);
+  }, [testimonials.length]);
 
   // Auto-advance slides
   useEffect(() => {

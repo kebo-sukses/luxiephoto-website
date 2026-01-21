@@ -1,11 +1,15 @@
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import { MapPin, Phone, Mail, Clock, Send, CheckCircle, AlertCircle } from 'lucide-react';
-import { contactInfo } from '@/data/mock';
+import { useCMS } from '@/context/CMSContext';
 import { SectionTitle, Button, OptimizedImage, AnimatedSection, StaggerContainer, StaggerItem } from '@/components/common';
 import { isValidEmail } from '@/utils/helpers';
 
 const ContactSection = () => {
+  const { getContact, getSocialMedia } = useCMS();
+  const contactInfo = getContact();
+  const social = getSocialMedia();
+  
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -68,25 +72,25 @@ const ContactSection = () => {
     {
       icon: MapPin,
       label: 'Visit Us',
-      value: contactInfo.address,
-      link: `https://maps.google.com/?q=${encodeURIComponent(contactInfo.address)}`,
+      value: contactInfo?.address || 'Bali, Indonesia',
+      link: `https://maps.google.com/?q=${encodeURIComponent(contactInfo?.address || 'Bali')}`,
     },
     {
       icon: Phone,
       label: 'Call Us',
-      value: contactInfo.phone,
-      link: `tel:${contactInfo.phone.replace(/\s/g, '')}`,
+      value: contactInfo?.phone || '+62 815 2253 778',
+      link: `tel:${(contactInfo?.phone || '').replace(/\s/g, '')}`,
     },
     {
       icon: Mail,
       label: 'Email Us',
-      value: contactInfo.email,
-      link: `mailto:${contactInfo.email}`,
+      value: contactInfo?.email || 'hello@luxiephoto.com',
+      link: `mailto:${contactInfo?.email || 'hello@luxiephoto.com'}`,
     },
     {
       icon: Clock,
       label: 'Working Hours',
-      value: contactInfo.hours,
+      value: contactInfo?.hours || 'Mon - Sat: 9:00 AM - 6:00 PM',
     },
   ];
 

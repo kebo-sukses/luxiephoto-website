@@ -1,11 +1,14 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { ArrowRight, MapPin, Eye, Heart, X } from 'lucide-react';
-import { portfolioItems } from '@/data/mock';
+import { useCMS } from '@/context/CMSContext';
 import { SectionTitle, Button, OptimizedImage, StaggerContainer, StaggerItem } from '@/components/common';
 import { cn } from '@/utils/helpers';
 
 const PortfolioSection = () => {
+  const { getPortfolio } = useCMS();
+  const portfolioItems = getPortfolio();
+  
   const [selectedItem, setSelectedItem] = useState(null);
   const [activeFilter, setActiveFilter] = useState('All');
   const [hoveredId, setHoveredId] = useState(null);

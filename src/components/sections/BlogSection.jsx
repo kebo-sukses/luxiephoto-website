@@ -1,10 +1,13 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import { ArrowRight, Calendar, Clock, User } from 'lucide-react';
-import { blogPosts } from '@/data/mock';
+import { useCMS } from '@/context/CMSContext';
 import { SectionTitle, Button, OptimizedImage, StaggerContainer, StaggerItem } from '@/components/common';
 
 const BlogSection = () => {
+  const { getBlog } = useCMS();
+  const blogPosts = getBlog();
+
   return (
     <section className="py-24 lg:py-32 bg-white relative overflow-hidden">
       {/* Background Decoration */}

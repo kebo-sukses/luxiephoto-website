@@ -1,0 +1,74 @@
+[
+  {
+    "id": "essential",
+    "name": "Essential",
+    "subtitle": "Perfect for intimate ceremonies",
+    "price": 1299,
+    "currency": "$",
+    "period": "per event",
+    "popular": false,
+    "order": 1,
+    "ctaText": "Choose Essential",
+    "features": [
+      "4 Hours Coverage",
+      "1 Professional Photographer",
+      "200+ Edited Photos",
+      "Online Gallery",
+      "Print Release",
+      "Engagement Session"
+    ],
+    "notIncluded": [
+      "Second Photographer",
+      "Videography",
+      "Album"
+    ]
+  },
+  {
+    "id": "premium",
+    "name": "Premium",
+    "subtitle": "Our most popular package",
+    "price": 2499,
+    "currency": "$",
+    "period": "per event",
+    "popular": true,
+    "order": 2,
+    "ctaText": "Choose Premium",
+    "features": [
+      "8 Hours Coverage",
+      "2 Professional Photographers",
+      "500+ Edited Photos",
+      "Online Gallery",
+      "Print Release",
+      "Engagement Session",
+      "Second Photographer",
+      "Highlight Video"
+    ],
+    "notIncluded": [
+      "Full Wedding Film"
+    ]
+  },
+  {
+    "id": "luxury",
+    "name": "Luxury",
+    "subtitle": "The complete experience",
+    "price": 4999,
+    "currency": "$",
+    "period": "per event",
+    "popular": false,
+    "order": 3,
+    "ctaText": "Choose Luxury",
+    "features": [
+      "Full Day Coverage",
+      "3 Professional Photographers",
+      "800+ Edited Photos",
+      "Online Gallery",
+      "Print Release",
+      "Engagement Session",
+      "Full Wedding Film",
+      "Premium Album",
+      "Drone Coverage",
+      "Same-Day Edit"
+    ],
+    "notIncluded": []
+  }
+]

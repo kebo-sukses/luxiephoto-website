@@ -1,11 +1,14 @@
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import { Check, X, Sparkles, ArrowRight } from 'lucide-react';
-import { pricingPlans } from '@/data/mock';
+import { useCMS } from '@/context/CMSContext';
 import { SectionTitle, Button, StaggerContainer, StaggerItem } from '@/components/common';
 import { cn, formatPrice } from '@/utils/helpers';
 
 const PricingSection = () => {
+  const { getPricing } = useCMS();
+  const pricingPlans = getPricing();
+  
   const [isAnnual, setIsAnnual] = useState(false);
 
   return (

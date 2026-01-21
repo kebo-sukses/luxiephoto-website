@@ -1,9 +1,12 @@
 import React, { useRef, useEffect } from 'react';
 import { motion } from 'framer-motion';
-import { partners } from '@/data/mock';
+import { useCMS } from '@/context/CMSContext';
 import { SectionTitle } from '@/components/common';
 
 const PartnersSection = () => {
+  const { getPartners } = useCMS();
+  const partners = getPartners();
+  
   const scrollRef = useRef(null);
 
   // Duplicate partners for infinite scroll effect

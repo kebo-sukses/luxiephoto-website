@@ -1,7 +1,7 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import { Camera, Video, Palette, Heart, ArrowRight, Award, Users, Clock } from 'lucide-react';
-import { aboutContent, services } from '@/data/mock';
+import { useCMS } from '@/context/CMSContext';
 import { SectionTitle, Button, OptimizedImage, AnimatedSection, StaggerContainer, StaggerItem } from '@/components/common';
 import { cn } from '@/utils/helpers';
 
@@ -13,6 +13,19 @@ const iconMap = {
 };
 
 const AboutSection = () => {
+  const { getAbout, getServices } = useCMS();
+  const aboutContent = getAbout();
+  const services = getServices();
+
+  // Default images if not from CMS
+  const defaultImages = [
+    '/image/LUXIE_11.jpg',
+    '/image/LUXIE_12.jpg',
+    '/image/LUXIE_29.jpg',
+    '/image/LUXIE_30.jpg'
+  ];
+  const images = aboutContent?.images || defaultImages;
+
   const achievements = [
     { icon: Award, number: '50+', label: 'Awards Won' },
     { icon: Users, number: '500+', label: 'Happy Couples' },
@@ -40,7 +53,7 @@ const AboutSection = () => {
                 >
                   <div className="aspect-[3/4] rounded-2xl overflow-hidden shadow-xl">
                     <OptimizedImage
-                      src="https://images.unsplash.com/photo-1519741497674-611481863552?w=600&q=80"
+                      src={images[0]}
                       alt="Wedding photography"
                       className="w-full h-full hover:scale-105 transition-transform duration-700"
                       containerClassName="w-full h-full"
@@ -48,7 +61,7 @@ const AboutSection = () => {
                   </div>
                   <div className="aspect-square rounded-2xl overflow-hidden shadow-xl">
                     <OptimizedImage
-                      src="https://images.unsplash.com/photo-1591604466107-ec97de577aff?w=400&q=80"
+                      src={images[1]}
                       alt="Couple portrait"
                       className="w-full h-full hover:scale-105 transition-transform duration-700"
                       containerClassName="w-full h-full"
@@ -65,7 +78,7 @@ const AboutSection = () => {
                 >
                   <div className="aspect-square rounded-2xl overflow-hidden shadow-xl">
                     <OptimizedImage
-                      src="https://images.unsplash.com/photo-1606800052052-a08af7148866?w=400&q=80"
+                      src={images[2]}
                       alt="Wedding moment"
                       className="w-full h-full hover:scale-105 transition-transform duration-700"
                       containerClassName="w-full h-full"
@@ -73,7 +86,7 @@ const AboutSection = () => {
                   </div>
                   <div className="aspect-[3/4] rounded-2xl overflow-hidden shadow-xl">
                     <OptimizedImage
-                      src="https://images.unsplash.com/photo-1583939003579-730e3918a45a?w=600&q=80"
+                      src={images[3]}
                       alt="Bridal portrait"
                       className="w-full h-full hover:scale-105 transition-transform duration-700"
                       containerClassName="w-full h-full"
@@ -137,9 +150,9 @@ const AboutSection = () => {
               <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-6 pt-8 border-t border-gray-100">
                 <div>
                   <span className="font-serif italic text-3xl text-gray-800 block mb-1">
-                    {aboutContent.signature}
+                    {aboutContent?.signature || 'Luxie Photo'}
                   </span>
-                  <span className="text-sm text-gray-500">Lead Photographer</span>
+                  <span className="text-sm text-gray-500">{aboutContent?.experience || 'Lead Photographer'}</span>
                 </div>
                 <Button
                   variant="secondary"

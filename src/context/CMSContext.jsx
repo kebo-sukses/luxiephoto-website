@@ -10,6 +10,14 @@ import contactContent from '../../content/contact/contact.json';
 import settingsContent from '../../content/settings/general.json';
 import socialContent from '../../content/settings/social.json';
 
+// Import collection data
+import servicesData from '../../content/services/_data.json';
+import portfolioData from '../../content/portfolio/_data.json';
+import testimonialsData from '../../content/testimonials/_data.json';
+import pricingData from '../../content/pricing/_data.json';
+import partnersData from '../../content/partners/_data.json';
+import blogData from '../../content/blog/_data.json';
+
 const CMSContext = createContext(null);
 
 export function CMSProvider({ children }) {
@@ -23,7 +31,13 @@ export function CMSProvider({ children }) {
       about: aboutContent,
       contact: contactContent,
       settings: settingsContent,
-      social: socialContent
+      social: socialContent,
+      services: servicesData,
+      portfolio: portfolioData,
+      testimonials: testimonialsData,
+      pricing: pricingData,
+      partners: partnersData,
+      blog: blogData
     });
     setLoading(false);
   }, []);
@@ -58,17 +72,45 @@ export function CMSProvider({ children }) {
     
     getAbout: () => content?.about || mockData.aboutContent,
     
-    getServices: () => mockData.services,
+    // Services - sorted by order
+    getServices: () => {
+      const services = content?.services || mockData.services;
+      return [...services].sort((a, b) => (a.order || 0) - (b.order || 0));
+    },
     
-    getPortfolio: () => mockData.portfolioItems,
+    // Portfolio - with optional filter for featured
+    getPortfolio: (featuredOnly = false) => {
+      const portfolio = content?.portfolio || mockData.portfolioItems;
+      if (featuredOnly) {
+        return portfolio.filter(item => item.featured);
+      }
+      return portfolio;
+    },
     
-    getTestimonials: () => mockData.testimonials,
+    // Testimonials
+    getTestimonials: () => content?.testimonials || mockData.testimonials,
     
-    getPartners: () => mockData.partners,
+    // Partners - sorted by order
+    getPartners: () => {
+      const partners = content?.partners || mockData.partners;
+      return [...partners].sort((a, b) => (a.order || 0) - (b.order || 0));
+    },
     
-    getPricing: () => mockData.pricingPlans,
+    // Pricing - sorted by order
+    getPricing: () => {
+      const pricing = content?.pricing || mockData.pricingPlans;
+      return [...pricing].sort((a, b) => (a.order || 0) - (b.order || 0));
+    },
     
-    getBlog: () => mockData.blogPosts,
+    // Blog - sorted by date (newest first), with optional filter for featured
+    getBlog: (featuredOnly = false) => {
+      const blog = content?.blog || mockData.blogPosts;
+      let posts = [...blog].sort((a, b) => new Date(b.date) - new Date(a.date));
+      if (featuredOnly) {
+        posts = posts.filter(post => post.featured);
+      }
+      return posts;
+    },
     
     getContact: () => content?.contact || mockData.contactInfo,
     
