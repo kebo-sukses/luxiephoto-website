@@ -3,11 +3,15 @@ import { Link, useLocation } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Menu, X, ChevronDown } from 'lucide-react';
 import { navigationLinks } from '@/data/mock';
+import { useCMS } from '@/context/CMSContext';
 import { useScrollPosition, useClickOutside } from '@/hooks';
 import { cn } from '@/utils/helpers';
 import Button from '@/components/common/Button';
 
 const Header = () => {
+  const { getSiteSettings } = useCMS();
+  const settings = getSiteSettings();
+  
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [activeDropdown, setActiveDropdown] = useState(null);
   const { isScrolled } = useScrollPosition();
@@ -61,16 +65,24 @@ const Header = () => {
               to="/" 
               className="relative z-10 flex items-center group"
             >
-              <motion.span
-                className={cn(
-                  'font-serif text-2xl md:text-3xl italic tracking-wide transition-colors duration-300',
-                  headerBg ? 'text-dark-900' : 'text-white'
-                )}
-                whileHover={{ scale: 1.02 }}
-              >
-                Luxie
-                <span className="text-primary-500">Photo</span>
-              </motion.span>
+              {settings?.logo ? (
+                <img 
+                  src={settings.logo} 
+                  alt={settings.siteName || 'LuxiePhoto'} 
+                  className="h-10 md:h-12 w-auto"
+                />
+              ) : (
+                <motion.span
+                  className={cn(
+                    'font-serif text-2xl md:text-3xl italic tracking-wide transition-colors duration-300',
+                    headerBg ? 'text-dark-900' : 'text-white'
+                  )}
+                  whileHover={{ scale: 1.02 }}
+                >
+                  Luxie
+                  <span className="text-primary-500">Photo</span>
+                </motion.span>
+              )}
             </Link>
 
             {/* Desktop Navigation */}
