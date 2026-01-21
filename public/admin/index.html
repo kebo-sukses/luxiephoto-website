@@ -52,6 +52,9 @@
                 file: 'content/settings/general.json',
                 fields: [
                   { name: 'siteName', label: 'Site Name', widget: 'string', default: 'LuxiePhoto' },
+                  { name: 'logo', label: 'Logo (Header)', widget: 'image', hint: 'Logo untuk header website' },
+                  { name: 'logoFooter', label: 'Logo (Footer)', widget: 'image', required: false, hint: 'Logo untuk footer (opsional, jika berbeda)' },
+                  { name: 'favicon', label: 'Favicon', widget: 'image', required: false, hint: 'Icon browser tab (format .ico atau .png)' },
                   { name: 'tagline', label: 'Tagline', widget: 'string' },
                   { name: 'email', label: 'Email', widget: 'string' },
                   { name: 'phone', label: 'Phone', widget: 'string' },
@@ -61,10 +64,11 @@
                     label: 'Social Media',
                     widget: 'object',
                     fields: [
-                      { name: 'instagram', label: 'Instagram', widget: 'string', required: false },
-                      { name: 'facebook', label: 'Facebook', widget: 'string', required: false },
-                      { name: 'youtube', label: 'YouTube', widget: 'string', required: false },
-                      { name: 'pinterest', label: 'Pinterest', widget: 'string', required: false }
+                      { name: 'instagram', label: 'Instagram URL', widget: 'string', required: false },
+                      { name: 'facebook', label: 'Facebook URL', widget: 'string', required: false },
+                      { name: 'youtube', label: 'YouTube URL', widget: 'string', required: false },
+                      { name: 'whatsapp', label: 'WhatsApp Number', widget: 'string', required: false, hint: 'Format: 628123456789' },
+                      { name: 'tiktok', label: 'TikTok URL', widget: 'string', required: false }
                     ]
                   }
                 ]
