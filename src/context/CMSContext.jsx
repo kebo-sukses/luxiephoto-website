@@ -8,6 +8,7 @@ import heroContent from '../../content/hero/hero.json';
 import aboutContent from '../../content/about/about.json';
 import contactContent from '../../content/contact/contact.json';
 import settingsContent from '../../content/settings/general.json';
+import socialContent from '../../content/settings/social.json';
 
 const CMSContext = createContext(null);
 
@@ -21,7 +22,8 @@ export function CMSProvider({ children }) {
       hero: heroContent,
       about: aboutContent,
       contact: contactContent,
-      settings: settingsContent
+      settings: settingsContent,
+      social: socialContent
     });
     setLoading(false);
   }, []);
@@ -37,6 +39,19 @@ export function CMSProvider({ children }) {
       primaryColor: '#ec4899',
       fontHeading: 'Playfair Display',
       fontBody: 'Poppins'
+    },
+    
+    // Social Media - centralized for all components
+    getSocialMedia: () => content?.social || {
+      instagram: '',
+      facebook: '',
+      youtube: '',
+      tiktok: '',
+      twitter: '',
+      pinterest: '',
+      whatsapp: '',
+      telegram: '',
+      linkedin: ''
     },
     
     getHero: () => content?.hero || mockData.heroContent,

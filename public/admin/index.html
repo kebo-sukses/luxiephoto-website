@@ -59,19 +59,23 @@
                   { name: 'tagline', label: 'Tagline', widget: 'string' },
                   { name: 'email', label: 'Email', widget: 'string' },
                   { name: 'phone', label: 'Phone', widget: 'string' },
-                  { name: 'address', label: 'Address', widget: 'text' },
-                  {
-                    name: 'social',
-                    label: 'Social Media',
-                    widget: 'object',
-                    fields: [
-                      { name: 'instagram', label: 'Instagram URL', widget: 'string', required: false },
-                      { name: 'facebook', label: 'Facebook URL', widget: 'string', required: false },
-                      { name: 'youtube', label: 'YouTube URL', widget: 'string', required: false },
-                      { name: 'whatsapp', label: 'WhatsApp Number', widget: 'string', required: false, hint: 'Format: 628123456789' },
-                      { name: 'tiktok', label: 'TikTok URL', widget: 'string', required: false }
-                    ]
-                  }
+                  { name: 'address', label: 'Address', widget: 'text' }
+                ]
+              },
+              {
+                name: 'social',
+                label: 'Social Media Links',
+                file: 'content/settings/social.json',
+                fields: [
+                  { name: 'instagram', label: 'Instagram URL', widget: 'string', required: false, hint: 'Contoh: https://instagram.com/luxiephoto' },
+                  { name: 'facebook', label: 'Facebook URL', widget: 'string', required: false, hint: 'Contoh: https://facebook.com/luxiephoto' },
+                  { name: 'youtube', label: 'YouTube URL', widget: 'string', required: false, hint: 'Contoh: https://youtube.com/@luxiephoto' },
+                  { name: 'tiktok', label: 'TikTok URL', widget: 'string', required: false, hint: 'Contoh: https://tiktok.com/@luxiephoto' },
+                  { name: 'twitter', label: 'Twitter/X URL', widget: 'string', required: false, hint: 'Contoh: https://twitter.com/luxiephoto' },
+                  { name: 'pinterest', label: 'Pinterest URL', widget: 'string', required: false, hint: 'Contoh: https://pinterest.com/luxiephoto' },
+                  { name: 'whatsapp', label: 'WhatsApp Number', widget: 'string', required: false, hint: 'Format: 628123456789 (tanpa + atau spasi)' },
+                  { name: 'telegram', label: 'Telegram URL', widget: 'string', required: false, hint: 'Contoh: https://t.me/luxiephoto' },
+                  { name: 'linkedin', label: 'LinkedIn URL', widget: 'string', required: false, hint: 'Contoh: https://linkedin.com/company/luxiephoto' }
                 ]
               }
             ]
