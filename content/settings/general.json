@@ -1,17 +1,10 @@
-﻿{
-  "siteName": "LuxiePhoto",
-  "logo": "/logo/Gold-Logo.webp",
-  "logoFooter": "/logo/Gold-Logo.webp",
-  "favicon": "/favicon.svg",
+{
+  "logo": "/image/luxie-logo-black.webp",
+  "logoFooter": "/image/luxie-logo-black.webp",
+  "favicon": "/image/luxie-logo-black.webp",
   "tagline": "Luxury Wedding Photography",
-  "email": "hello@luxiephoto.com",
-  "phone": "+62 815 2253 778",
-  "address": "Jl. Pantai Batu Bolong 69, Canggu, Bali",
-  "social": {
-    "instagram": "https://instagram.com/luxiephoto",
-    "facebook": "https://facebook.com/luxiephoto",
-    "youtube": "https://youtube.com/@luxiephoto",
-    "whatsapp": "628152253778",
-    "tiktok": "https://tiktok.com/@luxiephoto"
-  }
+  "email": "admin@luxiephoto.com",
+  "phone": "+6282175106444",
+  "address": "JL HIBAH IBRAHIM, Jambi, Indonesia, Jambi",
+  "siteName": "LuxiePhoto"
 }
