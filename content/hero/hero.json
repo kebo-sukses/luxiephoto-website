@@ -5,11 +5,7 @@
   "description": "We transform your precious wedding moments into timeless art. Every frame tells your unique love story.",
   "ctaText": "View Our Work",
   "ctaSecondary": "Get in Touch",
-  "backgroundImages": [
-    "/image/LUXIE_13.jpg",
-    "/image/LUXIE_19.jpg",
-    "/image/LUXIE_22.jpg"
-  ],
+  "backgroundImages": [],
   "stats": [
     {
       "number": "500+",
