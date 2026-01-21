@@ -138,9 +138,17 @@ const Footer = () => {
             {/* Brand Column */}
             <motion.div variants={itemVariants} className="lg:col-span-1">
               <Link to="/" className="inline-block mb-6">
-                <span className="font-serif text-3xl italic text-white">
-                  Luxie<span className="text-primary-500">Photo</span>
-                </span>
+                {settings?.logoFooter ? (
+                  <img 
+                    src={settings.logoFooter} 
+                    alt={settings?.siteName || 'LuxiePhoto'}
+                    className="h-12 w-auto object-contain"
+                  />
+                ) : (
+                  <span className="font-serif text-3xl italic text-white">
+                    Luxie<span className="text-primary-500">Photo</span>
+                  </span>
+                )}
               </Link>
               <p className="text-gray-400 text-sm leading-relaxed mb-6">
                 Capturing timeless moments and transforming them into beautiful memories. 

@@ -2,6 +2,7 @@ import React, { Suspense, lazy } from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { AnimatePresence } from 'framer-motion';
 import { CMSProvider } from '@/context/CMSContext';
+import { DynamicFavicon } from '@/components/common';
 
 // Lazy load pages for code splitting
 const HomePage = lazy(() => import('@/pages/HomePage'));
@@ -30,6 +31,7 @@ const ScrollToTop = () => {
 function App() {
   return (
     <CMSProvider>
+      <DynamicFavicon />
       <BrowserRouter>
         <ScrollToTop />
         <AnimatePresence mode="wait">
