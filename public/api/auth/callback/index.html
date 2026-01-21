@@ -1,21 +1,20 @@
 <!DOCTYPE html>
 <html>
 <head>
+  <meta charset="utf-8">
   <title>Authorizing...</title>
-  <script>
-    // Get the code from URL
-    const urlParams = new URLSearchParams(window.location.search);
-    const code = urlParams.get('code');
-    
-    if (code) {
-      // Redirect to Netlify callback with the code
-      window.location.href = 'https://dancing-squirrel-226937.netlify.app/.netlify/functions/callback?code=' + code;
-    } else {
-      document.body.innerHTML = '<h1>Error: No authorization code received</h1>';
-    }
-  </script>
 </head>
 <body>
-  <p>Authorizing, please wait...</p>
+  <p>Redirecting to authentication server...</p>
+  <script>
+    var code = new URLSearchParams(window.location.search).get('code');
+    if (code) {
+      var url = 'https://dancing-squirrel-226937.netlify.app/.netlify/functions/callback?code=' + code;
+      console.log('Redirecting to: ' + url);
+      window.location.href = url;
+    } else {
+      document.body.innerHTML = '<h1>Error: No code found</h1>';
+    }
+  </script>
 </body>
 </html>
