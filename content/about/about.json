@@ -1,10 +1,14 @@
-﻿{
-  "subtitle": "About Us",
-  "decorativeText": "Our Story", 
-  "title": "We're Luxie, Passionate Wedding Storytellers",
-  "description": "With over 15 years of experience, we've had the privilege of capturing hundreds of beautiful love stories. Our approach combines artistic vision with genuine emotion, ensuring every photograph reflects the authentic beauty of your special day.",
-  "images": ["/image/LUXIE_29.jpg", "/image/LUXIE_13.jpg", "/image/LUXIE_19.jpg", "/image/LUXIE_22.jpg"],
+{
+  "images": [
+    "/image/LUXIE_11.jpg",
+    "/image/LUXIE_12.jpg",
+    "/image/LUXIE_29.jpg",
+    "/image/LUXIE_30.jpg"
+  ],
   "signature": "Luxie Photo",
-  "experience": "15+ Years of Excellence",
-  "features": [{"title": "Artistic Vision", "description": "Every shot is crafted with an artistic eye for detail and composition."}, {"title": "Authentic Moments", "description": "We capture genuine emotions and spontaneous moments that tell your story."}, {"title": "Premium Quality", "description": "State-of-the-art equipment and meticulous post-processing for stunning results."}]
+  "experience": "Lead Photographer",
+  "decorativeText": "Our Story",
+  "title": "We're Luxie, Passionate Wedding Storytellers",
+  "subtitle": "About Us",
+  "description": "With over 15 years of experience, we've had the privilege of capturing hundreds of beautiful love stories. Our approach combines artistic vision with genuine emotion, ensuring every photograph reflects the authentic beauty of your special day."
 }
