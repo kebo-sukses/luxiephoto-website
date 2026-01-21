@@ -10,13 +10,43 @@ import contactContent from '../../content/contact/contact.json';
 import settingsContent from '../../content/settings/general.json';
 import socialContent from '../../content/settings/social.json';
 
-// Import collection data
-import servicesData from '../../content/services/_data.json';
-import portfolioData from '../../content/portfolio/_data.json';
-import testimonialsData from '../../content/testimonials/_data.json';
-import pricingData from '../../content/pricing/_data.json';
-import partnersData from '../../content/partners/_data.json';
-import blogData from '../../content/blog/_data.json';
+// Import Services
+import serviceWeddingPhoto from '../../content/services/wedding-photography.json';
+import serviceWeddingVideo from '../../content/services/wedding-videography.json';
+import servicePhotoRetouch from '../../content/services/photo-retouching.json';
+import servicePreWedding from '../../content/services/pre-wedding-shoot.json';
+
+// Import Portfolio
+import portfolioArthurLinda from '../../content/portfolio/arthur-linda.json';
+import portfolioThomasGrace from '../../content/portfolio/thomas-grace.json';
+import portfolioMichaelGina from '../../content/portfolio/michael-gina.json';
+import portfolioFreddieAida from '../../content/portfolio/freddie-aida.json';
+
+// Import Testimonials
+import testimonialArthurLinda from '../../content/testimonials/arthur-linda.json';
+import testimonialFreddieAida from '../../content/testimonials/freddie-aida.json';
+import testimonialRobbieMaggie from '../../content/testimonials/robbie-maggie.json';
+
+// Import Pricing
+import pricingEssential from '../../content/pricing/essential.json';
+import pricingPremium from '../../content/pricing/premium.json';
+import pricingLuxury from '../../content/pricing/luxury.json';
+
+// Import Partners
+import partnerRoxana from '../../content/partners/roxana.json';
+import partnerFelton from '../../content/partners/felton.json';
+import partnerPennelope from '../../content/partners/pennelope.json';
+
+// Import Blog
+import blogPortfolioTips from '../../content/blog/2026-01-wedding-portfolio-tips.json';
+
+// Compile data arrays
+const servicesData = [serviceWeddingPhoto, serviceWeddingVideo, servicePhotoRetouch, servicePreWedding];
+const portfolioData = [portfolioArthurLinda, portfolioThomasGrace, portfolioMichaelGina, portfolioFreddieAida];
+const testimonialsData = [testimonialArthurLinda, testimonialFreddieAida, testimonialRobbieMaggie];
+const pricingData = [pricingEssential, pricingPremium, pricingLuxury];
+const partnersData = [partnerRoxana, partnerFelton, partnerPennelope];
+const blogData = [blogPortfolioTips];
 
 const CMSContext = createContext(null);
 
