@@ -108,7 +108,7 @@
                   { name: 'decorativeText', label: 'Decorative Text', widget: 'string', default: 'Our Story' },
                   { name: 'title', label: 'Title', widget: 'string' },
                   { name: 'description', label: 'Description', widget: 'text' },
-                  { name: 'image', label: 'About Image', widget: 'image', required: false },
+                  { name: 'images', label: 'About Images (4 images)', widget: 'list', max: 4, min: 4, field: { name: 'image', label: 'Image', widget: 'image' } },
                   { name: 'signature', label: 'Signature Name', widget: 'string' },
                   { name: 'experience', label: 'Experience Text', widget: 'string', default: '15+ Years of Excellence' },
                   { name: 'features', label: 'Features', widget: 'list', fields: [
