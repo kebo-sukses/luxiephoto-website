@@ -1,1 +1,11 @@
-﻿{"siteName":"LuxiePhoto","logoLight":"/image/luxie-logo-white.webp","logoDark":"/image/luxie-logo-black.webp","logoFooter":"/image/luxie-logo-black.webp","favicon":"/image/luxie-logo-black.webp","tagline":"Luxury Wedding Photography","email":"admin@luxiephoto.com","phone":"+6282175106444","address":"JL HIBAH IBRAHIM, Jambi, Indonesia, Jambi","social":{"instagram":"https://instagram.com/luxiephoto","facebook":"https://facebook.com/luxiephoto","youtube":"","whatsapp":"6282175106444","tiktok":""}}
+{
+  "logoDark": "/image/luxie-logo-white.webp",
+  "logoFooter": "/image/cropped-luxie-logo-white-1.webp",
+  "logoLight": "/image/cropped-luxie-logo-white-1.webp",
+  "phone": "+6282169990088",
+  "tagline": "Luxury Wedding Photography",
+  "siteName": "Luxie Photo",
+  "favicon": "/image/cropped-luxie-logo-white-1.webp",
+  "address": "JL HIBAH IBRAHIM, Jambi, Indonesia",
+  "email": "admin@luxiephoto.com"
+}
