@@ -65,11 +65,11 @@ const Header = () => {
               to="/" 
               className="relative z-10 flex items-center group"
             >
-              {settings?.logo ? (
+              {(settings?.logoLight || settings?.logoDark) ? (
                 <img 
-                  src={settings.logo} 
+                  src={headerBg ? (settings.logoDark || settings.logoLight) : (settings.logoLight || settings.logoDark)} 
                   alt={settings.siteName || 'LuxiePhoto'} 
-                  className="h-10 md:h-12 w-auto"
+                  className="h-10 md:h-12 w-auto transition-opacity duration-300"
                 />
               ) : (
                 <motion.span

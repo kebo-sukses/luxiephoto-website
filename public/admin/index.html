@@ -52,8 +52,9 @@
                 file: 'content/settings/general.json',
                 fields: [
                   { name: 'siteName', label: 'Site Name', widget: 'string', default: 'LuxiePhoto' },
-                  { name: 'logo', label: 'Logo (Header)', widget: 'image', hint: 'Logo untuk header website' },
-                  { name: 'logoFooter', label: 'Logo (Footer)', widget: 'image', required: false, hint: 'Logo untuk footer (opsional, jika berbeda)' },
+                  { name: 'logoLight', label: 'Logo (Light/White - untuk header gelap)', widget: 'image', hint: 'Logo putih untuk header transparan (sebelum scroll)' },
+                  { name: 'logoDark', label: 'Logo (Dark/Black - untuk header terang)', widget: 'image', hint: 'Logo hitam untuk header putih (setelah scroll)' },
+                  { name: 'logoFooter', label: 'Logo (Footer)', widget: 'image', required: false, hint: 'Logo untuk footer (opsional)' },
                   { name: 'favicon', label: 'Favicon', widget: 'image', required: false, hint: 'Icon browser tab (format .ico atau .png)' },
                   { name: 'tagline', label: 'Tagline', widget: 'string' },
                   { name: 'email', label: 'Email', widget: 'string' },
