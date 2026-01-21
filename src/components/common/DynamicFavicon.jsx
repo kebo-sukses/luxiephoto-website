@@ -1,3 +1,4 @@
+/* global document */
 import { useEffect } from 'react';
 import { useCMS } from '@/context/CMSContext';
 
