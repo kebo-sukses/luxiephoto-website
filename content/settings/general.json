@@ -2,6 +2,10 @@
   "logoDark": "/image/luxie-logo-white.webp",
   "logoFooter": "/image/cropped-luxie-logo-white-1.webp",
   "logoLight": "/image/cropped-luxie-logo-white-1.webp",
+  "social": {
+    "instagram": "https://www.instagram.com/luxiephoto/",
+    "whatsapp": "6282169990088"
+  },
   "phone": "+6282169990088",
   "tagline": "Luxury Wedding Photography",
   "siteName": "Luxie Photo",
