@@ -2,12 +2,11 @@
   "buildCommand": "npm run build",
   "outputDirectory": "dist",
   "framework": "vite",
-  "routes": [
-    { "handle": "filesystem" },
-    { "src": "/api/auth/callback", "dest": "/api/auth/callback/index.html" },
-    { "src": "/admin", "dest": "/admin/index.html" },
-    { "src": "/admin/", "dest": "/admin/index.html" },
-    { "src": "/(.*)", "dest": "/index.html" }
+  "rewrites": [
+    { "source": "/api/auth/callback", "destination": "/api/auth/callback/index.html" },
+    { "source": "/admin", "destination": "/admin/index.html" },
+    { "source": "/admin/", "destination": "/admin/index.html" },
+    { "source": "/(.*)", "destination": "/index.html" }
   ],
   "headers": [
     {
