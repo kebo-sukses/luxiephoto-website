@@ -81,7 +81,7 @@ const PricingSection = () => {
 
                   {/* Features */}
                   <ul className="space-y-4 mb-8">
-                    {plan.features.map((feature, index) => (
+                    {(plan?.features || []).map((feature, index) => (
                       <motion.li
                         key={index}
                         initial={{ opacity: 0, x: -10 }}

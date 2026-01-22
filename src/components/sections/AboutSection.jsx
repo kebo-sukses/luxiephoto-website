@@ -131,7 +131,7 @@ const AboutSection = () => {
 
               {/* Features Grid */}
               <StaggerContainer className="grid sm:grid-cols-2 gap-4 mb-10" staggerDelay={0.1}>
-                {aboutContent.features.map((feature, index) => (
+                {(aboutContent?.features || []).map((feature, index) => (
                   <StaggerItem key={index}>
                     <div className="flex items-start gap-4 p-4 rounded-xl bg-gray-50 hover:bg-primary-50 transition-colors group">
                       <div className="w-10 h-10 rounded-full bg-white shadow-md flex items-center justify-center flex-shrink-0 group-hover:bg-primary-500 group-hover:shadow-primary-500/30 transition-all">
@@ -177,8 +177,8 @@ const AboutSection = () => {
           />
 
           <StaggerContainer className="grid md:grid-cols-2 lg:grid-cols-4 gap-6" staggerDelay={0.1}>
-            {services.map((service) => {
-              const IconComponent = iconMap[service.icon] || Camera;
+            {(services || []).map((service) => {
+              const IconComponent = iconMap[service?.icon] || Camera;
               return (
                 <StaggerItem key={service.id}>
                   <motion.div
@@ -200,7 +200,7 @@ const AboutSection = () => {
 
                     {/* Features */}
                     <ul className="space-y-2 mb-5">
-                      {service.features.slice(0, 3).map((feature, idx) => (
+                      {(service?.features || []).slice(0, 3).map((feature, idx) => (
                         <li key={idx} className="flex items-center text-sm text-gray-600">
                           <span className="w-1.5 h-1.5 bg-primary-500 rounded-full mr-2" />
                           {feature}
