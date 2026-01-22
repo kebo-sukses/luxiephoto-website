@@ -21,6 +21,7 @@ const Button = ({
   
   const variants = {
     primary: 'bg-primary-500 text-white hover:bg-primary-600 focus:ring-primary-500 shadow-lg hover:shadow-xl hover:shadow-primary-500/25 active:scale-[0.98]',
+    'primary-outline': 'border-2 border-primary-500 text-white bg-transparent hover:bg-primary-500/20 focus:ring-primary-500 active:scale-[0.98]',
     secondary: 'bg-dark-900 text-white hover:bg-dark-800 focus:ring-dark-500 shadow-lg hover:shadow-xl active:scale-[0.98]',
     outline: 'border-2 border-dark-900 text-dark-900 hover:bg-dark-900 hover:text-white focus:ring-dark-500 active:scale-[0.98]',
     'outline-white': 'border-2 border-white text-white hover:bg-white hover:text-dark-900 focus:ring-white active:scale-[0.98]',

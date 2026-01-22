@@ -183,7 +183,7 @@ const HeroSection = () => {
               className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start mb-8"
             >
               <Button
-                variant="primary"
+                variant="primary-outline"
                 size="lg"
                 icon={ArrowRight}
                 iconPosition="right"
