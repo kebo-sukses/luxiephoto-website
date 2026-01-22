@@ -5,5 +5,9 @@
   "location": "Ratu Hotel And Resort, Jambi",
   "description": "An intimate garden ceremony filled with timeless elegance and heartfelt moments.",
   "image": "/image/LUXIE_3.jpg",
-  "featured": true
+  "featured": true,
+  "gallery": [
+    "/image/LUXIE_1.jpg",
+    "/image/LUXIE_21.jpg"
+  ]
 }
