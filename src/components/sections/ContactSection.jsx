@@ -135,16 +135,15 @@ const ContactSection = () => {
           {/* Left Content */}
           <AnimatedSection animation="fadeInLeft">
             <SectionTitle
-              subtitle="Get In Touch"
-              decorativeText="Contact"
-              title="Let's Create Something Beautiful Together"
+              subtitle={contactInfo?.subtitle || "Get In Touch"}
+              decorativeText={contactInfo?.decorativeText || "Contact"}
+              title={contactInfo?.title || "Let's Create Something Beautiful Together"}
               align="left"
               animated={false}
             />
 
             <p className="text-gray-600 text-lg leading-relaxed mb-10">
-              Ready to capture your special moments? We'd love to hear about your plans. 
-              Fill out the form or reach out directly – let's start planning your perfect shoot.
+              {contactInfo?.description || "Ready to capture your special moments? We'd love to hear about your plans. Fill out the form or reach out directly – let's start planning your perfect shoot."}
             </p>
 
             {/* Contact Details */}
@@ -195,8 +194,8 @@ const ContactSection = () => {
           {/* Right Content - Form */}
           <AnimatedSection animation="fadeInRight">
             <div className="bg-white rounded-3xl shadow-xl p-8 lg:p-10">
-              <h3 className="font-serif text-2xl text-gray-900 mb-2">Book a Session</h3>
-              <p className="text-gray-500 mb-8">Fill out the form and we'll get back to you within 24 hours.</p>
+              <h3 className="font-serif text-2xl text-gray-900 mb-2">{contactInfo?.formTitle || "Book a Session"}</h3>
+              <p className="text-gray-500 mb-8">{contactInfo?.formDescription || "Fill out the form and we'll get back to you within 24 hours."}</p>
 
               <form onSubmit={handleSubmit} className="space-y-6">
                 {/* Name & Email Row */}

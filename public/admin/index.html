@@ -214,6 +214,12 @@
                 label: 'Contact Information',
                 file: 'content/contact/contact.json',
                 fields: [
+                  { name: 'subtitle', label: 'Section Subtitle', widget: 'string', default: 'Get In Touch', hint: 'Small text above title' },
+                  { name: 'decorativeText', label: 'Decorative Text', widget: 'string', default: 'Contact', hint: 'Background decorative text' },
+                  { name: 'title', label: 'Section Title', widget: 'string', default: "Let's Create Something Beautiful Together" },
+                  { name: 'description', label: 'Section Description', widget: 'text', hint: 'Description text below title' },
+                  { name: 'formTitle', label: 'Form Title', widget: 'string', default: 'Book a Session' },
+                  { name: 'formDescription', label: 'Form Description', widget: 'string', default: "Fill out the form and we'll get back to you within 24 hours." },
                   { name: 'address', label: 'Address', widget: 'text' },
                   { name: 'phone', label: 'Phone', widget: 'string' },
                   { name: 'email', label: 'Email', widget: 'string' },
