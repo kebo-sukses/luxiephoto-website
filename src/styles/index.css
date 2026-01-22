@@ -10,13 +10,20 @@
 /* Base Styles */
 @layer base {
   :root {
-    /* Color Tokens */
-    --color-primary: 330 81% 60%;
+    /* CMS Brand Colors (overridden by JS from CMS) */
+    --color-primary: #ec4899;
+    --color-gold: #FFD700;
+    --color-forest: #001b0e;
+    --color-dark: #1a1a1a;
+    --color-white: #ffffff;
+    
+    /* Legacy Color Tokens (HSL) */
+    --color-primary-hsl: 330 81% 60%;
     --color-primary-light: 330 81% 70%;
     --color-primary-dark: 330 81% 50%;
-    --color-dark: 0 0% 10%;
+    --color-dark-hsl: 0 0% 10%;
     --color-light: 0 0% 98%;
-    --color-gold: 38 74% 55%;
+    --color-gold-hsl: 51 100% 50%;
     
     /* Spacing Tokens */
     --section-padding: clamp(4rem, 10vw, 8rem);
@@ -76,6 +83,27 @@
     @apply max-w-full h-auto;
     content-visibility: auto;
   }
+}
+
+/* CMS Dynamic Color Utilities */
+@layer utilities {
+  .text-cms-primary { color: var(--color-primary); }
+  .text-cms-gold { color: var(--color-gold); }
+  .text-cms-forest { color: var(--color-forest); }
+  .text-cms-dark { color: var(--color-dark); }
+  .text-cms-white { color: var(--color-white); }
+  
+  .bg-cms-primary { background-color: var(--color-primary); }
+  .bg-cms-gold { background-color: var(--color-gold); }
+  .bg-cms-forest { background-color: var(--color-forest); }
+  .bg-cms-dark { background-color: var(--color-dark); }
+  .bg-cms-white { background-color: var(--color-white); }
+  
+  .border-cms-primary { border-color: var(--color-primary); }
+  .border-cms-gold { border-color: var(--color-gold); }
+  .border-cms-forest { border-color: var(--color-forest); }
+  .border-cms-dark { border-color: var(--color-dark); }
+  .border-cms-white { border-color: var(--color-white); }
 }
 
 /* Component Layer */

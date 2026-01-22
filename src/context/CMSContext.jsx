@@ -64,6 +64,19 @@ export function CMSProvider({ children }) {
   const [content, setContent] = useState(initialContent);
   const [loading, setLoading] = useState(false);
 
+  // Apply CMS colors as CSS variables
+  useEffect(() => {
+    const colors = content?.settings?.colors;
+    if (colors) {
+      const root = document.documentElement;
+      root.style.setProperty('--color-primary', colors.primary || '#ec4899');
+      root.style.setProperty('--color-gold', colors.gold || '#FFD700');
+      root.style.setProperty('--color-forest', colors.forest || '#001b0e');
+      root.style.setProperty('--color-dark', colors.dark || '#1a1a1a');
+      root.style.setProperty('--color-white', colors.white || '#ffffff');
+    }
+  }, [content?.settings?.colors]);
+
   // Provide CMS data with mock data as fallback
   const value = {
     loading,
@@ -75,6 +88,15 @@ export function CMSProvider({ children }) {
       primaryColor: '#ec4899',
       fontHeading: 'Playfair Display',
       fontBody: 'Poppins'
+    },
+    
+    // Get Brand Colors
+    getColors: () => content?.settings?.colors || {
+      primary: '#ec4899',
+      gold: '#FFD700',
+      forest: '#001b0e',
+      dark: '#1a1a1a',
+      white: '#ffffff'
     },
     
     // Social Media - centralized for all components

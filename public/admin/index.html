@@ -13,6 +13,36 @@
     [class*="AppHeader"] {
       background: linear-gradient(135deg, #ec4899 0%, #be185d 100%) !important;
     }
+    /* Color Picker Widget Styles */
+    .color-picker-widget {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 8px 0;
+    }
+    .color-picker-widget input[type="color"] {
+      width: 50px;
+      height: 40px;
+      border: 2px solid #ddd;
+      border-radius: 8px;
+      cursor: pointer;
+      padding: 2px;
+    }
+    .color-picker-widget input[type="text"] {
+      flex: 1;
+      padding: 10px 12px;
+      border: 2px solid #ddd;
+      border-radius: 8px;
+      font-family: monospace;
+      font-size: 14px;
+      text-transform: uppercase;
+    }
+    .color-picker-widget .color-preview {
+      width: 100px;
+      height: 40px;
+      border-radius: 8px;
+      border: 2px solid #ddd;
+    }
   </style>
   <script>
     window.CMS_MANUAL_INIT = true;
@@ -21,6 +51,66 @@
 <body>
   <script src="https://unpkg.com/decap-cms@^3.0.0/dist/decap-cms.js"></script>
   <script>
+    // Custom Color Picker Widget
+    const ColorPickerControl = createClass({
+      getInitialState() {
+        return { value: this.props.value || '#000000' };
+      },
+      handleColorChange(e) {
+        const value = e.target.value.toUpperCase();
+        this.setState({ value });
+        this.props.onChange(value);
+      },
+      handleTextChange(e) {
+        let value = e.target.value;
+        if (!value.startsWith('#')) value = '#' + value;
+        value = value.toUpperCase();
+        if (/^#[0-9A-F]{6}$/i.test(value)) {
+          this.setState({ value });
+          this.props.onChange(value);
+        } else {
+          this.setState({ value: e.target.value.toUpperCase() });
+        }
+      },
+      render() {
+        const value = this.state.value || '#000000';
+        return h('div', { className: 'color-picker-widget' },
+          h('input', {
+            type: 'color',
+            value: value,
+            onChange: this.handleColorChange
+          }),
+          h('input', {
+            type: 'text',
+            value: value,
+            onChange: this.handleTextChange,
+            placeholder: '#000000',
+            maxLength: 7
+          }),
+          h('div', {
+            className: 'color-preview',
+            style: { backgroundColor: value }
+          })
+        );
+      }
+    });
+
+    const ColorPickerPreview = createClass({
+      render() {
+        return h('div', {
+          style: {
+            backgroundColor: this.props.value || '#000000',
+            width: '100px',
+            height: '30px',
+            borderRadius: '4px',
+            display: 'inline-block'
+          }
+        });
+      }
+    });
+
+    CMS.registerWidget('color', ColorPickerControl, ColorPickerPreview);
+
     CMS.init({
       config: {
         load_config_file: false,
@@ -59,7 +149,20 @@
                   { name: 'tagline', label: 'Tagline', widget: 'string' },
                   { name: 'email', label: 'Email', widget: 'string' },
                   { name: 'phone', label: 'Phone', widget: 'string' },
-                  { name: 'address', label: 'Address', widget: 'text' }
+                  { name: 'address', label: 'Address', widget: 'text' },
+                  {
+                    name: 'colors',
+                    label: '🎨 Brand Colors',
+                    widget: 'object',
+                    collapsed: false,
+                    fields: [
+                      { name: 'primary', label: 'Primary Color (Pink)', widget: 'color', default: '#EC4899', hint: 'Warna utama untuk tombol, link, aksen' },
+                      { name: 'gold', label: 'Gold Color', widget: 'color', default: '#FFD700', hint: 'Warna emas untuk aksen premium' },
+                      { name: 'forest', label: 'Forest Green Color', widget: 'color', default: '#001B0E', hint: 'Warna hijau gelap' },
+                      { name: 'dark', label: 'Dark Color', widget: 'color', default: '#1A1A1A', hint: 'Warna gelap untuk teks' },
+                      { name: 'white', label: 'White Color', widget: 'color', default: '#FFFFFF', hint: 'Warna putih untuk background' }
+                    ]
+                  }
                 ]
               },
               {
