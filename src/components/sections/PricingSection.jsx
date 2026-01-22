@@ -122,16 +122,22 @@ const PricingSection = () => {
                   </ul>
 
                   {/* CTA Button */}
-                  <Button
-                    variant={plan.popular ? 'primary' : 'outline'}
-                    size="lg"
-                    className="w-full"
-                    icon={ArrowRight}
-                    iconPosition="right"
-                    onClick={() => window.location.href = '/contact'}
+                  <a
+                    href={plan.ctaLink || '#contact'}
+                    target={plan.ctaLink?.startsWith('http') ? '_blank' : undefined}
+                    rel={plan.ctaLink?.startsWith('http') ? 'noopener noreferrer' : undefined}
+                    className="block"
                   >
-                    {plan.cta}
-                  </Button>
+                    <Button
+                      variant={plan.popular ? 'primary' : 'outline'}
+                      size="lg"
+                      className="w-full"
+                      icon={ArrowRight}
+                      iconPosition="right"
+                    >
+                      {plan.ctaText || 'Choose Plan'}
+                    </Button>
+                  </a>
                 </div>
               </motion.div>
             </StaggerItem>
