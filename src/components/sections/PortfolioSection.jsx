@@ -7,7 +7,7 @@ import { cn } from '@/utils/helpers';
 
 const PortfolioSection = () => {
   const { getPortfolio } = useCMS();
-  const portfolioItems = getPortfolio();
+  const portfolioItems = getPortfolio() || [];
   
   const [selectedItem, setSelectedItem] = useState(null);
   const [activeFilter, setActiveFilter] = useState('All');

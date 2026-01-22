@@ -7,7 +7,7 @@ import { cn, formatPrice } from '@/utils/helpers';
 
 const PricingSection = () => {
   const { getPricing } = useCMS();
-  const pricingPlans = getPricing();
+  const pricingPlans = getPricing() || [];
   
   const [isAnnual, setIsAnnual] = useState(false);
 

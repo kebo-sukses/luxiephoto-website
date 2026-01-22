@@ -8,27 +8,30 @@ import { cn } from '@/utils/helpers';
 
 const TestimonialsSection = () => {
   const { getTestimonials } = useCMS();
-  const testimonials = getTestimonials();
+  const testimonials = getTestimonials() || [];
   
   const [currentIndex, setCurrentIndex] = useState(0);
   const [direction, setDirection] = useState(0);
   const { isMobile } = useWindowSize();
 
   const nextSlide = useCallback(() => {
+    if (testimonials.length === 0) return;
     setDirection(1);
     setCurrentIndex((prev) => (prev + 1) % testimonials.length);
   }, [testimonials.length]);
 
   const prevSlide = useCallback(() => {
+    if (testimonials.length === 0) return;
     setDirection(-1);
     setCurrentIndex((prev) => (prev - 1 + testimonials.length) % testimonials.length);
   }, [testimonials.length]);
 
   // Auto-advance slides
   useEffect(() => {
+    if (testimonials.length === 0) return;
     const interval = setInterval(nextSlide, 7000);
     return () => clearInterval(interval);
-  }, [nextSlide]);
+  }, [nextSlide, testimonials.length]);
 
   const slideVariants = {
     enter: (direction) => ({
@@ -45,7 +48,12 @@ const TestimonialsSection = () => {
     }),
   };
 
-  const currentTestimonial = testimonials[currentIndex];
+  const currentTestimonial = testimonials[currentIndex] || {};
+
+  // Don't render if no testimonials
+  if (testimonials.length === 0) {
+    return null;
+  }
 
   return (
     <section className="py-24 lg:py-32 bg-white relative overflow-hidden">

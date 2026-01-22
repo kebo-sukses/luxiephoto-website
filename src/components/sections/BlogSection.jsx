@@ -6,7 +6,7 @@ import { SectionTitle, Button, OptimizedImage, StaggerContainer, StaggerItem } f
 
 const BlogSection = () => {
   const { getBlog } = useCMS();
-  const blogPosts = getBlog();
+  const blogPosts = getBlog() || [];
 
   return (
     <section className="py-24 lg:py-32 bg-white relative overflow-hidden">

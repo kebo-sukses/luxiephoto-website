@@ -5,12 +5,12 @@ import { SectionTitle } from '@/components/common';
 
 const PartnersSection = () => {
   const { getPartners } = useCMS();
-  const partners = getPartners();
+  const partners = getPartners() || [];
   
   const scrollRef = useRef(null);
 
-  // Duplicate partners for infinite scroll effect
-  const duplicatedPartners = [...partners, ...partners, ...partners];
+  // Duplicate partners for infinite scroll effect (only if partners exist)
+  const duplicatedPartners = partners.length > 0 ? [...partners, ...partners, ...partners] : [];
 
   return (
     <section className="py-20 lg:py-28 bg-gray-50 overflow-hidden">
