@@ -175,7 +175,7 @@ const HeroSection = () => {
               {heroContent.description}
             </motion.p>
 
-            {/* CTA Buttons */}
+            {/* CTA Button */}
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
@@ -187,16 +187,9 @@ const HeroSection = () => {
                 size="lg"
                 icon={ArrowRight}
                 iconPosition="right"
-                onClick={() => window.location.href = '/portfolio'}
+                onClick={() => window.open(heroContent.ctaButtonUrl || '/contact', '_blank')}
               >
-                {heroContent.cta}
-              </Button>
-              <Button
-                variant="outline-white"
-                size="lg"
-                onClick={() => window.location.href = '/contact'}
-              >
-                {heroContent.ctaSecondary}
+                {heroContent.ctaButtonText || 'Get In Touch'}
               </Button>
             </motion.div>
 
