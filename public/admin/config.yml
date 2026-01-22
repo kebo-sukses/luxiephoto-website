@@ -5,6 +5,9 @@ backend:
   base_url: https://luxiephoto.com
   auth_endpoint: /api/auth
 
+# Publish mode - Editorial Workflow (optional, remove if not needed)
+# publish_mode: editorial_workflow
+
 # Media files
 media_folder: "public/image"
 public_folder: "/image"

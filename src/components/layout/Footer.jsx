@@ -12,7 +12,7 @@ import {
   ArrowRight,
   Heart
 } from 'lucide-react';
-import { footerGallery, contactInfo, navigationLinks } from '@/data/mock';
+import { footerGallery, navigationLinks } from '@/data/mock';
 import { useCMS } from '@/context/CMSContext';
 import { OptimizedImage } from '@/components/common';
 import { cn } from '@/utils/helpers';
@@ -31,9 +31,10 @@ const TikTokIcon = ({ className }) => (
 );
 
 const Footer = () => {
-  const { getSocialMedia, getSiteSettings } = useCMS();
+  const { getSocialMedia, getSiteSettings, getContact } = useCMS();
   const social = getSocialMedia();
   const settings = getSiteSettings();
+  const contactInfo = getContact();
   const currentYear = new Date().getFullYear();
 
   // Build social links from CMS data
@@ -47,12 +48,12 @@ const Footer = () => {
   ].filter(Boolean);
 
   const quickLinks = [
-    { name: 'Home', path: '/' },
-    { name: 'About Us', path: '/about' },
-    { name: 'Portfolio', path: '/portfolio' },
-    { name: 'Services', path: '/services' },
-    { name: 'Pricing', path: '/pricing' },
-    { name: 'Contact', path: '/contact' },
+    { name: 'Home', path: '#hero' },
+    { name: 'About Us', path: '#about' },
+    { name: 'Portfolio', path: '#portfolio' },
+    { name: 'Services', path: '#portfolio' },
+    { name: 'Pricing', path: '#pricing' },
+    { name: 'Contact', path: '#contact' },
   ];
 
   const legalLinks = [
@@ -183,13 +184,20 @@ const Footer = () => {
               <ul className="space-y-3">
                 {quickLinks.map((link) => (
                   <li key={link.name}>
-                    <Link
-                      to={link.path}
-                      className="text-gray-400 text-sm hover:text-primary-400 transition-colors inline-flex items-center group"
+                    <a
+                      href={link.path}
+                      onClick={(e) => {
+                        e.preventDefault();
+                        const element = document.querySelector(link.path);
+                        if (element) {
+                          element.scrollIntoView({ behavior: 'smooth' });
+                        }
+                      }}
+                      className="text-gray-400 text-sm hover:text-primary-400 transition-colors inline-flex items-center group cursor-pointer"
                     >
                       <ArrowRight className="w-3 h-3 mr-2 opacity-0 -ml-5 group-hover:opacity-100 group-hover:ml-0 transition-all duration-300" />
                       {link.name}
-                    </Link>
+                    </a>
                   </li>
                 ))}
               </ul>
