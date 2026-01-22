@@ -1,10 +1,10 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Menu, X, ChevronDown } from 'lucide-react';
+import { Menu, X } from 'lucide-react';
 import { navigationLinks } from '@/data/mock';
 import { useCMS } from '@/context/CMSContext';
-import { useScrollPosition, useClickOutside } from '@/hooks';
+import { useScrollPosition } from '@/hooks';
 import { cn } from '@/utils/helpers';
 import Button from '@/components/common/Button';
 
@@ -13,21 +13,34 @@ const Header = () => {
   const settings = getSiteSettings();
   
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  const [activeDropdown, setActiveDropdown] = useState(null);
+  const [activeSection, setActiveSection] = useState('hero');
   const { isScrolled } = useScrollPosition();
   const location = useLocation();
   
   const isHomePage = location.pathname === '/';
   const headerBg = isScrolled || !isHomePage || mobileMenuOpen;
 
-  // Close mobile menu on route change
+  // Track active section based on scroll position
   useEffect(() => {
-    setMobileMenuOpen(false);
-    setActiveDropdown(null);
-  }, [location.pathname]);
+    const handleScroll = () => {
+      const sections = navigationLinks.map(link => link.path.replace('#', ''));
+      const scrollPosition = window.scrollY + 100;
 
-  // Close dropdown when clicking outside
-  const dropdownRef = useClickOutside(() => setActiveDropdown(null));
+      for (const sectionId of sections) {
+        const element = document.getElementById(sectionId);
+        if (element) {
+          const { offsetTop, offsetHeight } = element;
+          if (scrollPosition >= offsetTop && scrollPosition < offsetTop + offsetHeight) {
+            setActiveSection(sectionId);
+            break;
+          }
+        }
+      }
+    };
+
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
 
   // Prevent body scroll when mobile menu is open
   useEffect(() => {
@@ -41,8 +54,24 @@ const Header = () => {
     };
   }, [mobileMenuOpen]);
 
-  const toggleDropdown = useCallback((name) => {
-    setActiveDropdown(prev => prev === name ? null : name);
+  // Smooth scroll to section
+  const scrollToSection = useCallback((e, path) => {
+    e.preventDefault();
+    const sectionId = path.replace('#', '');
+    const element = document.getElementById(sectionId);
+    
+    if (element) {
+      const headerOffset = 80;
+      const elementPosition = element.getBoundingClientRect().top;
+      const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
+
+      window.scrollTo({
+        top: offsetPosition,
+        behavior: 'smooth'
+      });
+    }
+    
+    setMobileMenuOpen(false);
   }, []);
 
   return (
@@ -86,63 +115,25 @@ const Header = () => {
             </Link>
 
             {/* Desktop Navigation */}
-            <div className="hidden lg:flex items-center space-x-1" ref={dropdownRef}>
+            <div className="hidden lg:flex items-center space-x-1">
               {navigationLinks.map((link) => (
-                <div
+                <a
                   key={link.name}
-                  className="relative"
-                  onMouseEnter={() => link.hasDropdown && setActiveDropdown(link.name)}
-                  onMouseLeave={() => setActiveDropdown(null)}
-                >
-                  <Link
-                    to={link.path}
-                    className={cn(
-                      'flex items-center px-4 py-2 text-sm font-medium tracking-wider uppercase transition-all duration-300 rounded-md',
-                      headerBg
-                        ? 'text-gray-700 hover:text-primary-500 hover:bg-gray-50'
+                  href={link.path}
+                  onClick={(e) => scrollToSection(e, link.path)}
+                  className={cn(
+                    'flex items-center px-4 py-2 text-sm font-medium tracking-wider uppercase transition-all duration-300 rounded-md',
+                    headerBg
+                      ? activeSection === link.path.replace('#', '')
+                        ? 'text-primary-500 bg-primary-50'
+                        : 'text-gray-700 hover:text-primary-500 hover:bg-gray-50'
+                      : activeSection === link.path.replace('#', '')
+                        ? 'text-white bg-white/20'
                         : 'text-white/90 hover:text-white hover:bg-white/10'
-                    )}
-                  >
-                    <span>{link.name}</span>
-                    {link.hasDropdown && (
-                      <ChevronDown 
-                        className={cn(
-                          'w-4 h-4 ml-1 transition-transform duration-200',
-                          activeDropdown === link.name && 'rotate-180'
-                        )} 
-                      />
-                    )}
-                  </Link>
-
-                  {/* Dropdown Menu */}
-                  <AnimatePresence>
-                    {link.hasDropdown && activeDropdown === link.name && (
-                      <motion.div
-                        initial={{ opacity: 0, y: 10, scale: 0.95 }}
-                        animate={{ opacity: 1, y: 0, scale: 1 }}
-                        exit={{ opacity: 0, y: 10, scale: 0.95 }}
-                        transition={{ duration: 0.2, ease: 'easeOut' }}
-                        className="absolute top-full left-0 mt-2 w-56 bg-white rounded-xl shadow-xl border border-gray-100 py-2 overflow-hidden"
-                      >
-                        {link.dropdownItems.map((item, index) => (
-                          <motion.div
-                            key={item.name}
-                            initial={{ opacity: 0, x: -10 }}
-                            animate={{ opacity: 1, x: 0 }}
-                            transition={{ delay: index * 0.05 }}
-                          >
-                            <Link
-                              to={item.path}
-                              className="block px-5 py-3 text-sm text-gray-700 hover:bg-primary-50 hover:text-primary-500 transition-colors"
-                            >
-                              {item.name}
-                            </Link>
-                          </motion.div>
-                        ))}
-                      </motion.div>
-                    )}
-                  </AnimatePresence>
-                </div>
+                  )}
+                >
+                  <span>{link.name}</span>
+                </a>
               ))}
             </div>
 
@@ -151,7 +142,7 @@ const Header = () => {
               <Button
                 variant={headerBg ? 'primary' : 'outline-white'}
                 size="sm"
-                onClick={() => window.location.href = '/contact'}
+                onClick={(e) => scrollToSection(e, '#contact')}
               >
                 Book Now
               </Button>
@@ -229,54 +220,18 @@ const Header = () => {
                         animate={{ opacity: 1, x: 0 }}
                         transition={{ delay: index * 0.05 + 0.1 }}
                       >
-                        {link.hasDropdown ? (
-                          <div>
-                            <button
-                              onClick={() => toggleDropdown(link.name)}
-                              className="flex items-center justify-between w-full px-4 py-3 text-left text-gray-800 font-medium hover:bg-gray-50 rounded-lg transition-colors"
-                            >
-                              <span>{link.name}</span>
-                              <ChevronDown 
-                                className={cn(
-                                  'w-5 h-5 text-gray-400 transition-transform duration-200',
-                                  activeDropdown === link.name && 'rotate-180'
-                                )} 
-                              />
-                            </button>
-                            <AnimatePresence>
-                              {activeDropdown === link.name && (
-                                <motion.div
-                                  initial={{ height: 0, opacity: 0 }}
-                                  animate={{ height: 'auto', opacity: 1 }}
-                                  exit={{ height: 0, opacity: 0 }}
-                                  transition={{ duration: 0.2 }}
-                                  className="overflow-hidden"
-                                >
-                                  <div className="pl-4 py-2 space-y-1">
-                                    {link.dropdownItems.map((item) => (
-                                      <Link
-                                        key={item.name}
-                                        to={item.path}
-                                        onClick={() => setMobileMenuOpen(false)}
-                                        className="block px-4 py-2.5 text-sm text-gray-600 hover:text-primary-500 hover:bg-primary-50 rounded-lg transition-colors"
-                                      >
-                                        {item.name}
-                                      </Link>
-                                    ))}
-                                  </div>
-                                </motion.div>
-                              )}
-                            </AnimatePresence>
-                          </div>
-                        ) : (
-                          <Link
-                            to={link.path}
-                            onClick={() => setMobileMenuOpen(false)}
-                            className="block px-4 py-3 text-gray-800 font-medium hover:bg-gray-50 rounded-lg transition-colors"
-                          >
-                            {link.name}
-                          </Link>
-                        )}
+                        <a
+                          href={link.path}
+                          onClick={(e) => scrollToSection(e, link.path)}
+                          className={cn(
+                            'block px-4 py-3 font-medium rounded-lg transition-colors',
+                            activeSection === link.path.replace('#', '')
+                              ? 'text-primary-500 bg-primary-50'
+                              : 'text-gray-800 hover:bg-gray-50'
+                          )}
+                        >
+                          {link.name}
+                        </a>
                       </motion.div>
                     ))}
                   </div>
@@ -288,10 +243,7 @@ const Header = () => {
                     variant="primary"
                     size="lg"
                     className="w-full"
-                    onClick={() => {
-                      setMobileMenuOpen(false);
-                      window.location.href = '/contact';
-                    }}
+                    onClick={(e) => scrollToSection(e, '#contact')}
                   >
                     Book a Session
                   </Button>

@@ -4,47 +4,32 @@
 export const navigationLinks = [
   { 
     name: 'Home', 
-    path: '/', 
+    path: '#hero', 
     hasDropdown: false 
   },
   { 
     name: 'About', 
-    path: '/about', 
+    path: '#about', 
     hasDropdown: false 
   },
   { 
     name: 'Portfolio', 
-    path: '/portfolio', 
-    hasDropdown: true, 
-    dropdownItems: [
-      { name: 'Wedding Gallery', path: '/portfolio/wedding' },
-      { name: 'Pre-Wedding', path: '/portfolio/prewedding' },
-      { name: 'Engagement', path: '/portfolio/engagement' }
-    ]
-  },
-  { 
-    name: 'Services', 
-    path: '/services', 
-    hasDropdown: true, 
-    dropdownItems: [
-      { name: 'Photography', path: '/services/photography' },
-      { name: 'Videography', path: '/services/videography' },
-      { name: 'Photo Editing', path: '/services/editing' }
-    ]
-  },
-  { 
-    name: 'Pricing', 
-    path: '/pricing', 
+    path: '#portfolio', 
     hasDropdown: false 
   },
   { 
-    name: 'Blog', 
-    path: '/blog', 
+    name: 'Pricing', 
+    path: '#pricing', 
+    hasDropdown: false 
+  },
+  { 
+    name: 'Testimonials', 
+    path: '#testimonials', 
     hasDropdown: false 
   },
   { 
     name: 'Contact', 
-    path: '/contact', 
+    path: '#contact', 
     hasDropdown: false 
   }
 ];

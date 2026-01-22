@@ -9,13 +9,23 @@ import {
   PartnersSection,
   PricingSection,
   ContactSection,
-  BlogSection,
 } from '@/components/sections';
 
 const HomePage = () => {
-  // Scroll to top on page load
+  // Handle scroll to section on page load if hash exists
   useEffect(() => {
-    window.scrollTo(0, 0);
+    const hash = window.location.hash;
+    if (hash) {
+      // Small delay to ensure DOM is ready
+      setTimeout(() => {
+        const element = document.querySelector(hash);
+        if (element) {
+          element.scrollIntoView({ behavior: 'smooth' });
+        }
+      }, 100);
+    } else {
+      window.scrollTo(0, 0);
+    }
   }, []);
 
   return (
@@ -30,28 +40,39 @@ const HomePage = () => {
       
       <main>
         {/* Hero - Full viewport intro with video */}
-        <HeroSection />
+        <section id="hero">
+          <HeroSection />
+        </section>
         
         {/* About - Who we are & services */}
-        <AboutSection />
+        <section id="about">
+          <AboutSection />
+        </section>
         
         {/* Portfolio - Gallery showcase */}
-        <PortfolioSection />
+        <section id="portfolio">
+          <PortfolioSection />
+        </section>
         
         {/* Testimonials - Social proof */}
-        <TestimonialsSection />
+        <section id="testimonials">
+          <TestimonialsSection />
+        </section>
         
         {/* Partners - Trusted collaborations */}
-        <PartnersSection />
+        <section id="partners">
+          <PartnersSection />
+        </section>
         
         {/* Pricing - Packages */}
-        <PricingSection />
-        
-        {/* Blog - Latest articles */}
-        <BlogSection />
+        <section id="pricing">
+          <PricingSection />
+        </section>
         
         {/* Contact - Get in touch */}
-        <ContactSection />
+        <section id="contact">
+          <ContactSection />
+        </section>
       </main>
       
       <Footer />
