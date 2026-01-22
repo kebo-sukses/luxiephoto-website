@@ -1,19 +1,19 @@
 {
-  "subtitle": "Get In Touch",
   "decorativeText": "Contact",
-  "title": "Let's Create Something Beautiful Together",
-  "description": "Ready to capture your special moments? We'd love to hear about your plans. Fill out the form or reach out directly – let's start planning your perfect shoot.",
-  "formTitle": "Book a Session",
-  "formDescription": "Fill out the form and we'll get back to you within 24 hours.",
-  "address": "JL HIBAH IBRAHIM, Jambi, Indonesia",
-  "phone": "+6282169990088",
-  "email": "admin@luxiephoto.com",
-  "website": "https://luxiephoto.com/",
-  "hours": "Mon - Sat: 9:00 AM - 6:00 PM",
   "social": {
     "instagram": "https://www.instagram.com/luxiephoto/",
     "facebook": "https://www.facebook.com/tazmediaphotography/",
     "pinterest": "luxiephoto",
     "youtube": "luxiephoto"
-  }
+  },
+  "phone": "+6282169990088",
+  "hours": "Mon - Sat: 9:00 AM - 6:00 PM",
+  "address": "JL HIBAH IBRAHIM, Jambi, Indonesia",
+  "formTitle": "Book a Session",
+  "subtitle": "Let's Create Beautiful Moments with Us!",
+  "formDescription": "Fill out the form and we'll get back to you within 24 hours.",
+  "title": "Let's Create Something Beautiful Together",
+  "website": "https://luxiephoto.com/",
+  "email": "admin@luxiephoto.com",
+  "description": "Ready to capture your special moments? We'd love to hear about your plans. Fill out the form or reach out directly – let's start planning your perfect shoot."
 }
