@@ -50,27 +50,24 @@ const blogData = [blogPortfolioTips];
 
 const CMSContext = createContext(null);
 
-export function CMSProvider({ children }) {
-  const [content, setContent] = useState(null);
-  const [loading, setLoading] = useState(true);
+// Initialize content immediately to avoid null issues on first render
+const initialContent = {
+  hero: heroContent,
+  about: aboutContent,
+  contact: contactContent,
+  settings: settingsContent,
+  social: socialContent,
+  services: servicesData || [],
+  portfolio: portfolioData || [],
+  testimonials: testimonialsData || [],
+  pricing: pricingData || [],
+  partners: partnersData || [],
+  blog: blogData || []
+};
 
-  useEffect(() => {
-    // Load content from JSON files
-    setContent({
-      hero: heroContent,
-      about: aboutContent,
-      contact: contactContent,
-      settings: settingsContent,
-      social: socialContent,
-      services: servicesData,
-      portfolio: portfolioData,
-      testimonials: testimonialsData,
-      pricing: pricingData,
-      partners: partnersData,
-      blog: blogData
-    });
-    setLoading(false);
-  }, []);
+export function CMSProvider({ children }) {
+  const [content, setContent] = useState(initialContent);
+  const [loading, setLoading] = useState(false);
 
   // Provide CMS data with mock data as fallback
   const value = {
