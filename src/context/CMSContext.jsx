@@ -37,16 +37,12 @@ import partnerRoxana from '../../content/partners/roxana.json';
 import partnerFelton from '../../content/partners/felton.json';
 import partnerPennelope from '../../content/partners/pennelope.json';
 
-// Import Blog
-import blogPortfolioTips from '../../content/blog/2026-01-wedding-portfolio-tips.json';
-
 // Compile data arrays
 const servicesData = [serviceWeddingPhoto, serviceWeddingVideo, servicePhotoRetouch, servicePreWedding];
 const portfolioData = [portfolioArthurLinda, portfolioThomasGrace, portfolioMichaelGina, portfolioFreddieAida];
 const testimonialsData = [testimonialArthurLinda, testimonialFreddieAida, testimonialRobbieMaggie];
 const pricingData = [pricingEssential, pricingPremium, pricingLuxury];
 const partnersData = [partnerRoxana, partnerFelton, partnerPennelope];
-const blogData = [blogPortfolioTips];
 
 const CMSContext = createContext(null);
 
@@ -61,8 +57,7 @@ const initialContent = {
   portfolio: portfolioData || [],
   testimonials: testimonialsData || [],
   pricing: pricingData || [],
-  partners: partnersData || [],
-  blog: blogData || []
+  partners: partnersData || []
 };
 
 export function CMSProvider({ children }) {
@@ -127,16 +122,6 @@ export function CMSProvider({ children }) {
     getPricing: () => {
       const pricing = content?.pricing || mockData.pricingPlans || [];
       return [...pricing].sort((a, b) => (a.order || 0) - (b.order || 0));
-    },
-    
-    // Blog - sorted by date (newest first), with optional filter for featured, always returns array
-    getBlog: (featuredOnly = false) => {
-      const blog = content?.blog || mockData.blogPosts || [];
-      let posts = [...blog].sort((a, b) => new Date(b.date) - new Date(a.date));
-      if (featuredOnly) {
-        posts = posts.filter(post => post.featured);
-      }
-      return posts;
     },
     
     getContact: () => content?.contact || mockData.contactInfo,

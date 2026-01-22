@@ -198,25 +198,6 @@ collections:
       - { name: "order", label: "Display Order", widget: "number", default: 1 }
 
   # ============================================
-  # BLOG POSTS
-  # ============================================
-  - name: "blog"
-    label: "📝 Blog Posts"
-    folder: "content/blog"
-    create: true
-    slug: "{{year}}-{{month}}-{{slug}}"
-    fields:
-      - { name: "title", label: "Title", widget: "string" }
-      - { name: "date", label: "Publish Date", widget: "datetime" }
-      - { name: "author", label: "Author", widget: "string", default: "Luxie Photo" }
-      - { name: "category", label: "Category", widget: "select", options: ["Photography Tips", "Real Weddings", "Wedding Tips", "Behind the Scenes", "Inspiration"] }
-      - { name: "image", label: "Featured Image", widget: "image" }
-      - { name: "excerpt", label: "Excerpt", widget: "text" }
-      - { name: "body", label: "Body", widget: "markdown" }
-      - { name: "readTime", label: "Read Time", widget: "string", default: "5 min read" }
-      - { name: "featured", label: "Featured Post", widget: "boolean", default: false }
-
-  # ============================================
   # CONTACT INFO
   # ============================================
   - name: "contact"
