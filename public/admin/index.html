@@ -129,23 +129,6 @@
             ]
           },
           {
-            name: 'services',
-            label: '🛠️ Services',
-            folder: 'content/services',
-            create: true,
-            slug: '{{slug}}',
-            extension: 'json',
-            format: 'json',
-            fields: [
-              { name: 'id', label: 'ID (auto)', widget: 'string', hint: 'ID unik untuk service (huruf kecil, tanpa spasi)' },
-              { name: 'title', label: 'Title', widget: 'string' },
-              { name: 'icon', label: 'Icon', widget: 'select', options: ['Camera', 'Video', 'Brush', 'Heart', 'Star', 'Image'] },
-              { name: 'description', label: 'Description', widget: 'text' },
-              { name: 'order', label: 'Display Order', widget: 'number', default: 1 },
-              { name: 'features', label: 'Features', widget: 'list', field: { name: 'feature', label: 'Feature', widget: 'string' } }
-            ]
-          },
-          {
             name: 'portfolio',
             label: '📸 Portfolio',
             folder: 'content/portfolio',
@@ -220,27 +203,6 @@
               { name: 'logo', label: 'Logo', widget: 'image', required: false },
               { name: 'website', label: 'Website', widget: 'string', required: false },
               { name: 'order', label: 'Display Order', widget: 'number', default: 1 }
-            ]
-          },
-          {
-            name: 'blog',
-            label: '📝 Blog Posts',
-            folder: 'content/blog',
-            create: true,
-            slug: '{{year}}-{{month}}-{{slug}}',
-            extension: 'json',
-            format: 'json',
-            fields: [
-              { name: 'id', label: 'ID (auto)', widget: 'string', hint: 'ID unik (huruf kecil, tanpa spasi)' },
-              { name: 'title', label: 'Title', widget: 'string' },
-              { name: 'date', label: 'Publish Date', widget: 'datetime' },
-              { name: 'author', label: 'Author', widget: 'string', default: 'Luxie Photo' },
-              { name: 'category', label: 'Category', widget: 'select', options: ['Photography Tips', 'Real Weddings', 'Wedding Tips', 'Behind the Scenes', 'Inspiration'] },
-              { name: 'image', label: 'Featured Image', widget: 'image' },
-              { name: 'excerpt', label: 'Excerpt', widget: 'text' },
-              { name: 'body', label: 'Body', widget: 'markdown' },
-              { name: 'readTime', label: 'Read Time', widget: 'string', default: '5 min read' },
-              { name: 'featured', label: 'Featured Post', widget: 'boolean', default: false }
             ]
           },
           {
