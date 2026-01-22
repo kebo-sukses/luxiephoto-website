@@ -102,39 +102,39 @@ export function CMSProvider({ children }) {
     
     getAbout: () => content?.about || mockData.aboutContent,
     
-    // Services - sorted by order
+    // Services - sorted by order, always returns array
     getServices: () => {
-      const services = content?.services || mockData.services;
+      const services = content?.services || mockData.services || [];
       return [...services].sort((a, b) => (a.order || 0) - (b.order || 0));
     },
     
-    // Portfolio - with optional filter for featured
+    // Portfolio - with optional filter for featured, always returns array
     getPortfolio: (featuredOnly = false) => {
-      const portfolio = content?.portfolio || mockData.portfolioItems;
+      const portfolio = content?.portfolio || mockData.portfolioItems || [];
       if (featuredOnly) {
         return portfolio.filter(item => item.featured);
       }
       return portfolio;
     },
     
-    // Testimonials
-    getTestimonials: () => content?.testimonials || mockData.testimonials,
+    // Testimonials - always returns array
+    getTestimonials: () => content?.testimonials || mockData.testimonials || [],
     
-    // Partners - sorted by order
+    // Partners - sorted by order, always returns array
     getPartners: () => {
-      const partners = content?.partners || mockData.partners;
+      const partners = content?.partners || mockData.partners || [];
       return [...partners].sort((a, b) => (a.order || 0) - (b.order || 0));
     },
     
-    // Pricing - sorted by order
+    // Pricing - sorted by order, always returns array
     getPricing: () => {
-      const pricing = content?.pricing || mockData.pricingPlans;
+      const pricing = content?.pricing || mockData.pricingPlans || [];
       return [...pricing].sort((a, b) => (a.order || 0) - (b.order || 0));
     },
     
-    // Blog - sorted by date (newest first), with optional filter for featured
+    // Blog - sorted by date (newest first), with optional filter for featured, always returns array
     getBlog: (featuredOnly = false) => {
-      const blog = content?.blog || mockData.blogPosts;
+      const blog = content?.blog || mockData.blogPosts || [];
       let posts = [...blog].sort((a, b) => new Date(b.date) - new Date(a.date));
       if (featuredOnly) {
         posts = posts.filter(post => post.featured);
