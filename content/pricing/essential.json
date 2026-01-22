@@ -1,13 +1,17 @@
 {
-  "id": "essential",
-  "name": "Essential",
-  "subtitle": "Perfect for intimate ceremonies",
-  "price": 1299,
-  "currency": "$",
   "period": "per event",
-  "popular": false,
+  "price": 12900003,
+  "name": "Essential",
   "order": 1,
-  "ctaText": "Choose Essential",
+  "notIncluded": [
+    "Second Photographer",
+    "Videography",
+    "Album"
+  ],
+  "currency": "Rp",
+  "subtitle": "Perfect for intimate ceremonies",
+  "popular": false,
+  "id": "essential",
   "features": [
     "4 Hours Coverage",
     "1 Professional Photographer",
@@ -16,9 +20,5 @@
     "Print Release",
     "Engagement Session"
   ],
-  "notIncluded": [
-    "Second Photographer",
-    "Videography",
-    "Album"
-  ]
+  "ctaText": "Choose Essential"
 }
