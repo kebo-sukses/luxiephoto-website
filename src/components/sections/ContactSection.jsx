@@ -53,19 +53,48 @@ const ContactSection = () => {
 
     setIsSubmitting(true);
     
-    // Simulate API call
-    setTimeout(() => {
-      setIsSubmitting(false);
-      setStatus({ type: 'success', message: 'Thank you! We\'ll get back to you within 24 hours.' });
-      setFormData({
-        name: '',
-        email: '',
-        phone: '',
-        date: '',
-        eventType: '',
-        message: '',
+    try {
+      // Send to Web3Forms
+      const response = await fetch('https://api.web3forms.com/submit', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept': 'application/json'
+        },
+        body: JSON.stringify({
+          access_key: '370cfe1e-f1d9-4c5a-8b00-143492231f31',
+          subject: `New Booking Request from ${formData.name}`,
+          from_name: 'LuxiePhoto Website',
+          name: formData.name,
+          email: formData.email,
+          phone: formData.phone || 'Not provided',
+          event_date: formData.date || 'Not specified',
+          event_type: formData.eventType || 'Not specified',
+          message: formData.message || 'No message',
+        })
       });
-    }, 1500);
+
+      const result = await response.json();
+
+      if (result.success) {
+        setStatus({ type: 'success', message: 'Thank you! We\'ll get back to you within 24 hours.' });
+        setFormData({
+          name: '',
+          email: '',
+          phone: '',
+          date: '',
+          eventType: '',
+          message: '',
+        });
+      } else {
+        setStatus({ type: 'error', message: 'Something went wrong. Please try again or contact us directly.' });
+      }
+    } catch (error) {
+      console.error('Form submission error:', error);
+      setStatus({ type: 'error', message: 'Network error. Please check your connection and try again.' });
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   const contactDetails = [
