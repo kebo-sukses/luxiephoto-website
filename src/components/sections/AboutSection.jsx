@@ -158,9 +158,9 @@ const AboutSection = () => {
                   variant="secondary"
                   icon={ArrowRight}
                   iconPosition="right"
-                  onClick={() => window.location.href = aboutContent?.ctaLink || '/about'}
+                  onClick={() => window.open('https://wa.me/6282169990088?text=Halo,%20saya%20tertarik%20untuk%20mengetahui%20lebih%20lanjut%20tentang%20layanan%20LuxiePhoto', '_blank')}
                 >
-                  {aboutContent?.ctaText || 'Learn More'}
+                  Learn More
                 </Button>
               </div>
             </AnimatedSection>
@@ -210,7 +210,9 @@ const AboutSection = () => {
 
                     {/* Link */}
                     <a
-                      href={service?.detailLink || '/services'}
+                      href={`https://wa.me/6282169990088?text=Halo,%20saya%20tertarik%20dengan%20layanan%20${encodeURIComponent(service.title)}`}
+                      target="_blank"
+                      rel="noopener noreferrer"
                       className="inline-flex items-center text-sm font-medium text-gray-700 hover:text-primary-500 transition-colors group/link"
                     >
                       Learn More
