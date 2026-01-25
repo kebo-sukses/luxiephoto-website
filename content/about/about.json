@@ -1,17 +1,14 @@
 {
-  "experience": "Lead Photographer",
-  "ctaLink": "/about",
-  "decorativeText": "Our Story",
-  "subtitle": "About us",
-  "signature": "Luxie Photo",
-  "title": "We're Luxie, Passionate Wedding Storytellers",
   "images": [
     "/image/LUXIE_11.jpg",
     "/image/LUXIE_12.jpg",
     "/image/LUXIE_29.jpg",
     "/image/LUXIE_30.jpg"
   ],
-  "description": "With over 5 years of experience, we've had the privilege of capturing hundreds of beautiful love stories. Our approach combines artistic vision with genuine emotion, ensuring every photograph reflects the authentic beauty of your special day.",
-  "features": [],
-  "ctaText": "Learn More"
+  "signature": "Luxie Photo",
+  "experience": "Lead Photographer",
+  "decorativeText": "Our Story",
+  "title": "We're Luxie, Passionate Wedding Storytellers",
+  "subtitle": "About Us",
+  "description": "With over 5 years of experience, we've had the privilege of capturing hundreds of beautiful love stories. Our approach combines artistic vision with genuine emotion, ensuring every photograph reflects the authentic beauty of your special day."
 }
