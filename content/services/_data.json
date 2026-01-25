@@ -5,6 +5,7 @@
     "icon": "Camera",
     "description": "Full-day coverage capturing every precious moment from preparation to reception.",
     "order": 1,
+    "detailLink": "/services",
     "features": [
       "8+ Hours Coverage",
       "Multiple Photographers",
@@ -18,6 +19,7 @@
     "icon": "Video",
     "description": "Cinematic films that bring your wedding day back to life.",
     "order": 2,
+    "detailLink": "/services",
     "features": [
       "4K Quality",
       "Drone Footage",
@@ -31,6 +33,7 @@
     "icon": "Brush",
     "description": "Professional editing to perfect every image while maintaining natural beauty.",
     "order": 3,
+    "detailLink": "/services",
     "features": [
       "Color Correction",
       "Skin Retouching",
@@ -44,6 +47,7 @@
     "icon": "Heart",
     "description": "Romantic sessions to capture your journey before the big day.",
     "order": 4,
+    "detailLink": "/services",
     "features": [
       "Location Scouting",
       "Styling Consultation",

@@ -158,9 +158,9 @@ const AboutSection = () => {
                   variant="secondary"
                   icon={ArrowRight}
                   iconPosition="right"
-                  onClick={() => window.location.href = '/about'}
+                  onClick={() => window.location.href = aboutContent?.ctaLink || '/about'}
                 >
-                  Learn More
+                  {aboutContent?.ctaText || 'Learn More'}
                 </Button>
               </div>
             </AnimatedSection>
@@ -210,7 +210,7 @@ const AboutSection = () => {
 
                     {/* Link */}
                     <a
-                      href="/services"
+                      href={service?.detailLink || '/services'}
                       className="inline-flex items-center text-sm font-medium text-gray-700 hover:text-primary-500 transition-colors group/link"
                     >
                       Learn More
