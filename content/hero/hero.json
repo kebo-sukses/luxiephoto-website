@@ -1,17 +1,19 @@
 {
-  "subtitle": "Luxury Wedding Photography",
-  "title": "Capturing Your",
-  "titleHighlight": "Timeless Moments",
-  "description": "We transform your precious wedding moments into timeless art. Every frame tells your unique love story.",
-  "ctaButtonText": "Get In Touch",
-  "ctaButtonUrl": "https://wa.me/6282169990088",
+  "ctaSecondary": "Get in Touch",
   "backgroundImages": [
     "/image/LUXIE_18.jpg",
     "/image/LUXIE_20.jpg",
     "/image/LUXIE_13.jpg"
   ],
+  "ctaButtonUrl": "https://wa.me/6282169990088",
   "heroVideoUrl": "",
   "heroVideoPoster": "",
+  "ctaButtonText": "Get In Touch",
+  "subtitle": "We Dont Live Forever. Memories Do.",
+  "title": "Capturing Your",
+  "titleHighlight": "Timeless Moments",
+  "description": "We transform your precious wedding moments into timeless art. Every frame tells your unique love story.",
+  "ctaText": "Get in Touch",
   "stats": [
     {
       "number": "500+",
