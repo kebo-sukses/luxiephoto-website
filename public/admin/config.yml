@@ -43,18 +43,10 @@ collections:
           - { name: "phone", label: "Phone", widget: "string" }
           - { name: "address", label: "Address", widget: "text" }
           - { name: "favicon", label: "Favicon", widget: "image", required: false }
-          - name: "logoLight"
-            label: "Logo Light (untuk background gelap)"
-            widget: "object"
-            fields:
-              - { name: "image", label: "Image", widget: "image" }
-              - { name: "height", label: "Logo Height (px)", widget: "number", default: 48, min: 24, max: 120, hint: "Ukuran tinggi logo dalam pixel (24-120px)" }
-          - name: "logoDark"
-            label: "Logo Dark (untuk background terang)"
-            widget: "object"
-            fields:
-              - { name: "image", label: "Image", widget: "image" }
-              - { name: "height", label: "Logo Height (px)", widget: "number", default: 48, min: 24, max: 120, hint: "Ukuran tinggi logo dalam pixel (24-120px)" }
+          - { name: "logoLight", label: "Logo Light (untuk background gelap)", widget: "image" }
+          - { name: "logoLightHeight", label: "Logo Light Height (px)", widget: "number", default: 48, min: 24, max: 120, hint: "Ukuran tinggi logo dalam pixel (24-120px)" }
+          - { name: "logoDark", label: "Logo Dark (untuk background terang)", widget: "image" }
+          - { name: "logoDarkHeight", label: "Logo Dark Height (px)", widget: "number", default: 48, min: 24, max: 120, hint: "Ukuran tinggi logo dalam pixel (24-120px)" }
           - { name: "logoFooter", label: "Logo Footer", widget: "image", required: false }
           - name: "social"
             label: "Social Media"
