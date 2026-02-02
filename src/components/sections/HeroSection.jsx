@@ -306,9 +306,6 @@ const HeroSection = () => {
                   ))}
                 </div>
               </div>
-
-              {/* Decorative Frame */}
-              <div className="absolute -bottom-4 -right-4 w-full h-full border-2 border-primary-500/30 rounded-2xl -z-10" />
             </div>
           </motion.div>
         </div>
