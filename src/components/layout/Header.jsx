@@ -94,16 +94,16 @@ const Header = () => {
               to="/" 
               className="relative z-10 flex items-center group"
             >
-              {(settings?.logoLight?.image || settings?.logoDark?.image || settings?.logoLight || settings?.logoDark) ? (
+              {(settings?.logoLight || settings?.logoDark) ? (
                 <img 
                   src={headerBg 
-                    ? (settings.logoDark?.image || settings.logoDark || settings.logoLight?.image || settings.logoLight) 
-                    : (settings.logoLight?.image || settings.logoLight || settings.logoDark?.image || settings.logoDark)} 
+                    ? (settings.logoDark || settings.logoLight) 
+                    : (settings.logoLight || settings.logoDark)} 
                   alt={settings.siteName || 'LuxiePhoto'} 
                   style={{ 
                     height: `${headerBg 
-                      ? (settings.logoDark?.height || 48) 
-                      : (settings.logoLight?.height || 48)}px` 
+                      ? (settings.logoDarkHeight || 48) 
+                      : (settings.logoLightHeight || 48)}px` 
                   }}
                   className="w-auto transition-all duration-300"
                 />
