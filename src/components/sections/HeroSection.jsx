@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { ArrowRight, ChevronDown, ChevronLeft, ChevronRight, Instagram, Facebook, Twitter, Youtube } from 'lucide-react';
+import { ArrowRight, ChevronDown, Instagram, Facebook, Twitter, Youtube } from 'lucide-react';
 import { useCMS } from '@/context/CMSContext';
 import { Button, OptimizedImage } from '@/components/common';
 import { cn } from '@/utils/helpers';
@@ -24,7 +24,6 @@ const HeroSection = () => {
   const social = getSocialMedia();
   
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
-  const [rightSlideIndex, setRightSlideIndex] = useState(0);
 
   // Use images from CMS or fallback for background
   const heroImages = heroContent?.backgroundImages || [
@@ -33,9 +32,6 @@ const HeroSection = () => {
     '/image/LUXIE_22.jpg',
   ];
 
-  // Gallery images for right side slider (use same images or separate gallery)
-  const galleryImages = heroContent?.galleryImages || heroImages;
-
   // Auto-change background image
   useEffect(() => {
     const interval = setInterval(() => {
@@ -43,18 +39,6 @@ const HeroSection = () => {
     }, 6000);
     return () => clearInterval(interval);
   }, [heroImages.length]);
-
-  // Auto-change right gallery slider
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setRightSlideIndex((prev) => (prev + 1) % galleryImages.length);
-    }, 4000);
-    return () => clearInterval(interval);
-  }, [galleryImages.length]);
-
-  // Manual navigation for right slider
-  const nextSlide = () => setRightSlideIndex((prev) => (prev + 1) % galleryImages.length);
-  const prevSlide = () => setRightSlideIndex((prev) => (prev - 1 + galleryImages.length) % galleryImages.length);
 
   // Build social links from CMS data
   const socialLinks = [
@@ -140,9 +124,9 @@ const HeroSection = () => {
 
       {/* Main Content */}
       <div className="relative z-10 container-custom w-full">
-        <div className="grid lg:grid-cols-2 gap-12 items-center min-h-screen py-32">
-          {/* Left Content */}
-          <div className="text-center lg:text-left">
+        <div className="flex items-center justify-center min-h-screen py-32">
+          {/* Main Content - Centered */}
+          <div className="text-center max-w-3xl">
             {/* Subtitle */}
             <motion.p
               initial={{ opacity: 0, y: 20 }}
@@ -170,7 +154,7 @@ const HeroSection = () => {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.7 }}
-              className="text-gray-300 text-lg max-w-xl mx-auto lg:mx-0 mb-8"
+              className="text-gray-300 text-lg max-w-xl mx-auto mb-8"
             >
               {heroContent.description}
             </motion.p>
@@ -180,7 +164,7 @@ const HeroSection = () => {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.9 }}
-              className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start mb-8"
+              className="flex flex-col sm:flex-row gap-4 justify-center mb-8"
             >
               <Button
                 variant="primary-outline"
@@ -198,7 +182,7 @@ const HeroSection = () => {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 1 }}
-              className="flex justify-center lg:justify-start space-x-3 mb-10"
+              className="flex justify-center space-x-3 mb-10"
             >
               {socialLinks.map(({ icon: Icon, href, label }) => (
                 <motion.a
@@ -220,7 +204,7 @@ const HeroSection = () => {
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 1.1 }}
-              className="grid grid-cols-3 gap-6 pt-8 border-t border-white/10 max-w-md mx-auto lg:mx-0"
+              className="grid grid-cols-3 gap-6 pt-8 border-t border-white/10 max-w-md mx-auto"
             >
               {(heroContent?.stats || []).map((stat, index) => (
                 <motion.div
@@ -228,7 +212,7 @@ const HeroSection = () => {
                   initial={{ opacity: 0, scale: 0.8 }}
                   animate={{ opacity: 1, scale: 1 }}
                   transition={{ duration: 0.5, delay: 1.2 + index * 0.1 }}
-                  className="text-center lg:text-left"
+                  className="text-center"
                 >
                   <div className="font-serif text-3xl md:text-4xl text-white mb-1">
                     {stat.number}
@@ -240,74 +224,6 @@ const HeroSection = () => {
               ))}
             </motion.div>
           </div>
-
-          {/* Right Content - Image Gallery Slider */}
-          <motion.div
-            initial={{ opacity: 0, scale: 0.9 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 0.8, delay: 0.6 }}
-            className="relative hidden lg:block"
-          >
-            {/* Main Gallery Card */}
-            <div className="relative">
-              <div className="relative aspect-[4/5] max-w-md ml-auto rounded-2xl overflow-hidden group">
-                {/* Image Slider */}
-                <AnimatePresence mode="wait">
-                  <motion.div
-                    key={rightSlideIndex}
-                    initial={{ opacity: 0, x: 50 }}
-                    animate={{ opacity: 1, x: 0 }}
-                    exit={{ opacity: 0, x: -50 }}
-                    transition={{ duration: 0.5, ease: 'easeInOut' }}
-                    className="absolute inset-0"
-                  >
-                    <OptimizedImage
-                      src={galleryImages[rightSlideIndex]}
-                      alt={`Gallery image ${rightSlideIndex + 1}`}
-                      className="w-full h-full"
-                      containerClassName="w-full h-full"
-                    />
-                  </motion.div>
-                </AnimatePresence>
-                
-                {/* Navigation Arrows */}
-                <div className="absolute inset-0 flex items-center justify-between p-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                  <motion.button
-                    whileHover={{ scale: 1.1 }}
-                    whileTap={{ scale: 0.95 }}
-                    onClick={prevSlide}
-                    className="w-10 h-10 rounded-full bg-white/20 backdrop-blur-sm flex items-center justify-center text-white hover:bg-white/30 transition-colors"
-                  >
-                    <ChevronLeft className="w-5 h-5" />
-                  </motion.button>
-                  <motion.button
-                    whileHover={{ scale: 1.1 }}
-                    whileTap={{ scale: 0.95 }}
-                    onClick={nextSlide}
-                    className="w-10 h-10 rounded-full bg-white/20 backdrop-blur-sm flex items-center justify-center text-white hover:bg-white/30 transition-colors"
-                  >
-                    <ChevronRight className="w-5 h-5" />
-                  </motion.button>
-                </div>
-
-                {/* Slide Indicators */}
-                <div className="absolute bottom-4 left-1/2 -translate-x-1/2 flex space-x-2">
-                  {galleryImages.map((_, index) => (
-                    <button
-                      key={index}
-                      onClick={() => setRightSlideIndex(index)}
-                      className={cn(
-                        'w-2 h-2 rounded-full transition-all duration-300',
-                        rightSlideIndex === index
-                          ? 'w-6 bg-white'
-                          : 'bg-white/50 hover:bg-white/70'
-                      )}
-                    />
-                  ))}
-                </div>
-              </div>
-            </div>
-          </motion.div>
         </div>
 
         {/* Scroll Indicator */}
