@@ -42,6 +42,20 @@ collections:
           - { name: "email", label: "Email", widget: "string" }
           - { name: "phone", label: "Phone", widget: "string" }
           - { name: "address", label: "Address", widget: "text" }
+          - { name: "favicon", label: "Favicon", widget: "image", required: false }
+          - name: "logoLight"
+            label: "Logo Light (untuk background gelap)"
+            widget: "object"
+            fields:
+              - { name: "image", label: "Image", widget: "image" }
+              - { name: "height", label: "Logo Height (px)", widget: "number", default: 48, min: 24, max: 120, hint: "Ukuran tinggi logo dalam pixel (24-120px)" }
+          - name: "logoDark"
+            label: "Logo Dark (untuk background terang)"
+            widget: "object"
+            fields:
+              - { name: "image", label: "Image", widget: "image" }
+              - { name: "height", label: "Logo Height (px)", widget: "number", default: 48, min: 24, max: 120, hint: "Ukuran tinggi logo dalam pixel (24-120px)" }
+          - { name: "logoFooter", label: "Logo Footer", widget: "image", required: false }
           - name: "social"
             label: "Social Media"
             widget: "object"
@@ -49,10 +63,10 @@ collections:
               - { name: "instagram", label: "Instagram", widget: "string", required: false }
               - { name: "facebook", label: "Facebook", widget: "string", required: false }
               - { name: "youtube", label: "YouTube", widget: "string", required: false }
-              - { name: "pinterest", label: "Pinterest", widget: "string", required: false }
+              - { name: "whatsapp", label: "WhatsApp Number", widget: "string", required: false, hint: "Nomor WhatsApp tanpa + (contoh: 6282169990088)" }
 
   # ============================================
-  # HERO SECTION
+  # HERO SECTION (Simplified)
   # ============================================
   - name: "hero"
     label: "🏠 Hero Section"
@@ -61,22 +75,12 @@ collections:
         label: "Hero Content"
         file: "content/hero/hero.json"
         fields:
-          - { name: "subtitle", label: "Subtitle", widget: "string", default: "Luxury Wedding Photography" }
-          - { name: "title", label: "Title", widget: "string", default: "Capturing Your" }
-          - { name: "titleHighlight", label: "Title Highlight", widget: "string", default: "Timeless Moments" }
-          - { name: "description", label: "Description", widget: "text" }
-          - { name: "ctaText", label: "CTA Button Text", widget: "string", default: "View Our Work" }
-          - { name: "ctaSecondary", label: "Secondary Button Text", widget: "string", default: "Get in Touch" }
+          - { name: "subtitle", label: "Subtitle", widget: "string", default: "We Don't Live Forever. Memories Do." }
+          - { name: "title", label: "Title (Judul Utama)", widget: "string", default: "Timeless Moments." }
           - name: "backgroundImages"
             label: "Background Images"
             widget: "list"
             field: { name: "image", label: "Image", widget: "image" }
-          - name: "stats"
-            label: "Statistics"
-            widget: "list"
-            fields:
-              - { name: "number", label: "Number", widget: "string" }
-              - { name: "label", label: "Label", widget: "string" }
 
   # ============================================
   # ABOUT SECTION
@@ -232,3 +236,20 @@ collections:
               - { name: "facebook", label: "Facebook", widget: "string" }
               - { name: "pinterest", label: "Pinterest", widget: "string" }
               - { name: "youtube", label: "YouTube", widget: "string" }
+
+  # ============================================
+  # BLOG
+  # ============================================
+  - name: "blog"
+    label: "📝 Blog Posts"
+    folder: "content/blog"
+    create: true
+    slug: "{{slug}}"
+    fields:
+      - { name: "title", label: "Title", widget: "string" }
+      - { name: "date", label: "Publish Date", widget: "datetime" }
+      - { name: "author", label: "Author", widget: "string", default: "Admin" }
+      - { name: "category", label: "Category", widget: "select", options: ["Tips", "Inspiration", "Behind the Scenes", "News"] }
+      - { name: "image", label: "Featured Image", widget: "image" }
+      - { name: "excerpt", label: "Excerpt", widget: "text" }
+      - { name: "body", label: "Body", widget: "markdown" }

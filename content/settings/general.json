@@ -1,23 +1,22 @@
 {
-  "logoDark": "/image/luxie-logo-white.webp",
+  "siteName": "Luxie Photo",
+  "tagline": "We Don't Live Forever. Memories Do.",
+  "email": "admin@luxiephoto.com",
+  "phone": "+6282169990088",
+  "address": "Jl. Hibah Ibrahim No.21, Rw. Sari, Kec. Kota Baru, Kota Jambi, Jambi 36361",
+  "favicon": "/image/cropped-luxie-logo-white-1.webp",
+  "logoLight": {
+    "image": "/image/luxie-logo-white.webp",
+    "height": 48
+  },
+  "logoDark": {
+    "image": "/image/cropped-luxie-logo-white-1.webp",
+    "height": 48
+  },
   "logoFooter": "/image/cropped-luxie-logo-white-1.webp",
-  "logoLight": "/image/cropped-luxie-logo-white-1.webp",
   "social": {
     "instagram": "https://www.instagram.com/luxiephoto/",
-    "whatsapp": "6282169990088",
-    "facebook": "https://www.facebook.com/tazmediaphotography/"
-  },
-  "phone": "+6282169990088",
-  "tagline": "We Don't Live Forever. Memories Do.",
-  "colors": {
-    "primary": "#001B0E",
-    "gold": "#FFD700",
-    "forest": "#001b0e",
-    "dark": "#1a1a1a",
-    "white": "#ffffff"
-  },
-  "siteName": "Luxie Photo",
-  "favicon": "/image/cropped-luxie-logo-white-1.webp",
-  "address": "Jl. Hibah Ibrahim No.21, Rw. Sari, Kec. Kota Baru, Kota Jambi, Jambi 36361",
-  "email": "admin@luxiephoto.com"
+    "facebook": "https://www.facebook.com/tazmediaphotography/",
+    "whatsapp": "6282169990088"
+  }
 }
