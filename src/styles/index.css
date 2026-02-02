@@ -11,7 +11,7 @@
 @layer base {
   :root {
     /* CMS Brand Colors (overridden by JS from CMS) */
-    --color-primary: #ec4899;
+    --color-primary: #388f6b;
     --color-gold: #FFD700;
     --color-forest: #001b0e;
     --color-dark: #1a1a1a;

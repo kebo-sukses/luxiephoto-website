@@ -68,7 +68,7 @@ export function CMSProvider({ children }) {
     const colors = content?.settings?.colors;
     if (colors) {
       const root = document.documentElement;
-      root.style.setProperty('--color-primary', colors.primary || '#ec4899');
+      root.style.setProperty('--color-primary', colors.primary || '#388f6b');
       root.style.setProperty('--color-gold', colors.gold || '#FFD700');
       root.style.setProperty('--color-forest', colors.forest || '#001b0e');
       root.style.setProperty('--color-dark', colors.dark || '#1a1a1a');
@@ -84,14 +84,14 @@ export function CMSProvider({ children }) {
     // Helper getters that return CMS data or mock data
     getSiteSettings: () => content?.settings || {
       siteName: 'LuxiePhoto',
-      primaryColor: '#ec4899',
+      primaryColor: '#388f6b',
       fontHeading: 'Playfair Display',
       fontBody: 'Poppins'
     },
     
     // Get Brand Colors
     getColors: () => content?.settings?.colors || {
-      primary: '#ec4899',
+      primary: '#388f6b',
       gold: '#FFD700',
       forest: '#001b0e',
       dark: '#1a1a1a',
