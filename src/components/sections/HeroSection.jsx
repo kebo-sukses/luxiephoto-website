@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { ChevronDown } from 'lucide-react';
 import { useCMS } from '@/context/CMSContext';
 import { OptimizedImage } from '@/components/common';
 import { cn } from '@/utils/helpers';
@@ -79,59 +78,30 @@ const HeroSection = () => {
         </div>
       </div>
 
-      {/* Main Content - Minimal & Elegant */}
-      <div className="relative z-10 container-custom w-full">
-        <div className="flex items-center justify-center min-h-screen py-32">
-          <div className="text-center max-w-4xl">
-            
-            {/* Subtitle - Elegant uppercase */}
-            <motion.p
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, delay: 0.3 }}
-              className="text-white/60 text-xs sm:text-sm tracking-[0.4em] uppercase mb-8"
-            >
-              We Don't Live Forever. Memories Do.
-            </motion.p>
-
-            {/* Main Title - Script/Elegant Font */}
-            <motion.h1
-              initial={{ opacity: 0, y: 30 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 1, delay: 0.5 }}
-              className="font-serif italic text-5xl sm:text-6xl md:text-7xl lg:text-8xl text-white leading-tight mb-16"
-            >
-              Timeless Moments.
-            </motion.h1>
-
-            {/* Copyright */}
-            <motion.p
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ duration: 0.6, delay: 1 }}
-              className="text-white/40 text-sm tracking-wider"
-            >
-              © 2025
-            </motion.p>
-          </div>
-        </div>
-
-        {/* Scroll Indicator */}
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 0.6, delay: 1.2 }}
-          className="absolute bottom-8 left-1/2 -translate-x-1/2"
-        >
-          <motion.div
-            animate={{ y: [0, 8, 0] }}
-            transition={{ duration: 2, repeat: Infinity, ease: 'easeInOut' }}
-            className="flex flex-col items-center text-white/40"
+      {/* Main Content - Minimal & Elegant - Positioned at bottom */}
+      <div className="relative z-10 container-custom w-full h-screen flex flex-col justify-end pb-24 sm:pb-32">
+        <div className="text-center max-w-4xl mx-auto">
+          
+          {/* Subtitle - Elegant uppercase */}
+          <motion.p
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 0.3 }}
+            className="text-white/60 text-xs sm:text-sm tracking-[0.3em] uppercase mb-4"
           >
-            <span className="text-xs tracking-[0.3em] uppercase mb-2">Scroll</span>
-            <ChevronDown className="w-5 h-5" />
-          </motion.div>
-        </motion.div>
+            We Don't Live Forever. Memories Do.
+          </motion.p>
+
+          {/* Main Title - Script/Elegant Font with Green color */}
+          <motion.h1
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 1, delay: 0.5 }}
+            className="font-serif italic text-5xl sm:text-6xl md:text-7xl lg:text-8xl text-primary-400 leading-tight"
+          >
+            Timeless Moments.
+          </motion.h1>
+        </div>
       </div>
 
       {/* Background Image Indicators - Subtle dots */}
