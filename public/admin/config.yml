@@ -5,9 +5,6 @@ backend:
   base_url: https://luxiephoto.com
   auth_endpoint: /api/auth
 
-# Publish mode - Editorial Workflow (optional, remove if not needed)
-# publish_mode: editorial_workflow
-
 # Media files
 media_folder: "public/image"
 public_folder: "/image"
@@ -59,7 +56,7 @@ collections:
               - { name: "whatsapp", label: "WhatsApp Number", widget: "string", required: false, hint: "Nomor WhatsApp tanpa + (contoh: 6282169990088)" }
 
   # ============================================
-  # HERO SECTION (Simplified)
+  # HERO SECTION
   # ============================================
   - name: "hero"
     label: "🏠 Hero Section"
