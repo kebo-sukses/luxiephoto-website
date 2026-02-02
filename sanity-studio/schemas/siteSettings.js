@@ -40,8 +40,8 @@ export default {
       name: 'primaryColor',
       title: 'Primary Color',
       type: 'string',
-      description: 'Warna utama (hex code, contoh: #ec4899)',
-      initialValue: '#ec4899'
+      description: 'Warna utama (hex code, contoh: #388f6b)',
+      initialValue: '#388f6b'
     },
     {
       name: 'secondaryColor',
