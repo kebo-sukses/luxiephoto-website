@@ -89,7 +89,7 @@ const HeroSection = () => {
             transition={{ duration: 0.8, delay: 0.3 }}
             className="text-white/60 text-xs sm:text-sm tracking-[0.3em] uppercase mb-4"
           >
-            We Don't Live Forever. Memories Do.
+            {heroContent?.subtitle || "We Don't Live Forever. Memories Do."}
           </motion.p>
 
           {/* Main Title - Script/Elegant Font with Green color */}
@@ -99,7 +99,7 @@ const HeroSection = () => {
             transition={{ duration: 1, delay: 0.5 }}
             className="font-serif italic text-5xl sm:text-6xl md:text-7xl lg:text-8xl text-primary-400 leading-tight"
           >
-            Timeless Moments.
+            {heroContent?.title || "Timeless Moments."}
           </motion.h1>
         </div>
       </div>
