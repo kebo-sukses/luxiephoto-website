@@ -13,36 +13,6 @@
     [class*="AppHeader"] {
       background: linear-gradient(135deg, #388f6b 0%, #215c45 100%) !important;
     }
-    /* Color Picker Widget Styles */
-    .color-picker-widget {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      padding: 8px 0;
-    }
-    .color-picker-widget input[type="color"] {
-      width: 50px;
-      height: 40px;
-      border: 2px solid #ddd;
-      border-radius: 8px;
-      cursor: pointer;
-      padding: 2px;
-    }
-    .color-picker-widget input[type="text"] {
-      flex: 1;
-      padding: 10px 12px;
-      border: 2px solid #ddd;
-      border-radius: 8px;
-      font-family: monospace;
-      font-size: 14px;
-      text-transform: uppercase;
-    }
-    .color-picker-widget .color-preview {
-      width: 100px;
-      height: 40px;
-      border-radius: 8px;
-      border: 2px solid #ddd;
-    }
   </style>
   <script>
     window.CMS_MANUAL_INIT = true;
@@ -51,66 +21,6 @@
 <body>
   <script src="https://unpkg.com/decap-cms@^3.0.0/dist/decap-cms.js"></script>
   <script>
-    // Custom Color Picker Widget
-    const ColorPickerControl = createClass({
-      getInitialState() {
-        return { value: this.props.value || '#000000' };
-      },
-      handleColorChange(e) {
-        const value = e.target.value.toUpperCase();
-        this.setState({ value });
-        this.props.onChange(value);
-      },
-      handleTextChange(e) {
-        let value = e.target.value;
-        if (!value.startsWith('#')) value = '#' + value;
-        value = value.toUpperCase();
-        if (/^#[0-9A-F]{6}$/i.test(value)) {
-          this.setState({ value });
-          this.props.onChange(value);
-        } else {
-          this.setState({ value: e.target.value.toUpperCase() });
-        }
-      },
-      render() {
-        const value = this.state.value || '#000000';
-        return h('div', { className: 'color-picker-widget' },
-          h('input', {
-            type: 'color',
-            value: value,
-            onChange: this.handleColorChange
-          }),
-          h('input', {
-            type: 'text',
-            value: value,
-            onChange: this.handleTextChange,
-            placeholder: '#000000',
-            maxLength: 7
-          }),
-          h('div', {
-            className: 'color-preview',
-            style: { backgroundColor: value }
-          })
-        );
-      }
-    });
-
-    const ColorPickerPreview = createClass({
-      render() {
-        return h('div', {
-          style: {
-            backgroundColor: this.props.value || '#000000',
-            width: '100px',
-            height: '30px',
-            borderRadius: '4px',
-            display: 'inline-block'
-          }
-        });
-      }
-    });
-
-    CMS.registerWidget('color', ColorPickerControl, ColorPickerPreview);
-
     CMS.init({
       config: {
         load_config_file: false,
@@ -118,8 +28,8 @@
           name: 'github',
           repo: 'kebo-sukses/luxiephoto-website',
           branch: 'main',
-          base_url: 'https://dancing-squirrel-226937.netlify.app',
-          auth_endpoint: '/.netlify/functions/auth'
+          base_url: 'https://luxiephoto.com',
+          auth_endpoint: '/api/auth'
         },
         media_folder: 'public/image',
         public_folder: '/image',
@@ -142,43 +52,28 @@
                 file: 'content/settings/general.json',
                 fields: [
                   { name: 'siteName', label: 'Site Name', widget: 'string', default: 'LuxiePhoto' },
-                  { name: 'logoLight', label: 'Logo (Light/White - untuk header gelap)', widget: 'image', hint: 'Logo putih untuk header transparan (sebelum scroll)' },
-                  { name: 'logoDark', label: 'Logo (Dark/Black - untuk header terang)', widget: 'image', hint: 'Logo hitam untuk header putih (setelah scroll)' },
-                  { name: 'logoFooter', label: 'Logo (Footer)', widget: 'image', required: false, hint: 'Logo untuk footer (opsional)' },
+                  { name: 'tagline', label: 'Tagline', widget: 'string', required: false },
+                  { name: 'email', label: 'Email', widget: 'string', required: false },
+                  { name: 'phone', label: 'Phone', widget: 'string', required: false },
+                  { name: 'address', label: 'Address', widget: 'text', required: false },
                   { name: 'favicon', label: 'Favicon', widget: 'image', required: false, hint: 'Icon browser tab (format .ico atau .png)' },
-                  { name: 'tagline', label: 'Tagline', widget: 'string' },
-                  { name: 'email', label: 'Email', widget: 'string' },
-                  { name: 'phone', label: 'Phone', widget: 'string' },
-                  { name: 'address', label: 'Address', widget: 'text' },
+                  { name: 'logoLight', label: 'Logo Light/White (untuk header gelap)', widget: 'image', required: false, hint: 'Logo putih untuk header transparan' },
+                  { name: 'logoLightHeight', label: 'Logo Light Height (px)', widget: 'number', default: 48, min: 24, max: 120, required: false, hint: 'Ukuran tinggi logo dalam pixel (24-120px)' },
+                  { name: 'logoDark', label: 'Logo Dark (untuk header terang)', widget: 'image', required: false, hint: 'Logo untuk header putih setelah scroll' },
+                  { name: 'logoDarkHeight', label: 'Logo Dark Height (px)', widget: 'number', default: 48, min: 24, max: 120, required: false, hint: 'Ukuran tinggi logo dalam pixel (24-120px)' },
+                  { name: 'logoFooter', label: 'Logo Footer', widget: 'image', required: false },
                   {
-                    name: 'colors',
-                    label: '🎨 Brand Colors',
+                    name: 'social',
+                    label: 'Social Media',
                     widget: 'object',
-                    collapsed: false,
+                    required: false,
                     fields: [
-                      { name: 'primary', label: 'Primary Color (Green)', widget: 'color', default: '#388f6b', hint: 'Warna utama untuk tombol, link, aksen' },
-                      { name: 'gold', label: 'Gold Color', widget: 'color', default: '#FFD700', hint: 'Warna emas untuk aksen premium' },
-                      { name: 'forest', label: 'Forest Green Color', widget: 'color', default: '#001B0E', hint: 'Warna hijau gelap' },
-                      { name: 'dark', label: 'Dark Color', widget: 'color', default: '#1A1A1A', hint: 'Warna gelap untuk teks' },
-                      { name: 'white', label: 'White Color', widget: 'color', default: '#FFFFFF', hint: 'Warna putih untuk background' }
+                      { name: 'instagram', label: 'Instagram URL', widget: 'string', required: false },
+                      { name: 'facebook', label: 'Facebook URL', widget: 'string', required: false },
+                      { name: 'youtube', label: 'YouTube URL', widget: 'string', required: false },
+                      { name: 'whatsapp', label: 'WhatsApp Number', widget: 'string', required: false, hint: 'Format: 6282169990088 (tanpa + atau spasi)' }
                     ]
                   }
-                ]
-              },
-              {
-                name: 'social',
-                label: 'Social Media Links',
-                file: 'content/settings/social.json',
-                fields: [
-                  { name: 'instagram', label: 'Instagram URL', widget: 'string', required: false, hint: 'Contoh: https://instagram.com/luxiephoto' },
-                  { name: 'facebook', label: 'Facebook URL', widget: 'string', required: false, hint: 'Contoh: https://facebook.com/luxiephoto' },
-                  { name: 'youtube', label: 'YouTube URL', widget: 'string', required: false, hint: 'Contoh: https://youtube.com/@luxiephoto' },
-                  { name: 'tiktok', label: 'TikTok URL', widget: 'string', required: false, hint: 'Contoh: https://tiktok.com/@luxiephoto' },
-                  { name: 'twitter', label: 'Twitter/X URL', widget: 'string', required: false, hint: 'Contoh: https://twitter.com/luxiephoto' },
-                  { name: 'pinterest', label: 'Pinterest URL', widget: 'string', required: false, hint: 'Contoh: https://pinterest.com/luxiephoto' },
-                  { name: 'whatsapp', label: 'WhatsApp Number', widget: 'string', required: false, hint: 'Format: 628123456789 (tanpa + atau spasi)' },
-                  { name: 'telegram', label: 'Telegram URL', widget: 'string', required: false, hint: 'Contoh: https://t.me/luxiephoto' },
-                  { name: 'linkedin', label: 'LinkedIn URL', widget: 'string', required: false, hint: 'Contoh: https://linkedin.com/company/luxiephoto' }
                 ]
               }
             ]
@@ -192,17 +87,9 @@
                 label: 'Hero Content',
                 file: 'content/hero/hero.json',
                 fields: [
-                  { name: 'subtitle', label: 'Subtitle', widget: 'string', default: 'Luxury Wedding Photography' },
-                  { name: 'title', label: 'Title', widget: 'string', default: 'Capturing Your' },
-                  { name: 'titleHighlight', label: 'Title Highlight', widget: 'string', default: 'Timeless Moments' },
-                  { name: 'description', label: 'Description', widget: 'text' },
-                  { name: 'ctaText', label: 'CTA Button Text', widget: 'string', default: 'View Our Work' },
-                  { name: 'ctaSecondary', label: 'Secondary Button Text', widget: 'string', default: 'Get in Touch' },
-                  { name: 'backgroundImages', label: 'Background Images', widget: 'list', field: { name: 'image', label: 'Image', widget: 'image' } },
-                  { name: 'stats', label: 'Statistics', widget: 'list', fields: [
-                    { name: 'number', label: 'Number', widget: 'string' },
-                    { name: 'label', label: 'Label', widget: 'string' }
-                  ]}
+                  { name: 'subtitle', label: 'Subtitle', widget: 'string', default: 'We Don\'t Live Forever. Memories Do.' },
+                  { name: 'title', label: 'Title (Judul Utama)', widget: 'string', default: 'Timeless Moments.' },
+                  { name: 'backgroundImages', label: 'Background Images', widget: 'list', required: false, field: { name: 'image', label: 'Image', widget: 'image' } }
                 ]
               }
             ]
@@ -220,10 +107,10 @@
                   { name: 'decorativeText', label: 'Decorative Text', widget: 'string', default: 'Our Story' },
                   { name: 'title', label: 'Title', widget: 'string' },
                   { name: 'description', label: 'Description', widget: 'text' },
-                  { name: 'images', label: 'About Images (4 images)', widget: 'list', max: 4, min: 4, field: { name: 'image', label: 'Image', widget: 'image' } },
-                  { name: 'signature', label: 'Signature Name', widget: 'string' },
-                  { name: 'experience', label: 'Experience Text', widget: 'string', default: '15+ Years of Excellence' },
-                  { name: 'features', label: 'Features', widget: 'list', fields: [
+                  { name: 'image', label: 'About Image', widget: 'image', required: false },
+                  { name: 'signature', label: 'Signature Name', widget: 'string', required: false },
+                  { name: 'experience', label: 'Experience Text', widget: 'string', default: '15+ Years of Excellence', required: false },
+                  { name: 'features', label: 'Features', widget: 'list', required: false, fields: [
                     { name: 'title', label: 'Title', widget: 'string' },
                     { name: 'description', label: 'Description', widget: 'text' }
                   ]}
@@ -240,7 +127,6 @@
             extension: 'json',
             format: 'json',
             fields: [
-              { name: 'id', label: 'ID (auto)', widget: 'string', hint: 'ID unik (huruf kecil, tanpa spasi)' },
               { name: 'names', label: 'Couple Names', widget: 'string' },
               { name: 'category', label: 'Category', widget: 'select', options: ['Wedding', 'Pre-Wedding', 'Engagement', 'Garden Wedding', 'Beach Wedding', 'Rustic Wedding', 'Luxury Wedding', 'Traditional Wedding', 'Mountain Wedding', 'Castle Wedding'] },
               { name: 'location', label: 'Location', widget: 'string' },
@@ -260,7 +146,6 @@
             extension: 'json',
             format: 'json',
             fields: [
-              { name: 'id', label: 'ID (auto)', widget: 'string', hint: 'ID unik (huruf kecil, tanpa spasi)' },
               { name: 'names', label: 'Couple Names', widget: 'string' },
               { name: 'role', label: 'Role', widget: 'string', default: 'Bride & Groom' },
               { name: 'rating', label: 'Rating', widget: 'number', min: 1, max: 5, default: 5 },
@@ -279,7 +164,6 @@
             extension: 'json',
             format: 'json',
             fields: [
-              { name: 'id', label: 'ID (auto)', widget: 'string', hint: 'ID unik (huruf kecil, tanpa spasi)' },
               { name: 'name', label: 'Plan Name', widget: 'string' },
               { name: 'subtitle', label: 'Subtitle', widget: 'string' },
               { name: 'price', label: 'Price', widget: 'number' },
@@ -288,7 +172,7 @@
               { name: 'popular', label: 'Popular Badge', widget: 'boolean', default: false },
               { name: 'order', label: 'Display Order', widget: 'number', default: 1 },
               { name: 'ctaText', label: 'Button Text', widget: 'string', default: 'Choose Plan' },
-              { name: 'ctaLink', label: 'Button Link (URL)', widget: 'string', hint: 'Link tujuan saat tombol diklik. Contoh: https://wa.me/628xxx atau #contact', required: false },
+              { name: 'ctaLink', label: 'Button Link (URL)', widget: 'string', hint: 'Link tujuan saat tombol diklik. Contoh: https://wa.me/628xxx', required: false },
               { name: 'features', label: 'Included Features', widget: 'list', field: { name: 'feature', label: 'Feature', widget: 'string' } },
               { name: 'notIncluded', label: 'Not Included', widget: 'list', required: false, field: { name: 'feature', label: 'Feature', widget: 'string' } }
             ]
@@ -302,11 +186,27 @@
             extension: 'json',
             format: 'json',
             fields: [
-              { name: 'id', label: 'ID (auto)', widget: 'string', hint: 'ID unik (huruf kecil, tanpa spasi)' },
               { name: 'name', label: 'Partner Name', widget: 'string' },
               { name: 'logo', label: 'Logo', widget: 'image', required: false },
               { name: 'website', label: 'Website', widget: 'string', required: false },
               { name: 'order', label: 'Display Order', widget: 'number', default: 1 }
+            ]
+          },
+          {
+            name: 'services',
+            label: '🛠️ Services',
+            folder: 'content/services',
+            create: true,
+            slug: '{{slug}}',
+            extension: 'json',
+            format: 'json',
+            fields: [
+              { name: 'id', label: 'ID (unique)', widget: 'string', hint: 'ID unik untuk service, contoh: wedding-photography' },
+              { name: 'title', label: 'Service Title', widget: 'string' },
+              { name: 'icon', label: 'Icon', widget: 'select', options: ['Camera', 'Video', 'Brush', 'Heart'], default: 'Camera' },
+              { name: 'description', label: 'Description', widget: 'text' },
+              { name: 'order', label: 'Display Order', widget: 'number', default: 1 },
+              { name: 'features', label: 'Features', widget: 'list', required: false, field: { name: 'feature', label: 'Feature', widget: 'string' } }
             ]
           },
           {
@@ -318,30 +218,49 @@
                 label: 'Contact Information',
                 file: 'content/contact/contact.json',
                 fields: [
-                  { name: 'subtitle', label: 'Section Subtitle', widget: 'string', default: 'Get In Touch', hint: 'Small text above title' },
-                  { name: 'decorativeText', label: 'Decorative Text', widget: 'string', default: 'Contact', hint: 'Background decorative text' },
+                  { name: 'subtitle', label: 'Section Subtitle', widget: 'string', default: 'Get In Touch' },
+                  { name: 'decorativeText', label: 'Decorative Text', widget: 'string', default: 'Contact' },
                   { name: 'title', label: 'Section Title', widget: 'string', default: "Let's Create Something Beautiful Together" },
-                  { name: 'description', label: 'Section Description', widget: 'text', hint: 'Description text below title' },
-                  { name: 'formTitle', label: 'Form Title', widget: 'string', default: 'Book a Session' },
-                  { name: 'formDescription', label: 'Form Description', widget: 'string', default: "Fill out the form and we'll get back to you within 24 hours." },
-                  { name: 'address', label: 'Address', widget: 'text' },
-                  { name: 'phone', label: 'Phone', widget: 'string' },
-                  { name: 'email', label: 'Email', widget: 'string' },
-                  { name: 'website', label: 'Website', widget: 'string' },
-                  { name: 'hours', label: 'Business Hours', widget: 'string' },
+                  { name: 'description', label: 'Section Description', widget: 'text', required: false },
+                  { name: 'formTitle', label: 'Form Title', widget: 'string', default: 'Book a Session', required: false },
+                  { name: 'formDescription', label: 'Form Description', widget: 'string', default: "Fill out the form and we'll get back to you within 24 hours.", required: false },
+                  { name: 'address', label: 'Address', widget: 'text', required: false },
+                  { name: 'phone', label: 'Phone', widget: 'string', required: false },
+                  { name: 'email', label: 'Email', widget: 'string', required: false },
+                  { name: 'website', label: 'Website', widget: 'string', required: false },
+                  { name: 'hours', label: 'Business Hours', widget: 'string', required: false },
                   {
                     name: 'social',
                     label: 'Social Media',
                     widget: 'object',
+                    required: false,
                     fields: [
-                      { name: 'instagram', label: 'Instagram', widget: 'string' },
-                      { name: 'facebook', label: 'Facebook', widget: 'string' },
-                      { name: 'pinterest', label: 'Pinterest', widget: 'string' },
-                      { name: 'youtube', label: 'YouTube', widget: 'string' }
+                      { name: 'instagram', label: 'Instagram', widget: 'string', required: false },
+                      { name: 'facebook', label: 'Facebook', widget: 'string', required: false },
+                      { name: 'pinterest', label: 'Pinterest', widget: 'string', required: false },
+                      { name: 'youtube', label: 'YouTube', widget: 'string', required: false }
                     ]
                   }
                 ]
               }
+            ]
+          },
+          {
+            name: 'blog',
+            label: '📝 Blog Posts',
+            folder: 'content/blog',
+            create: true,
+            slug: '{{slug}}',
+            extension: 'json',
+            format: 'json',
+            fields: [
+              { name: 'title', label: 'Title', widget: 'string' },
+              { name: 'date', label: 'Publish Date', widget: 'datetime' },
+              { name: 'author', label: 'Author', widget: 'string', default: 'Admin' },
+              { name: 'category', label: 'Category', widget: 'select', options: ['Tips', 'Inspiration', 'Behind the Scenes', 'News'] },
+              { name: 'image', label: 'Featured Image', widget: 'image' },
+              { name: 'excerpt', label: 'Excerpt', widget: 'text' },
+              { name: 'body', label: 'Body', widget: 'markdown' }
             ]
           }
         ]
@@ -364,7 +283,6 @@
           });
           if (response.ok) {
             console.log('Vercel deploy triggered successfully!');
-            // Show notification to user
             setTimeout(() => {
               alert('✅ Published! Website will update in ~1-2 minutes.');
             }, 500);
