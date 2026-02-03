@@ -26,10 +26,18 @@ const AboutSection = () => {
   ];
   const images = aboutContent?.images || defaultImages;
 
+  // Get badge data from CMS or use defaults
+  const badgeNumber = aboutContent?.badge?.number || aboutContent?.badgeNumber || '15+';
+  const badgeLabel = aboutContent?.badge?.label || aboutContent?.badgeLabel || 'YEARS';
+  
+  // Get CTA data from CMS or use defaults
+  const ctaText = aboutContent?.cta?.text || aboutContent?.ctaText || 'Learn More';
+  const ctaLink = aboutContent?.cta?.link || aboutContent?.ctaLink || 'https://wa.me/6282169990088?text=Halo,%20saya%20tertarik%20untuk%20mengetahui%20lebih%20lanjut%20tentang%20layanan%20LuxiePhoto';
+
   const achievements = [
     { icon: Award, number: '50+', label: 'Awards Won' },
     { icon: Users, number: '500+', label: 'Happy Couples' },
-    { icon: Clock, number: '15+', label: 'Years Experience' },
+    { icon: Clock, number: badgeNumber, label: badgeLabel + ' Experience' },
   ];
 
   return (
@@ -95,7 +103,7 @@ const AboutSection = () => {
                 </motion.div>
               </div>
 
-              {/* Experience Badge */}
+              {/* Experience Badge - Now from CMS */}
               <motion.div
                 initial={{ opacity: 0, scale: 0.8 }}
                 whileInView={{ opacity: 1, scale: 1 }}
@@ -104,8 +112,8 @@ const AboutSection = () => {
                 className="absolute -bottom-6 -right-6 lg:bottom-8 lg:-right-8 bg-primary-500 text-white rounded-2xl p-6 shadow-xl shadow-primary-500/30"
               >
                 <div className="text-center">
-                  <span className="block font-serif text-4xl lg:text-5xl font-bold">15+</span>
-                  <span className="text-sm uppercase tracking-wider opacity-90">Years</span>
+                  <span className="block font-serif text-4xl lg:text-5xl font-bold">{badgeNumber}</span>
+                  <span className="text-sm uppercase tracking-wider opacity-90">{badgeLabel}</span>
                 </div>
               </motion.div>
 
@@ -118,24 +126,20 @@ const AboutSection = () => {
           <div>
             <AnimatedSection animation="fadeInRight">
               <SectionTitle
-                subtitle={aboutContent.subtitle}
-                decorativeText={aboutContent.decorativeText}
-                title={aboutContent.title}
-                align="left"
-                animated={false}
+                subtitle={aboutContent?.subtitle || 'About Us'}
+                decorativeText={aboutContent?.decorativeText || 'Our Story'}
+                title={aboutContent?.title || "We're Luxie, Passionate Wedding Storytellers"}
+                description={aboutContent?.description}
+                alignment="left"
               />
 
-              <p className="text-gray-600 leading-relaxed text-lg mb-8">
-                {aboutContent.description}
-              </p>
-
-              {/* Features Grid */}
-              <StaggerContainer className="grid sm:grid-cols-2 gap-4 mb-10" staggerDelay={0.1}>
+              {/* Features */}
+              <StaggerContainer className="space-y-4 mb-8" staggerDelay={0.1}>
                 {(aboutContent?.features || []).map((feature, index) => (
                   <StaggerItem key={index}>
-                    <div className="flex items-start gap-4 p-4 rounded-xl bg-gray-50 hover:bg-primary-50 transition-colors group">
-                      <div className="w-10 h-10 rounded-full bg-white shadow-md flex items-center justify-center flex-shrink-0 group-hover:bg-primary-500 group-hover:shadow-primary-500/30 transition-all">
-                        <Camera className="w-5 h-5 text-primary-500 group-hover:text-white transition-colors" />
+                    <div className="flex items-start gap-4 p-4 rounded-xl hover:bg-gray-50 transition-colors">
+                      <div className="w-10 h-10 rounded-lg bg-primary-100 flex items-center justify-center flex-shrink-0">
+                        <div className="w-2 h-2 rounded-full bg-primary-500" />
                       </div>
                       <div>
                         <h4 className="font-medium text-gray-900 mb-1">{feature.title}</h4>
@@ -146,21 +150,21 @@ const AboutSection = () => {
                 ))}
               </StaggerContainer>
 
-              {/* Signature & CTA */}
+              {/* Signature & CTA - Now from CMS */}
               <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-6 pt-8 border-t border-gray-100">
                 <div>
                   <span className="font-serif italic text-3xl text-gray-800 block mb-1">
                     {aboutContent?.signature || 'Luxie Photo'}
                   </span>
-                  <span className="text-sm text-gray-500">{aboutContent?.experience || 'Lead Photographer'}</span>
+                  <span className="text-sm text-gray-500">{aboutContent?.signatureRole || aboutContent?.experience || 'Lead Photographer'}</span>
                 </div>
                 <Button
                   variant="secondary"
                   icon={ArrowRight}
                   iconPosition="right"
-                  onClick={() => window.open('https://wa.me/6282169990088?text=Halo,%20saya%20tertarik%20untuk%20mengetahui%20lebih%20lanjut%20tentang%20layanan%20LuxiePhoto', '_blank')}
+                  onClick={() => window.open(ctaLink, '_blank')}
                 >
-                  Learn More
+                  {ctaText}
                 </Button>
               </div>
             </AnimatedSection>
@@ -191,70 +195,26 @@ const AboutSection = () => {
                     </div>
 
                     {/* Content */}
-                    <h3 className="font-serif text-xl text-gray-900 mb-3 group-hover:text-primary-500 transition-colors">
-                      {service.title}
-                    </h3>
-                    <p className="text-gray-500 text-sm mb-4 line-clamp-2">
-                      {service.description}
-                    </p>
+                    <h3 className="text-lg font-semibold text-gray-900 mb-2">{service.title}</h3>
+                    <p className="text-gray-500 text-sm leading-relaxed mb-4">{service.description}</p>
 
                     {/* Features */}
-                    <ul className="space-y-2 mb-5">
-                      {(service?.features || []).slice(0, 3).map((feature, idx) => (
-                        <li key={idx} className="flex items-center text-sm text-gray-600">
-                          <span className="w-1.5 h-1.5 bg-primary-500 rounded-full mr-2" />
-                          {feature}
-                        </li>
-                      ))}
-                    </ul>
-
-                    {/* Link */}
-                    <a
-                      href={`https://wa.me/6282169990088?text=Halo,%20saya%20tertarik%20dengan%20layanan%20${encodeURIComponent(service.title)}`}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="inline-flex items-center text-sm font-medium text-gray-700 hover:text-primary-500 transition-colors group/link"
-                    >
-                      Learn More
-                      <ArrowRight className="w-4 h-4 ml-2 group-hover/link:translate-x-1 transition-transform" />
-                    </a>
+                    {service.features && service.features.length > 0 && (
+                      <ul className="space-y-2">
+                        {service.features.slice(0, 3).map((feature, index) => (
+                          <li key={index} className="flex items-center gap-2 text-sm text-gray-600">
+                            <div className="w-1.5 h-1.5 rounded-full bg-primary-400" />
+                            {feature}
+                          </li>
+                        ))}
+                      </ul>
+                    )}
                   </motion.div>
                 </StaggerItem>
               );
             })}
           </StaggerContainer>
         </div>
-
-        {/* Achievement Stats */}
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6 }}
-          className="mt-20 p-8 lg:p-12 bg-gradient-to-r from-dark-900 to-dark-800 rounded-3xl"
-        >
-          <div className="grid md:grid-cols-3 gap-8">
-            {achievements.map((item, index) => {
-              const Icon = item.icon;
-              return (
-                <motion.div
-                  key={index}
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ duration: 0.5, delay: index * 0.1 }}
-                  className="text-center"
-                >
-                  <div className="w-16 h-16 rounded-full bg-primary-500/20 flex items-center justify-center mx-auto mb-4">
-                    <Icon className="w-8 h-8 text-primary-400" />
-                  </div>
-                  <div className="font-serif text-4xl lg:text-5xl text-white mb-2">{item.number}</div>
-                  <div className="text-gray-400 uppercase tracking-wider text-sm">{item.label}</div>
-                </motion.div>
-              );
-            })}
-          </div>
-        </motion.div>
       </div>
     </section>
   );
