@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { ArrowRight, MapPin, Eye, Heart, X } from 'lucide-react';
+import { ArrowRight, MapPin, Eye, Heart, X, ChevronLeft, ChevronRight } from 'lucide-react';
 import { useCMS } from '@/context/CMSContext';
 import { SectionTitle, Button, OptimizedImage, StaggerContainer, StaggerItem } from '@/components/common';
 import { cn } from '@/utils/helpers';
@@ -10,14 +10,59 @@ const PortfolioSection = () => {
   const portfolioItems = getPortfolio() || [];
   
   const [selectedItem, setSelectedItem] = useState(null);
-  const [activeFilter, setActiveFilter] = useState('All');
+  const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const [hoveredId, setHoveredId] = useState(null);
 
-  const categories = ['All', ...new Set(portfolioItems.map(item => item.category))];
+  // Get all items without category filter
+  const displayItems = portfolioItems;
 
-  const filteredItems = activeFilter === 'All'
-    ? portfolioItems
-    : portfolioItems.filter(item => item.category === activeFilter);
+  // Gallery navigation functions
+  const openLightbox = (item) => {
+    setSelectedItem(item);
+    setCurrentImageIndex(0);
+  };
+
+  const closeLightbox = () => {
+    setSelectedItem(null);
+    setCurrentImageIndex(0);
+  };
+
+  const nextImage = (e) => {
+    e.stopPropagation();
+    if (!selectedItem) return;
+    const gallery = selectedItem.gallery && selectedItem.gallery.length > 0 
+      ? selectedItem.gallery 
+      : [selectedItem.image];
+    setCurrentImageIndex((prev) => (prev + 1) % gallery.length);
+  };
+
+  const prevImage = (e) => {
+    e.stopPropagation();
+    if (!selectedItem) return;
+    const gallery = selectedItem.gallery && selectedItem.gallery.length > 0 
+      ? selectedItem.gallery 
+      : [selectedItem.image];
+    setCurrentImageIndex((prev) => (prev - 1 + gallery.length) % gallery.length);
+  };
+
+  // Keyboard navigation
+  useEffect(() => {
+    const handleKeyDown = (e) => {
+      if (!selectedItem) return;
+      if (e.key === 'ArrowRight') nextImage(e);
+      if (e.key === 'ArrowLeft') prevImage(e);
+      if (e.key === 'Escape') closeLightbox();
+    };
+
+    if (selectedItem) {
+      window.addEventListener('keydown', handleKeyDown);
+      document.body.style.overflow = 'hidden';
+    }
+    return () => {
+      window.removeEventListener('keydown', handleKeyDown);
+      document.body.style.overflow = 'unset';
+    };
+  }, [selectedItem, currentImageIndex]);
 
   return (
     <section className="py-24 lg:py-32 bg-gray-50 relative overflow-hidden">
@@ -36,37 +81,13 @@ const PortfolioSection = () => {
           description="Browse through our collection of timeless wedding photographs capturing the most precious moments."
         />
 
-        {/* Filter Tabs */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.5 }}
-          className="flex flex-wrap justify-center gap-3 mb-12"
-        >
-          {categories.map((category) => (
-            <button
-              key={category}
-              onClick={() => setActiveFilter(category)}
-              className={cn(
-                'px-6 py-2.5 rounded-full text-sm font-medium tracking-wider uppercase transition-all duration-300',
-                activeFilter === category
-                  ? 'bg-primary-500 text-white shadow-lg shadow-primary-500/30'
-                  : 'bg-white text-gray-600 hover:bg-gray-100 shadow-sm'
-              )}
-            >
-              {category}
-            </button>
-          ))}
-        </motion.div>
-
         {/* Portfolio Grid */}
         <StaggerContainer
           className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6"
           staggerDelay={0.08}
         >
           <AnimatePresence mode="popLayout">
-            {filteredItems.map((item, index) => {
+            {displayItems.map((item, index) => {
               const isLarge = index === 1 || index === 6;
               
               return (
@@ -90,7 +111,7 @@ const PortfolioSection = () => {
                         'relative overflow-hidden rounded-2xl cursor-pointer',
                         isLarge ? 'aspect-[3/5]' : 'aspect-[3/4]'
                       )}
-                      onClick={() => setSelectedItem(item)}
+                      onClick={() => openLightbox(item)}
                     >
                       <OptimizedImage
                         src={item.image}
@@ -128,9 +149,6 @@ const PortfolioSection = () => {
                         }}
                         className="absolute bottom-0 left-0 right-0 p-6 text-white"
                       >
-                        <span className="text-xs uppercase tracking-wider text-primary-300 mb-1 block">
-                          {item.category}
-                        </span>
                         <h3 className="font-serif text-xl mb-2">{item.names}</h3>
                         <div className="flex items-center text-sm text-white/70">
                           <MapPin className="w-4 h-4 mr-1" />
@@ -142,7 +160,7 @@ const PortfolioSection = () => {
                     {/* Info Below Image (visible on non-hover) */}
                     <div className="mt-4 text-center group-hover:opacity-0 transition-opacity">
                       <span className="font-serif italic text-2xl text-gray-200 block">
-                        {item.category}
+                        {item.location}
                       </span>
                       <h3 className="font-serif text-lg text-gray-900 -mt-2 relative z-10">
                         {item.names}
@@ -168,61 +186,140 @@ const PortfolioSection = () => {
             size="lg"
             icon={ArrowRight}
             iconPosition="right"
-            onClick={() => window.location.href = '/portfolio'}
+            onClick={() => window.location.href = '/gallery'}
           >
             View Full Gallery
           </Button>
         </motion.div>
       </div>
 
-      {/* Lightbox Modal */}
+      {/* Lightbox Modal with Gallery Slider */}
       <AnimatePresence>
         {selectedItem && (
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="fixed inset-0 z-50 bg-black/95 flex items-center justify-center p-4"
-            onClick={() => setSelectedItem(null)}
+            className="fixed inset-0 z-50 bg-black/95 flex items-center justify-center"
+            onClick={closeLightbox}
           >
+            {/* Close Button */}
+            <button
+              onClick={closeLightbox}
+              className="absolute top-4 right-4 z-10 w-12 h-12 rounded-full bg-white/10 flex items-center justify-center text-white hover:bg-white/20 transition-colors"
+            >
+              <X className="w-6 h-6" />
+            </button>
+
+            {/* Navigation Arrows */}
+            {(() => {
+              const gallery = selectedItem.gallery && selectedItem.gallery.length > 0 
+                ? selectedItem.gallery 
+                : [selectedItem.image];
+              
+              if (gallery.length > 1) {
+                return (
+                  <>
+                    <button
+                      onClick={prevImage}
+                      className="absolute left-4 top-1/2 -translate-y-1/2 z-10 w-12 h-12 rounded-full bg-white/10 flex items-center justify-center text-white hover:bg-white/20 transition-colors"
+                    >
+                      <ChevronLeft className="w-6 h-6" />
+                    </button>
+                    <button
+                      onClick={nextImage}
+                      className="absolute right-4 top-1/2 -translate-y-1/2 z-10 w-12 h-12 rounded-full bg-white/10 flex items-center justify-center text-white hover:bg-white/20 transition-colors"
+                    >
+                      <ChevronRight className="w-6 h-6" />
+                    </button>
+                  </>
+                );
+              }
+              return null;
+            })()}
+
+            {/* Main Content */}
             <motion.div
               initial={{ scale: 0.9, opacity: 0 }}
               animate={{ scale: 1, opacity: 1 }}
               exit={{ scale: 0.9, opacity: 0 }}
-              className="relative max-w-5xl w-full"
+              className="relative max-w-5xl w-full mx-4"
               onClick={(e) => e.stopPropagation()}
             >
-              {/* Close Button */}
-              <button
-                onClick={() => setSelectedItem(null)}
-                className="absolute -top-12 right-0 w-10 h-10 rounded-full bg-white/10 flex items-center justify-center text-white hover:bg-white/20 transition-colors"
-              >
-                <X className="w-5 h-5" />
-              </button>
-
-              {/* Image */}
-              <div className="aspect-[4/3] rounded-2xl overflow-hidden">
-                <OptimizedImage
-                  src={selectedItem.image}
-                  alt={selectedItem.names}
-                  className="w-full h-full"
-                  containerClassName="w-full h-full"
-                />
+              {/* Main Image */}
+              <div className="aspect-[4/3] lg:aspect-[16/10] rounded-2xl overflow-hidden bg-black">
+                <AnimatePresence mode="wait">
+                  <motion.div
+                    key={currentImageIndex}
+                    initial={{ opacity: 0, x: 50 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    exit={{ opacity: 0, x: -50 }}
+                    transition={{ duration: 0.3 }}
+                    className="w-full h-full"
+                  >
+                    <OptimizedImage
+                      src={
+                        selectedItem.gallery && selectedItem.gallery.length > 0
+                          ? selectedItem.gallery[currentImageIndex]
+                          : selectedItem.image
+                      }
+                      alt={`${selectedItem.names} - Photo ${currentImageIndex + 1}`}
+                      className="w-full h-full object-contain"
+                      containerClassName="w-full h-full"
+                    />
+                  </motion.div>
+                </AnimatePresence>
               </div>
 
-              {/* Info */}
+              {/* Info & Thumbnails */}
               <div className="mt-6 text-center text-white">
-                <span className="text-primary-400 text-sm uppercase tracking-wider">
-                  {selectedItem.category}
-                </span>
-                <h3 className="font-serif text-3xl mt-2">{selectedItem.names}</h3>
+                <h3 className="font-serif text-2xl lg:text-3xl">{selectedItem.names}</h3>
                 <div className="flex items-center justify-center text-gray-400 mt-2">
                   <MapPin className="w-4 h-4 mr-2" />
                   {selectedItem.location}
                 </div>
-                <p className="text-gray-400 mt-4 max-w-xl mx-auto">
+                <p className="text-gray-500 mt-3 max-w-xl mx-auto text-sm">
                   {selectedItem.description}
                 </p>
+
+                {/* Thumbnail Navigation */}
+                {(() => {
+                  const gallery = selectedItem.gallery && selectedItem.gallery.length > 0 
+                    ? selectedItem.gallery 
+                    : [selectedItem.image];
+                  
+                  if (gallery.length > 1) {
+                    return (
+                      <div className="mt-6">
+                        <div className="flex items-center justify-center gap-2 overflow-x-auto py-2">
+                          {gallery.map((img, idx) => (
+                            <button
+                              key={idx}
+                              onClick={() => setCurrentImageIndex(idx)}
+                              className={cn(
+                                'w-14 h-14 rounded-lg overflow-hidden flex-shrink-0 transition-all',
+                                currentImageIndex === idx 
+                                  ? 'ring-2 ring-primary-500 ring-offset-2 ring-offset-black' 
+                                  : 'opacity-50 hover:opacity-100'
+                              )}
+                            >
+                              <OptimizedImage
+                                src={img}
+                                alt={`Thumbnail ${idx + 1}`}
+                                className="w-full h-full object-cover"
+                                containerClassName="w-full h-full"
+                              />
+                            </button>
+                          ))}
+                        </div>
+                        <p className="text-gray-500 text-sm mt-3">
+                          {currentImageIndex + 1} / {gallery.length}
+                        </p>
+                      </div>
+                    );
+                  }
+                  return null;
+                })()}
               </div>
             </motion.div>
           </motion.div>
