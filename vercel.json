@@ -2,7 +2,16 @@
   "buildCommand": "npm run build",
   "outputDirectory": "dist",
   "framework": "vite",
-  "redirects": [
-    { "source": "/api/auth/callback", "destination": "/api/auth/callback/index.html", "statusCode": 308 }
+  "rewrites": [
+    { "source": "/api/auth", "destination": "/api/auth/index.js" },
+    { "source": "/api/auth/callback", "destination": "/api/auth/callback.js" }
+  ],
+  "headers": [
+    {
+      "source": "/admin/(.*)",
+      "headers": [
+        { "key": "Cache-Control", "value": "no-cache, no-store, must-revalidate" }
+      ]
+    }
   ]
 }
