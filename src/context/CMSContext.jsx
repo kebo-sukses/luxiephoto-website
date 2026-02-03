@@ -16,15 +16,11 @@ import serviceWeddingVideo from '../../content/services/wedding-videography.json
 import servicePhotoRetouch from '../../content/services/photo-retouching.json';
 import servicePreWedding from '../../content/services/pre-wedding-shoot.json';
 
-// Import Portfolio
-import portfolioThomasGrace from '../../content/portfolio/thomas-grace.json';
-import portfolioMichaelGina from '../../content/portfolio/michael-gina.json';
-import portfolioFreddieAida from '../../content/portfolio/freddie-aida.json';
+// Import Portfolio from _data.json (single source of truth)
+import portfolioData from '../../content/portfolio/_data.json';
 
-// Import Testimonials
-import testimonialArthurLinda from '../../content/testimonials/arthur-linda.json';
-import testimonialFreddieAida from '../../content/testimonials/freddie-aida.json';
-import testimonialRobbieMaggie from '../../content/testimonials/robbie-maggie.json';
+// Import Testimonials from _data.json
+import testimonialsData from '../../content/testimonials/_data.json';
 
 // Import Pricing
 import pricingEssential from '../../content/pricing/essential.json';
@@ -38,8 +34,6 @@ import partnerPennelope from '../../content/partners/pennelope.json';
 
 // Compile data arrays
 const servicesData = [serviceWeddingPhoto, serviceWeddingVideo, servicePhotoRetouch, servicePreWedding];
-const portfolioData = [portfolioThomasGrace, portfolioMichaelGina, portfolioFreddieAida];
-const testimonialsData = [testimonialArthurLinda, testimonialFreddieAida, testimonialRobbieMaggie];
 const pricingData = [pricingEssential, pricingPremium, pricingLuxury];
 const partnersData = [partnerRoxana, partnerFelton, partnerPennelope];
 
