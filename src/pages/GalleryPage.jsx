@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { ArrowLeft, MapPin, X, ChevronLeft, ChevronRight, Grid, LayoutGrid } from 'lucide-react';
 import { useCMS } from '@/context/CMSContext';
@@ -30,28 +30,28 @@ const GalleryPage = () => {
     setCurrentImageIndex(imageIndex);
   };
 
-  const closeLightbox = () => {
+  const closeLightbox = useCallback(() => {
     setSelectedItem(null);
     setCurrentImageIndex(0);
-  };
+  }, []);
 
-  const nextImage = (e) => {
+  const nextImage = useCallback((e) => {
     e.stopPropagation();
     if (!selectedItem) return;
     const gallery = selectedItem.gallery && selectedItem.gallery.length > 0 
       ? selectedItem.gallery 
       : [selectedItem.image];
     setCurrentImageIndex((prev) => (prev + 1) % gallery.length);
-  };
+  }, [selectedItem]);
 
-  const prevImage = (e) => {
+  const prevImage = useCallback((e) => {
     e.stopPropagation();
     if (!selectedItem) return;
     const gallery = selectedItem.gallery && selectedItem.gallery.length > 0 
       ? selectedItem.gallery 
       : [selectedItem.image];
     setCurrentImageIndex((prev) => (prev - 1 + gallery.length) % gallery.length);
-  };
+  }, [selectedItem]);
 
   useEffect(() => {
     const handleKeyDown = (e) => {
@@ -69,7 +69,7 @@ const GalleryPage = () => {
       window.removeEventListener('keydown', handleKeyDown);
       document.body.style.overflow = 'unset';
     };
-  }, [selectedItem, currentImageIndex]);
+  }, [selectedItem, nextImage, prevImage, closeLightbox]);
 
   return (
     <div className="min-h-screen bg-gray-50">

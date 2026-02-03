@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { ArrowRight, MapPin, Eye, Heart, X, ChevronLeft, ChevronRight } from 'lucide-react';
 import { useCMS } from '@/context/CMSContext';
@@ -22,28 +22,28 @@ const PortfolioSection = () => {
     setCurrentImageIndex(0);
   };
 
-  const closeLightbox = () => {
+  const closeLightbox = useCallback(() => {
     setSelectedItem(null);
     setCurrentImageIndex(0);
-  };
+  }, []);
 
-  const nextImage = (e) => {
+  const nextImage = useCallback((e) => {
     e.stopPropagation();
     if (!selectedItem) return;
     const gallery = selectedItem.gallery && selectedItem.gallery.length > 0 
       ? selectedItem.gallery 
       : [selectedItem.image];
     setCurrentImageIndex((prev) => (prev + 1) % gallery.length);
-  };
+  }, [selectedItem]);
 
-  const prevImage = (e) => {
+  const prevImage = useCallback((e) => {
     e.stopPropagation();
     if (!selectedItem) return;
     const gallery = selectedItem.gallery && selectedItem.gallery.length > 0 
       ? selectedItem.gallery 
       : [selectedItem.image];
     setCurrentImageIndex((prev) => (prev - 1 + gallery.length) % gallery.length);
-  };
+  }, [selectedItem]);
 
   // Keyboard navigation
   useEffect(() => {
@@ -62,7 +62,7 @@ const PortfolioSection = () => {
       window.removeEventListener('keydown', handleKeyDown);
       document.body.style.overflow = 'unset';
     };
-  }, [selectedItem, currentImageIndex]);
+  }, [selectedItem, nextImage, prevImage, closeLightbox]);
 
   return (
     <section className="py-24 lg:py-32 bg-gray-50 relative overflow-hidden">
