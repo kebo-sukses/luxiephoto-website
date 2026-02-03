@@ -17,10 +17,10 @@ import servicePhotoRetouch from '../../content/services/photo-retouching.json';
 import servicePreWedding from '../../content/services/pre-wedding-shoot.json';
 
 // Import Portfolio from _data.json (single source of truth)
-import portfolioData from '../../content/portfolio/_data.json';
+import portfolioDataFile from '../../content/portfolio/_data.json';
 
 // Import Testimonials from _data.json
-import testimonialsData from '../../content/testimonials/_data.json';
+import testimonialsDataFile from '../../content/testimonials/_data.json';
 
 // Import Pricing
 import pricingEssential from '../../content/pricing/essential.json';
@@ -36,6 +36,14 @@ import partnerPennelope from '../../content/partners/pennelope.json';
 const servicesData = [serviceWeddingPhoto, serviceWeddingVideo, servicePhotoRetouch, servicePreWedding];
 const pricingData = [pricingEssential, pricingPremium, pricingLuxury];
 const partnersData = [partnerRoxana, partnerFelton, partnerPennelope];
+
+// Extract items from data files (support both array format and {items: []} format)
+const portfolioData = Array.isArray(portfolioDataFile) 
+  ? portfolioDataFile 
+  : (portfolioDataFile?.items || []);
+const testimonialsData = Array.isArray(testimonialsDataFile) 
+  ? testimonialsDataFile 
+  : (testimonialsDataFile?.items || []);
 
 const CMSContext = createContext(null);
 
