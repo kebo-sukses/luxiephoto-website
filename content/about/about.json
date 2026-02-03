@@ -1,4 +1,8 @@
 {
+  "subtitle": "OUR STORIES",
+  "decorativeText": "Our Story",
+  "title": "We Believe in Meaningful Moments and Memorable Experiences",
+  "description": "With over 5 years of experience, we've had the privilege of capturing hundreds of beautiful love stories. Our approach combines artistic vision with genuine emotion, ensuring every photograph reflects the authentic beauty of your special day.",
   "images": [
     "/image/LUXIE_11.jpg",
     "/image/LUXIE_12.jpg",
@@ -6,9 +10,10 @@
     "/image/LUXIE_30.jpg"
   ],
   "signature": "Luxie Photo",
-  "experience": "Lead Photographer",
-  "decorativeText": "Our Story",
-  "title": "We Believe in Meaningful Moments and Memorable Experiences",
-  "subtitle": "OUR STORIES",
-  "description": "With over 5 years of experience, we've had the privilege of capturing hundreds of beautiful love stories. Our approach combines artistic vision with genuine emotion, ensuring every photograph reflects the authentic beauty of your special day."
+  "signatureRole": "Lead Photographer",
+  "badgeNumber": "15+",
+  "badgeLabel": "YEARS",
+  "ctaText": "Learn More",
+  "ctaLink": "https://wa.me/6282169990088?text=Halo,%20saya%20tertarik%20untuk%20mengetahui%20lebih%20lanjut%20tentang%20layanan%20LuxiePhoto",
+  "features": []
 }
