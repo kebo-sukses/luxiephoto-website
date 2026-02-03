@@ -1,38 +1,54 @@
-[
-  {
-    "id": "arthur-linda",
-    "names": "Arthur & Linda",
-    "category": "Wedding",
-    "location": "Bali, Indonesia",
-    "description": "An intimate garden ceremony filled with timeless elegance and heartfelt moments.",
-    "image": "/image/LUXIE_1.jpg",
-    "featured": true
-  },
-  {
-    "id": "thomas-grace",
-    "names": "Thomas & Grace",
-    "category": "Beach Wedding",
-    "location": "Maldives",
-    "description": "A breathtaking sunset beach ceremony with golden hour perfection.",
-    "image": "/image/LUXIE_5.jpg",
-    "featured": true
-  },
-  {
-    "id": "michael-gina",
-    "names": "Michael & Gina",
-    "category": "Rustic Wedding",
-    "location": "Tuscany, Italy",
-    "description": "Rustic vineyard romance with rolling hills as the backdrop.",
-    "image": "/image/LUXIE_10.jpg",
-    "featured": true
-  },
-  {
-    "id": "freddie-aida",
-    "names": "Freddie & Aida",
-    "category": "Garden Wedding",
-    "location": "Singapore",
-    "description": "A lush botanical garden celebration surrounded by natural beauty.",
-    "image": "/image/LUXIE_15.jpg",
-    "featured": false
-  }
-]
+{
+  "items": [
+    {
+      "id": "arthur-linda",
+      "names": "Arthur & Linda",
+      "category": "Wedding",
+      "location": "Bali, Indonesia",
+      "description": "An intimate garden ceremony filled with timeless elegance and heartfelt moments.",
+      "image": "/image/LUXIE_1.jpg",
+      "featured": true,
+      "gallery": []
+    },
+    {
+      "id": "thomas-grace",
+      "names": "Thomas & Grace",
+      "category": "Beach Wedding",
+      "location": "Maldives",
+      "description": "A breathtaking sunset beach ceremony with golden hour perfection.",
+      "image": "/image/LUXIE_5.jpg",
+      "featured": true,
+      "gallery": []
+    },
+    {
+      "id": "michael-gina",
+      "names": "Michael & Gina",
+      "category": "Rustic Wedding",
+      "location": "Tuscany, Italy",
+      "description": "Rustic vineyard romance with rolling hills as the backdrop.",
+      "image": "/image/LUXIE_10.jpg",
+      "featured": true,
+      "gallery": []
+    },
+    {
+      "id": "freddie-aida",
+      "names": "Freddie & Aida",
+      "category": "Garden Wedding",
+      "location": "Singapore",
+      "description": "A lush botanical garden celebration surrounded by natural beauty.",
+      "image": "/image/LUXIE_15.jpg",
+      "featured": false,
+      "gallery": []
+    },
+    {
+      "id": "chesa-kelvin",
+      "names": "Chesa & Kelvin",
+      "category": "Luxury Wedding",
+      "location": "Jakarta, Indonesia",
+      "description": "An elegant luxury wedding celebration with stunning décor and unforgettable moments.",
+      "image": "/image/LUXIE_20.jpg",
+      "featured": true,
+      "gallery": []
+    }
+  ]
+}

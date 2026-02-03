@@ -5,6 +5,9 @@ backend:
   base_url: https://luxiephoto.com
   auth_endpoint: /api/auth
 
+# Publish mode - Editorial Workflow (optional, remove if not needed)
+# publish_mode: editorial_workflow
+
 # Media files
 media_folder: "public/image"
 public_folder: "/image"
@@ -35,25 +38,18 @@ collections:
         file: "content/settings/general.json"
         fields:
           - { name: "siteName", label: "Site Name", widget: "string", default: "LuxiePhoto" }
-          - { name: "tagline", label: "Tagline", widget: "string", required: false }
-          - { name: "email", label: "Email", widget: "string", required: false }
-          - { name: "phone", label: "Phone", widget: "string", required: false }
-          - { name: "address", label: "Address", widget: "text", required: false }
-          - { name: "favicon", label: "Favicon", widget: "image", required: false }
-          - { name: "logoLight", label: "Logo Light/White (untuk header gelap)", widget: "image", required: false }
-          - { name: "logoLightHeight", label: "Logo Light Height (px)", widget: "number", default: 48, min: 24, max: 120, required: false, hint: "Ukuran tinggi logo dalam pixel (24-120px)" }
-          - { name: "logoDark", label: "Logo Dark (untuk header terang)", widget: "image", required: false }
-          - { name: "logoDarkHeight", label: "Logo Dark Height (px)", widget: "number", default: 48, min: 24, max: 120, required: false, hint: "Ukuran tinggi logo dalam pixel (24-120px)" }
-          - { name: "logoFooter", label: "Logo Footer", widget: "image", required: false }
+          - { name: "tagline", label: "Tagline", widget: "string" }
+          - { name: "email", label: "Email", widget: "string" }
+          - { name: "phone", label: "Phone", widget: "string" }
+          - { name: "address", label: "Address", widget: "text" }
           - name: "social"
             label: "Social Media"
             widget: "object"
-            required: false
             fields:
               - { name: "instagram", label: "Instagram", widget: "string", required: false }
               - { name: "facebook", label: "Facebook", widget: "string", required: false }
               - { name: "youtube", label: "YouTube", widget: "string", required: false }
-              - { name: "whatsapp", label: "WhatsApp Number", widget: "string", required: false, hint: "Nomor WhatsApp tanpa + (contoh: 6282169990088)" }
+              - { name: "pinterest", label: "Pinterest", widget: "string", required: false }
 
   # ============================================
   # HERO SECTION
@@ -65,13 +61,22 @@ collections:
         label: "Hero Content"
         file: "content/hero/hero.json"
         fields:
-          - { name: "subtitle", label: "Subtitle", widget: "string", default: "We Don't Live Forever. Memories Do." }
-          - { name: "title", label: "Title (Judul Utama)", widget: "string", default: "Timeless Moments." }
+          - { name: "subtitle", label: "Subtitle", widget: "string", default: "Luxury Wedding Photography" }
+          - { name: "title", label: "Title", widget: "string", default: "Capturing Your" }
+          - { name: "titleHighlight", label: "Title Highlight", widget: "string", default: "Timeless Moments" }
+          - { name: "description", label: "Description", widget: "text" }
+          - { name: "ctaText", label: "CTA Button Text", widget: "string", default: "View Our Work" }
+          - { name: "ctaSecondary", label: "Secondary Button Text", widget: "string", default: "Get in Touch" }
           - name: "backgroundImages"
             label: "Background Images"
             widget: "list"
-            required: false
             field: { name: "image", label: "Image", widget: "image" }
+          - name: "stats"
+            label: "Statistics"
+            widget: "list"
+            fields:
+              - { name: "number", label: "Number", widget: "string" }
+              - { name: "label", label: "Label", widget: "string" }
 
   # ============================================
   # ABOUT SECTION
@@ -88,12 +93,11 @@ collections:
           - { name: "title", label: "Title", widget: "string" }
           - { name: "description", label: "Description", widget: "text" }
           - { name: "image", label: "About Image", widget: "image", required: false }
-          - { name: "signature", label: "Signature Name", widget: "string", required: false }
-          - { name: "experience", label: "Experience Text", widget: "string", default: "15+ Years of Excellence", required: false }
+          - { name: "signature", label: "Signature Name", widget: "string" }
+          - { name: "experience", label: "Experience Text", widget: "string", default: "15+ Years of Excellence" }
           - name: "features"
             label: "Features"
             widget: "list"
-            required: false
             fields:
               - { name: "title", label: "Title", widget: "string" }
               - { name: "description", label: "Description", widget: "text" }
@@ -116,47 +120,62 @@ collections:
       - name: "features"
         label: "Features"
         widget: "list"
-        required: false
         field: { name: "feature", label: "Feature", widget: "string" }
 
   # ============================================
-  # PORTFOLIO
+  # PORTFOLIO (File-based - Single JSON Array)
   # ============================================
   - name: "portfolio"
     label: "📸 Portfolio"
-    folder: "content/portfolio"
-    create: true
-    slug: "{{slug}}"
-    fields:
-      - { name: "names", label: "Couple Names", widget: "string" }
-      - { name: "category", label: "Category", widget: "select", options: ["Wedding", "Pre-Wedding", "Engagement", "Garden Wedding", "Beach Wedding", "Rustic Wedding", "Luxury Wedding", "Traditional Wedding", "Mountain Wedding", "Castle Wedding"] }
-      - { name: "location", label: "Location", widget: "string" }
-      - { name: "description", label: "Description", widget: "text" }
-      - { name: "image", label: "Main Image", widget: "image" }
-      - { name: "date", label: "Date", widget: "datetime", required: false }
-      - { name: "featured", label: "Featured", widget: "boolean", default: false }
-      - name: "gallery"
-        label: "Gallery Images"
-        widget: "list"
-        required: false
-        field: { name: "image", label: "Image", widget: "image" }
+    files:
+      - name: "portfolio-data"
+        label: "Portfolio Items"
+        file: "content/portfolio/_data.json"
+        fields:
+          - name: "items"
+            label: "Portfolio Items"
+            label_singular: "Portfolio"
+            widget: "list"
+            summary: "{{fields.names}} - {{fields.location}}"
+            fields:
+              - { name: "id", label: "ID (unique)", widget: "string", hint: "ID unik, contoh: john-jane" }
+              - { name: "names", label: "Couple Names", widget: "string" }
+              - { name: "category", label: "Category", widget: "select", options: ["Wedding", "Pre-Wedding", "Engagement", "Garden Wedding", "Beach Wedding", "Rustic Wedding", "Luxury Wedding", "Traditional Wedding", "Mountain Wedding", "Castle Wedding"] }
+              - { name: "location", label: "Location", widget: "string" }
+              - { name: "description", label: "Description", widget: "text" }
+              - { name: "image", label: "Main Image", widget: "image" }
+              - { name: "date", label: "Date", widget: "datetime", required: false }
+              - { name: "featured", label: "Featured", widget: "boolean", default: false }
+              - name: "gallery"
+                label: "Gallery Images"
+                widget: "list"
+                required: false
+                field: { name: "image", label: "Image", widget: "image" }
 
   # ============================================
-  # TESTIMONIALS
+  # TESTIMONIALS (File-based - Single JSON Array)
   # ============================================
   - name: "testimonials"
     label: "💬 Testimonials"
-    folder: "content/testimonials"
-    create: true
-    slug: "{{slug}}"
-    fields:
-      - { name: "names", label: "Couple Names", widget: "string" }
-      - { name: "role", label: "Role", widget: "string", default: "Bride & Groom" }
-      - { name: "rating", label: "Rating", widget: "number", min: 1, max: 5, default: 5 }
-      - { name: "text", label: "Testimonial Text", widget: "text" }
-      - { name: "location", label: "Location/Event", widget: "string" }
-      - { name: "avatar", label: "Avatar Image", widget: "image", required: false }
-      - { name: "image", label: "Wedding Image", widget: "image", required: false }
+    files:
+      - name: "testimonials-data"
+        label: "Testimonial Items"
+        file: "content/testimonials/_data.json"
+        fields:
+          - name: "items"
+            label: "Testimonials"
+            label_singular: "Testimonial"
+            widget: "list"
+            summary: "{{fields.names}} - {{fields.location}}"
+            fields:
+              - { name: "id", label: "ID (unique)", widget: "string", hint: "ID unik, contoh: john-jane" }
+              - { name: "names", label: "Couple Names", widget: "string" }
+              - { name: "role", label: "Role", widget: "string", default: "Bride & Groom" }
+              - { name: "rating", label: "Rating", widget: "number", min: 1, max: 5, default: 5 }
+              - { name: "text", label: "Testimonial Text", widget: "text" }
+              - { name: "location", label: "Location/Event", widget: "string" }
+              - { name: "avatar", label: "Avatar Image", widget: "image", required: false }
+              - { name: "image", label: "Wedding Image", widget: "image", required: false }
 
   # ============================================
   # PRICING
@@ -213,37 +232,19 @@ collections:
           - { name: "subtitle", label: "Section Subtitle", widget: "string", default: "Get In Touch" }
           - { name: "decorativeText", label: "Decorative Text", widget: "string", default: "Contact" }
           - { name: "title", label: "Section Title", widget: "string", default: "Let's Create Something Beautiful Together" }
-          - { name: "description", label: "Section Description", widget: "text", required: false }
-          - { name: "formTitle", label: "Form Title", widget: "string", default: "Book a Session", required: false }
-          - { name: "formDescription", label: "Form Description", widget: "string", default: "Fill out the form and we'll get back to you within 24 hours.", required: false }
-          - { name: "address", label: "Address", widget: "text", required: false }
-          - { name: "phone", label: "Phone", widget: "string", required: false }
-          - { name: "email", label: "Email", widget: "string", required: false }
-          - { name: "website", label: "Website", widget: "string", required: false }
-          - { name: "hours", label: "Business Hours", widget: "string", required: false }
+          - { name: "description", label: "Section Description", widget: "text" }
+          - { name: "formTitle", label: "Form Title", widget: "string", default: "Book a Session" }
+          - { name: "formDescription", label: "Form Description", widget: "string", default: "Fill out the form and we'll get back to you within 24 hours." }
+          - { name: "address", label: "Address", widget: "text" }
+          - { name: "phone", label: "Phone", widget: "string" }
+          - { name: "email", label: "Email", widget: "string" }
+          - { name: "website", label: "Website", widget: "string" }
+          - { name: "hours", label: "Business Hours", widget: "string" }
           - name: "social"
             label: "Social Media"
             widget: "object"
-            required: false
             fields:
-              - { name: "instagram", label: "Instagram", widget: "string", required: false }
-              - { name: "facebook", label: "Facebook", widget: "string", required: false }
-              - { name: "pinterest", label: "Pinterest", widget: "string", required: false }
-              - { name: "youtube", label: "YouTube", widget: "string", required: false }
-
-  # ============================================
-  # BLOG
-  # ============================================
-  - name: "blog"
-    label: "📝 Blog Posts"
-    folder: "content/blog"
-    create: true
-    slug: "{{slug}}"
-    fields:
-      - { name: "title", label: "Title", widget: "string" }
-      - { name: "date", label: "Publish Date", widget: "datetime" }
-      - { name: "author", label: "Author", widget: "string", default: "Admin" }
-      - { name: "category", label: "Category", widget: "select", options: ["Tips", "Inspiration", "Behind the Scenes", "News"] }
-      - { name: "image", label: "Featured Image", widget: "image" }
-      - { name: "excerpt", label: "Excerpt", widget: "text" }
-      - { name: "body", label: "Body", widget: "markdown" }
+              - { name: "instagram", label: "Instagram", widget: "string" }
+              - { name: "facebook", label: "Facebook", widget: "string" }
+              - { name: "pinterest", label: "Pinterest", widget: "string" }
+              - { name: "youtube", label: "YouTube", widget: "string" }
