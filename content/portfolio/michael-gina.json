@@ -5,5 +5,10 @@
   "location": "Tuscany, Italy",
   "description": "Rustic vineyard romance with rolling hills as the backdrop.",
   "image": "/image/LUXIE_10.jpg",
-  "featured": true
+  "featured": true,
+  "gallery": [
+    "/image/LUXIE_10.jpg",
+    "/image/LUXIE_11.jpg",
+    "/image/LUXIE_12.jpg"
+  ]
 }

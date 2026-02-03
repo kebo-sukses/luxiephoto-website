@@ -5,5 +5,10 @@
   "location": "Maldives",
   "description": "A breathtaking sunset beach ceremony with golden hour perfection.",
   "image": "/image/LUXIE_5.jpg",
-  "featured": true
+  "featured": true,
+  "gallery": [
+    "/image/LUXIE_5.jpg",
+    "/image/LUXIE_6.jpg",
+    "/image/LUXIE_7.jpg"
+  ]
 }
