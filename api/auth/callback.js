@@ -45,115 +45,60 @@ export default async function handler(req, res) {
     
     const token = data.access_token;
     
+    // HTML response that properly communicates with Decap CMS
     const content = `<!DOCTYPE html>
 <html>
 <head>
-  <title>Authorizing...</title>
+  <title>Authorization Complete</title>
   <style>
     body { font-family: -apple-system, sans-serif; text-align: center; padding: 50px; background: #f9fafb; }
     .container { background: white; padding: 40px; border-radius: 12px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); max-width: 400px; margin: 0 auto; }
     .success { color: #388f6b; }
-    .loading { color: #6b7280; }
-    a { color: #388f6b; }
+    .status { color: #6b7280; margin-top: 10px; }
   </style>
 </head>
 <body>
 <div class="container">
-  <h1 class="success" id="title">✓ Authorized!</h1>
-  <p class="loading" id="status">Connecting to CMS...</p>
+  <h1 class="success">✓ Authorized!</h1>
+  <p class="status" id="status">Completing login...</p>
 </div>
 <script>
 (function() {
-  var token = "${token}";
-  var provider = "github";
-  var statusEl = document.getElementById('status');
-  var titleEl = document.getElementById('title');
-  var messageSent = false;
-  var closed = false;
+  const token = '${token}';
   
-  function updateStatus(text) {
-    if (statusEl) statusEl.textContent = text;
-  }
-  
-  function closeWindow() {
-    if (closed) return;
-    closed = true;
-    updateStatus('Closing...');
-    setTimeout(function() {
-      try { window.close(); } catch(e) {}
-      // If window.close() fails, redirect
+  function sendToOpener() {
+    // Format yang diharapkan Decap CMS
+    const message = JSON.stringify({
+      token: token,
+      provider: 'github'
+    });
+    
+    if (window.opener) {
+      // Kirim dalam format yang benar untuk Decap CMS
+      window.opener.postMessage(
+        'authorization:github:success:' + message,
+        '*'
+      );
+      
+      document.getElementById('status').textContent = 'Login successful! Closing...';
+      
+      // Close popup after short delay
+      setTimeout(function() {
+        window.close();
+      }, 1000);
+      
+      // Fallback redirect if close fails
       setTimeout(function() {
         window.location.href = '/admin/';
-      }, 500);
-    }, 300);
-  }
-  
-  function sendMessage(origin) {
-    if (messageSent) return;
-    messageSent = true;
-    try {
-      var message = 'authorization:' + provider + ':success:{"token":"' + token + '","provider":"' + provider + '"}';
-      window.opener.postMessage(message, origin);
-      updateStatus('Success! Closing...');
-      setTimeout(closeWindow, 800);
-    } catch(e) {
-      console.error('postMessage failed:', e);
-      fallbackRedirect();
+      }, 2000);
+    } else {
+      document.getElementById('status').textContent = 'Redirecting to admin...';
+      window.location.href = '/admin/';
     }
   }
   
-  function fallbackRedirect() {
-    updateStatus('Redirecting to CMS...');
-    window.location.href = '/admin/';
-  }
-  
-  // Check if we have an opener
-  if (window.opener && !window.opener.closed) {
-    updateStatus('Sending credentials...');
-    
-    // Listen for handshake from CMS
-    window.addEventListener('message', function handler(e) {
-      if (e.data === 'authorizing:github' || e.origin) {
-        sendMessage(e.origin || '*');
-      }
-    }, false);
-    
-    // Send ready signal to opener
-    try {
-      window.opener.postMessage('authorizing:' + provider, '*');
-    } catch(e) {
-      console.error('Initial postMessage failed:', e);
-    }
-    
-    // Also try sending directly after short delay (some CMS versions need this)
-    setTimeout(function() {
-      if (!messageSent) {
-        try {
-          var message = 'authorization:' + provider + ':success:{"token":"' + token + '","provider":"' + provider + '"}';
-          window.opener.postMessage(message, '*');
-          messageSent = true;
-          updateStatus('Success! Closing...');
-          setTimeout(closeWindow, 800);
-        } catch(e) {
-          console.error('Direct postMessage failed:', e);
-          fallbackRedirect();
-        }
-      }
-    }, 500);
-    
-    // Final fallback - redirect after timeout
-    setTimeout(function() {
-      if (!closed) {
-        updateStatus('Taking too long, redirecting...');
-        fallbackRedirect();
-      }
-    }, 5000);
-    
-  } else {
-    // No opener window
-    updateStatus('Redirecting to CMS...');
-    setTimeout(fallbackRedirect, 1000);
-  }
+  // Execute immediately
+  sendToOpener();
 })();
 </script>
 </body>
