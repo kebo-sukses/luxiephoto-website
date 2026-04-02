@@ -1,4 +1,4 @@
-@tailwind base;
+﻿@tailwind base;
 @tailwind components;
 @tailwind utilities;
 
@@ -135,15 +135,13 @@
       max-width: calc(100vw - 16px);
     }
   }
-}
-  
+
   .border-cms-primary { border-color: var(--color-primary); }
   .border-cms-gold { border-color: var(--color-gold); }
   .border-cms-forest { border-color: var(--color-forest); }
   .border-cms-dark { border-color: var(--color-dark); }
   .border-cms-white { border-color: var(--color-white); }
 }
-
 /* Component Layer */
 @layer components {
   /* Container */
