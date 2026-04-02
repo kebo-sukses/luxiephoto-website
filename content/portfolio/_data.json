@@ -8,7 +8,12 @@
       "description": "An intimate garden ceremony filled with timeless elegance and heartfelt moments.",
       "image": "/image/LUXIE_1.jpg",
       "featured": true,
-      "gallery": []
+      "gallery": [
+        "/image/LUXIE_1.jpg",
+        "/image/LUXIE_2.jpg",
+        "/image/LUXIE_3.jpg",
+        "/image/LUXIE_4.jpg"
+      ]
     },
     {
       "id": "thomas-grace",
@@ -18,7 +23,13 @@
       "description": "A breathtaking sunset beach ceremony with golden hour perfection.",
       "image": "/image/LUXIE_5.jpg",
       "featured": true,
-      "gallery": []
+      "gallery": [
+        "/image/LUXIE_5.jpg",
+        "/image/LUXIE_6.jpg",
+        "/image/LUXIE_7.jpg",
+        "/image/LUXIE_8.jpg",
+        "/image/LUXIE_9.jpg"
+      ]
     },
     {
       "id": "michael-gina",
@@ -28,7 +39,13 @@
       "description": "Rustic vineyard romance with rolling hills as the backdrop.",
       "image": "/image/LUXIE_10.jpg",
       "featured": true,
-      "gallery": []
+      "gallery": [
+        "/image/LUXIE_10.jpg",
+        "/image/LUXIE_11.jpg",
+        "/image/LUXIE_12.jpg",
+        "/image/LUXIE_13.jpg",
+        "/image/LUXIE_14.jpg"
+      ]
     },
     {
       "id": "freddie-aida",
@@ -38,7 +55,13 @@
       "description": "A lush botanical garden celebration surrounded by natural beauty.",
       "image": "/image/LUXIE_15.jpg",
       "featured": false,
-      "gallery": []
+      "gallery": [
+        "/image/LUXIE_15.jpg",
+        "/image/LUXIE_16.jpg",
+        "/image/LUXIE_17.jpg",
+        "/image/LUXIE_18.jpg",
+        "/image/LUXIE_19.jpg"
+      ]
     },
     {
       "id": "chesa-kelvin",
@@ -48,7 +71,14 @@
       "description": "An elegant luxury wedding celebration with stunning décor and unforgettable moments.",
       "image": "/image/LUXIE_20.jpg",
       "featured": true,
-      "gallery": []
+      "gallery": [
+        "/image/LUXIE_20.jpg",
+        "/image/LUXIE_21.jpg",
+        "/image/LUXIE_22.jpg",
+        "/image/LUXIE_23.jpg",
+        "/image/LUXIE_24.jpg",
+        "/image/LUXIE_25.jpg"
+      ]
     }
   ]
 }
