@@ -1,0 +1,9 @@
+#!/usr/bin/env sh
+. "$(dirname -- "$0")/_/husky.sh"
+
+# Run linter before commit
+npm run lint
+
+# Check if build succeeds
+echo "Testing build..."
+npm run build
