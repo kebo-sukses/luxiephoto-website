@@ -243,11 +243,11 @@ const PortfolioSection = () => {
               initial={{ scale: 0.9, opacity: 0 }}
               animate={{ scale: 1, opacity: 1 }}
               exit={{ scale: 0.9, opacity: 0 }}
-              className="relative max-w-5xl w-full mx-4"
+              className="relative w-full h-full max-w-7xl max-h-[90vh] mx-4 flex flex-col items-center justify-center"
               onClick={(e) => e.stopPropagation()}
             >
-              {/* Main Image */}
-              <div className="aspect-[4/3] lg:aspect-[16/10] rounded-2xl overflow-hidden bg-black">
+              {/* Main Image Container - Responsive & No Cropping */}
+              <div className="relative w-full flex-1 flex items-center justify-center min-h-0">
                 <AnimatePresence mode="wait">
                   <motion.div
                     key={currentImageIndex}
@@ -255,7 +255,7 @@ const PortfolioSection = () => {
                     animate={{ opacity: 1, x: 0 }}
                     exit={{ opacity: 0, x: -50 }}
                     transition={{ duration: 0.3 }}
-                    className="w-full h-full"
+                    className="w-full h-full max-h-[70vh] flex items-center justify-center"
                   >
                     <OptimizedImage
                       src={
@@ -264,21 +264,21 @@ const PortfolioSection = () => {
                           : selectedItem.image
                       }
                       alt={`${selectedItem.names} - Photo ${currentImageIndex + 1}`}
-                      className="w-full h-full object-contain"
-                      containerClassName="w-full h-full"
+                      className="max-w-full max-h-full w-auto h-auto object-contain rounded-xl"
+                      containerClassName="w-full h-full flex items-center justify-center"
                     />
                   </motion.div>
                 </AnimatePresence>
               </div>
 
-              {/* Info & Thumbnails */}
-              <div className="mt-6 text-center text-white">
-                <h3 className="font-serif text-2xl lg:text-3xl">{selectedItem.names}</h3>
-                <div className="flex items-center justify-center text-gray-400 mt-2">
+              {/* Info & Thumbnails - Compact Layout */}
+              <div className="mt-4 text-center text-white w-full max-w-4xl px-4">
+                <h3 className="font-serif text-xl md:text-2xl lg:text-3xl">{selectedItem.names}</h3>
+                <div className="flex items-center justify-center text-gray-400 mt-1 text-sm md:text-base">
                   <MapPin className="w-4 h-4 mr-2" />
                   {selectedItem.location}
                 </div>
-                <p className="text-gray-500 mt-3 max-w-xl mx-auto text-sm">
+                <p className="text-gray-500 mt-2 max-w-xl mx-auto text-xs md:text-sm line-clamp-2">
                   {selectedItem.description}
                 </p>
 
@@ -290,16 +290,16 @@ const PortfolioSection = () => {
                   
                   if (gallery.length > 1) {
                     return (
-                      <div className="mt-6">
-                        <div className="flex items-center justify-center gap-2 overflow-x-auto py-2">
+                      <div className="mt-4">
+                        <div className="flex items-center justify-center gap-2 overflow-x-auto py-2 max-w-full scrollbar-hide">
                           {gallery.map((img, idx) => (
                             <button
                               key={idx}
                               onClick={() => setCurrentImageIndex(idx)}
                               className={cn(
-                                'w-14 h-14 rounded-lg overflow-hidden flex-shrink-0 transition-all',
+                                'w-12 h-12 md:w-14 md:h-14 rounded-lg overflow-hidden flex-shrink-0 transition-all',
                                 currentImageIndex === idx 
-                                  ? 'ring-2 ring-primary-500 ring-offset-2 ring-offset-black' 
+                                  ? 'ring-2 ring-primary-500 ring-offset-2 ring-offset-black scale-110' 
                                   : 'opacity-50 hover:opacity-100'
                               )}
                             >
@@ -312,7 +312,7 @@ const PortfolioSection = () => {
                             </button>
                           ))}
                         </div>
-                        <p className="text-gray-500 text-sm mt-3">
+                        <p className="text-gray-500 text-xs md:text-sm mt-2">
                           {currentImageIndex + 1} / {gallery.length}
                         </p>
                       </div>
