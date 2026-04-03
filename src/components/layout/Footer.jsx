@@ -9,10 +9,9 @@ import {
   MapPin, 
   Phone, 
   Mail,
-  ArrowRight,
-  Heart
+  ArrowRight
 } from 'lucide-react';
-import { footerGallery, navigationLinks } from '@/data/mock';
+import { navigationLinks } from '@/data/mock';
 import { useCMS } from '@/context/CMSContext';
 import { OptimizedImage } from '@/components/common';
 import { cn } from '@/utils/helpers';
@@ -135,7 +134,7 @@ const Footer = () => {
           whileInView="visible"
           viewport={{ once: true, margin: '-100px' }}
         >
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-12">
             {/* Brand Column */}
             <motion.div variants={itemVariants} className="lg:col-span-1">
               <Link to="/" className="inline-block mb-6">
@@ -234,33 +233,6 @@ const Footer = () => {
                 </li>
               </ul>
             </motion.div>
-
-            {/* Instagram Feed */}
-            <motion.div variants={itemVariants}>
-              <h4 className="text-lg font-medium mb-6 relative">
-                Latest Work
-                <span className="absolute -bottom-2 left-0 w-8 h-0.5 bg-primary-500" />
-              </h4>
-              <div className="grid grid-cols-3 gap-2">
-                {footerGallery.map((img, index) => (
-                  <motion.a
-                    key={index}
-                    href="https://instagram.com/luxiephoto"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    whileHover={{ scale: 1.05 }}
-                    className="aspect-square overflow-hidden rounded-lg group"
-                  >
-                    <OptimizedImage
-                      src={img}
-                      alt={`Gallery ${index + 1}`}
-                      className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
-                      containerClassName="w-full h-full"
-                    />
-                  </motion.a>
-                ))}
-              </div>
-            </motion.div>
           </div>
         </motion.div>
       </div>
@@ -270,9 +242,15 @@ const Footer = () => {
         <div className="container-custom py-6">
           <div className="flex flex-col md:flex-row justify-between items-center gap-4">
             <p className="text-gray-500 text-sm flex items-center gap-1">
-              © {currentYear} LuxiePhoto. Made with 
-              <Heart className="w-4 h-4 text-primary-500 fill-primary-500" /> 
-              for your special moments.
+              © {currentYear} LuxiePhoto. Made by{' '}
+              <a 
+                href="https://www.calius.digital/" 
+                target="_blank" 
+                rel="noopener noreferrer"
+                className="text-primary-400 hover:text-primary-500 transition-colors font-medium"
+              >
+                Calius Digital
+              </a>
             </p>
             <div className="flex items-center space-x-6">
               {legalLinks.map((link) => (
