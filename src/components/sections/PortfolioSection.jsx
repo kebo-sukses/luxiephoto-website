@@ -200,15 +200,15 @@ const PortfolioSection = () => {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="fixed inset-0 z-50 bg-black/95 flex items-center justify-center"
+            className="fixed inset-0 z-50 bg-black/90 backdrop-blur-sm flex items-center justify-center p-4"
             onClick={closeLightbox}
           >
             {/* Close Button */}
             <button
               onClick={closeLightbox}
-              className="absolute top-4 right-4 z-10 w-12 h-12 rounded-full bg-white/10 flex items-center justify-center text-white hover:bg-white/20 transition-colors"
+              className="absolute top-6 right-6 z-20 w-10 h-10 rounded-full bg-black/30 backdrop-blur-md flex items-center justify-center text-white hover:bg-black/50 transition-all hover:scale-110"
             >
-              <X className="w-6 h-6" />
+              <X className="w-5 h-5" />
             </button>
 
             {/* Navigation Arrows */}
@@ -222,15 +222,15 @@ const PortfolioSection = () => {
                   <>
                     <button
                       onClick={prevImage}
-                      className="absolute left-4 top-1/2 -translate-y-1/2 z-10 w-12 h-12 rounded-full bg-white/10 flex items-center justify-center text-white hover:bg-white/20 transition-colors"
+                      className="absolute left-6 top-1/2 -translate-y-1/2 z-20 w-10 h-10 rounded-full bg-black/30 backdrop-blur-md flex items-center justify-center text-white hover:bg-black/50 transition-all hover:scale-110"
                     >
-                      <ChevronLeft className="w-6 h-6" />
+                      <ChevronLeft className="w-5 h-5" />
                     </button>
                     <button
                       onClick={nextImage}
-                      className="absolute right-4 top-1/2 -translate-y-1/2 z-10 w-12 h-12 rounded-full bg-white/10 flex items-center justify-center text-white hover:bg-white/20 transition-colors"
+                      className="absolute right-6 top-1/2 -translate-y-1/2 z-20 w-10 h-10 rounded-full bg-black/30 backdrop-blur-md flex items-center justify-center text-white hover:bg-black/50 transition-all hover:scale-110"
                     >
-                      <ChevronRight className="w-6 h-6" />
+                      <ChevronRight className="w-5 h-5" />
                     </button>
                   </>
                 );
@@ -243,19 +243,20 @@ const PortfolioSection = () => {
               initial={{ scale: 0.9, opacity: 0 }}
               animate={{ scale: 1, opacity: 1 }}
               exit={{ scale: 0.9, opacity: 0 }}
-              className="relative w-full h-full max-w-7xl max-h-[90vh] mx-4 flex flex-col items-center justify-center"
+              className="relative w-full h-full flex items-center justify-center"
               onClick={(e) => e.stopPropagation()}
             >
-              {/* Main Image Container - Responsive & No Cropping */}
-              <div className="relative w-full flex-1 flex items-center justify-center min-h-0">
+              {/* Main Image Container - Full Bleed No Background */}
+              <div className="relative w-full h-full max-w-7xl max-h-[85vh] flex items-center justify-center"
+>
                 <AnimatePresence mode="wait">
                   <motion.div
                     key={currentImageIndex}
-                    initial={{ opacity: 0, x: 50 }}
-                    animate={{ opacity: 1, x: 0 }}
-                    exit={{ opacity: 0, x: -50 }}
+                    initial={{ opacity: 0, scale: 0.95 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    exit={{ opacity: 0, scale: 0.95 }}
                     transition={{ duration: 0.3 }}
-                    className="w-full h-full max-h-[70vh] flex items-center justify-center"
+                    className="w-full h-full flex items-center justify-center"
                   >
                     <OptimizedImage
                       src={
@@ -264,21 +265,21 @@ const PortfolioSection = () => {
                           : selectedItem.image
                       }
                       alt={`${selectedItem.names} - Photo ${currentImageIndex + 1}`}
-                      className="max-w-full max-h-full w-auto h-auto object-contain rounded-xl"
+                      className="max-w-full max-h-full w-auto h-auto object-contain"
                       containerClassName="w-full h-full flex items-center justify-center"
                     />
                   </motion.div>
                 </AnimatePresence>
               </div>
 
-              {/* Info & Thumbnails - Compact Layout */}
-              <div className="mt-4 text-center text-white w-full max-w-4xl px-4">
-                <h3 className="font-serif text-xl md:text-2xl lg:text-3xl">{selectedItem.names}</h3>
-                <div className="flex items-center justify-center text-gray-400 mt-1 text-sm md:text-base">
-                  <MapPin className="w-4 h-4 mr-2" />
+              {/* Info & Thumbnails - Bottom Overlay with Gradient */}
+              <div className="absolute bottom-0 left-0 right-0 p-4 md:p-6 bg-gradient-to-t from-black/80 via-black/50 to-transparent text-center text-white">
+                <h3 className="font-serif text-lg md:text-xl lg:text-2xl drop-shadow-lg">{selectedItem.names}</h3>
+                <div className="flex items-center justify-center text-gray-300 mt-1 text-xs md:text-sm drop-shadow">
+                  <MapPin className="w-3 h-3 mr-1" />
                   {selectedItem.location}
                 </div>
-                <p className="text-gray-500 mt-2 max-w-xl mx-auto text-xs md:text-sm line-clamp-2">
+                <p className="text-gray-300 mt-1 max-w-2xl mx-auto text-xs md:text-sm drop-shadow line-clamp-2">
                   {selectedItem.description}
                 </p>
 
@@ -290,17 +291,17 @@ const PortfolioSection = () => {
                   
                   if (gallery.length > 1) {
                     return (
-                      <div className="mt-4">
+                      <div className="mt-3">
                         <div className="flex items-center justify-center gap-2 overflow-x-auto py-2 max-w-full scrollbar-hide">
                           {gallery.map((img, idx) => (
                             <button
                               key={idx}
                               onClick={() => setCurrentImageIndex(idx)}
                               className={cn(
-                                'w-12 h-12 md:w-14 md:h-14 rounded-lg overflow-hidden flex-shrink-0 transition-all',
+                                'w-10 h-10 md:w-12 md:h-12 rounded-md overflow-hidden flex-shrink-0 transition-all',
                                 currentImageIndex === idx 
-                                  ? 'ring-2 ring-primary-500 ring-offset-2 ring-offset-black scale-110' 
-                                  : 'opacity-50 hover:opacity-100'
+                                  ? 'ring-2 ring-white/80 scale-110' 
+                                  : 'opacity-60 hover:opacity-100'
                               )}
                             >
                               <OptimizedImage
@@ -312,7 +313,7 @@ const PortfolioSection = () => {
                             </button>
                           ))}
                         </div>
-                        <p className="text-gray-500 text-xs md:text-sm mt-2">
+                        <p className="text-gray-300 text-xs mt-1 drop-shadow">
                           {currentImageIndex + 1} / {gallery.length}
                         </p>
                       </div>
