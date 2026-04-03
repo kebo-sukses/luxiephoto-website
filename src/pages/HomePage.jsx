@@ -6,7 +6,6 @@ import {
   AboutSection,
   PortfolioSection,
   TestimonialsSection,
-  PartnersSection,
   PricingSection,
   ContactSection,
 } from '@/components/sections';
@@ -57,11 +56,6 @@ const HomePage = () => {
         {/* Testimonials - Social proof */}
         <section id="testimonials">
           <TestimonialsSection />
-        </section>
-        
-        {/* Partners - Trusted collaborations */}
-        <section id="partners">
-          <PartnersSection />
         </section>
         
         {/* Pricing - Packages */}

@@ -206,18 +206,18 @@ collections:
         field: { name: "feature", label: "Feature", widget: "string" }
 
   # ============================================
-  # PARTNERS/BRANDS
+  # PARTNERS/BRANDS (DISABLED - NOT NEEDED)
   # ============================================
-  - name: "partners"
-    label: "🤝 Partners"
-    folder: "content/partners"
-    create: true
-    slug: "{{slug}}"
-    fields:
-      - { name: "name", label: "Partner Name", widget: "string" }
-      - { name: "logo", label: "Logo", widget: "image", required: false }
-      - { name: "website", label: "Website", widget: "string", required: false }
-      - { name: "order", label: "Display Order", widget: "number", default: 1 }
+  # - name: "partners"
+  #   label: "🤝 Partners"
+  #   folder: "content/partners"
+  #   create: true
+  #   slug: "{{slug}}"
+  #   fields:
+  #     - { name: "name", label: "Partner Name", widget: "string" }
+  #     - { name: "logo", label: "Logo", widget: "image", required: false }
+  #     - { name: "website", label: "Website", widget: "string", required: false }
+  #     - { name: "order", label: "Display Order", widget: "number", default: 1 }
 
   # ============================================
   # CONTACT INFO
