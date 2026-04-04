@@ -14,20 +14,10 @@ const ContactSection = () => {
     name: '',
     email: '',
     phone: '',
-    date: '',
-    eventType: '',
     message: '',
   });
   const [status, setStatus] = useState({ type: '', message: '' });
   const [isSubmitting, setIsSubmitting] = useState(false);
-
-  const eventTypes = [
-    'Wedding Photography',
-    'Pre-Wedding Shoot',
-    'Engagement Session',
-    'Anniversary',
-    'Other',
-  ];
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -68,8 +58,6 @@ const ContactSection = () => {
           name: formData.name,
           email: formData.email,
           phone: formData.phone || 'Not provided',
-          event_date: formData.date || 'Not specified',
-          event_type: formData.eventType || 'Not specified',
           message: formData.message || 'No message',
         })
       });
@@ -82,8 +70,6 @@ const ContactSection = () => {
           name: '',
           email: '',
           phone: '',
-          date: '',
-          eventType: '',
           message: '',
         });
       } else {
@@ -216,54 +202,20 @@ const ContactSection = () => {
                   </div>
                 </div>
 
-                {/* Phone & Date Row */}
-                <div className="grid sm:grid-cols-2 gap-6">
-                  <div>
-                    <label htmlFor="phone" className="block text-sm font-medium text-gray-700 mb-2">
-                      Phone Number
-                    </label>
-                    <input
-                      type="tel"
-                      id="phone"
-                      name="phone"
-                      value={formData.phone}
-                      onChange={handleChange}
-                      className="w-full px-4 py-3 rounded-xl border border-gray-200 focus:border-primary-500 focus:ring-2 focus:ring-primary-500/20 outline-none transition-all"
-                      placeholder="+62 xxx xxxx xxxx"
-                    />
-                  </div>
-                  <div>
-                    <label htmlFor="date" className="block text-sm font-medium text-gray-700 mb-2">
-                      Event Date
-                    </label>
-                    <input
-                      type="date"
-                      id="date"
-                      name="date"
-                      value={formData.date}
-                      onChange={handleChange}
-                      className="w-full px-4 py-3 rounded-xl border border-gray-200 focus:border-primary-500 focus:ring-2 focus:ring-primary-500/20 outline-none transition-all"
-                    />
-                  </div>
-                </div>
-
-                {/* Event Type */}
+                {/* Phone Number */}
                 <div>
-                  <label htmlFor="eventType" className="block text-sm font-medium text-gray-700 mb-2">
-                    Type of Event
+                  <label htmlFor="phone" className="block text-sm font-medium text-gray-700 mb-2">
+                    Phone Number
                   </label>
-                  <select
-                    id="eventType"
-                    name="eventType"
-                    value={formData.eventType}
+                  <input
+                    type="tel"
+                    id="phone"
+                    name="phone"
+                    value={formData.phone}
                     onChange={handleChange}
-                    className="w-full px-4 py-3 rounded-xl border border-gray-200 focus:border-primary-500 focus:ring-2 focus:ring-primary-500/20 outline-none transition-all bg-white"
-                  >
-                    <option value="">Select event type</option>
-                    {eventTypes.map((type) => (
-                      <option key={type} value={type}>{type}</option>
-                    ))}
-                  </select>
+                    className="w-full px-4 py-3 rounded-xl border border-gray-200 focus:border-primary-500 focus:ring-2 focus:ring-primary-500/20 outline-none transition-all"
+                    placeholder="+62 xxx xxxx xxxx"
+                  />
                 </div>
 
                 {/* Message */}
